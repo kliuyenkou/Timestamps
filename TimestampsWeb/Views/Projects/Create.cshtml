@@ -3,9 +3,9 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Add a project</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Create", "Projects")) {
     <div class="form-group">
         @Html.LabelFor(m => m.Title)
         @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })

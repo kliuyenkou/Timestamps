@@ -7,13 +7,14 @@ namespace TimestampsWeb.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(127)]
+        [StringLength(128)]
         public string Title { get; set; }
 
-        [StringLength(255)]
+        [StringLength(256)]
         public string Description { get; set; }
 
         [Required]
+        public string CreatorId { get; set; }
         public ApplicationUser Creator { get; set; }
 
     }

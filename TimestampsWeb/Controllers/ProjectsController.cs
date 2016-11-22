@@ -1,5 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using Microsoft.AspNet.Identity;
+using System.Web.Mvc;
 using TimestampsWeb.Models;
+using TimestampsWeb.ViewModels;
 
 namespace TimestampsWeb.Controllers
 {
@@ -11,10 +13,32 @@ namespace TimestampsWeb.Controllers
         {
             _context = new ApplicationDbContext();
         }
+
         // GET: Projects
+        [Authorize]
+        [HttpGet]
         public ActionResult Create()
         {
-            return View("");
+            return View();
         }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Create(ProjectViewModel viewModel)
+        {
+            
+            var project = new Project()
+            {
+                Title = viewModel.Title,
+                Description = viewModel.Description,
+                CreatorId = User.Identity.GetUserId()
+            };
+
+            _context.Projects.Add(project);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }

@@ -197,6 +197,10 @@
     <Compile Include="Migrations\201611221025500_OverrideConventionsForProjects.Designer.cs">
       <DependentUpon>201611221025500_OverrideConventionsForProjects.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611221342029_AddForeignKeyPropForProject.cs" />
+    <Compile Include="Migrations\201611221342029_AddForeignKeyPropForProject.Designer.cs">
+      <DependentUpon>201611221342029_AddForeignKeyPropForProject.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -295,6 +299,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611221025500_OverrideConventionsForProjects.resx">
       <DependentUpon>201611221025500_OverrideConventionsForProjects.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611221342029_AddForeignKeyPropForProject.resx">
+      <DependentUpon>201611221342029_AddForeignKeyPropForProject.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
