@@ -26,7 +26,9 @@ namespace TimestampsWeb.Controllers
         [HttpPost]
         public ActionResult Create(ProjectViewModel viewModel)
         {
-            
+            if (!ModelState.IsValid) {
+                return View("Create", viewModel);
+            }
             var project = new Project()
             {
                 Title = viewModel.Title,
