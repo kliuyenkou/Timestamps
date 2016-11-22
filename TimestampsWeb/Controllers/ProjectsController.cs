@@ -24,6 +24,7 @@ namespace TimestampsWeb.Controllers
 
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(ProjectViewModel viewModel)
         {
             if (!ModelState.IsValid) {

@@ -6,6 +6,8 @@
 <h2>Add a project</h2>
 
 @using (Html.BeginForm("Create", "Projects")) {
+    @Html.AntiForgeryToken()
+
     <div class="form-group">
         @Html.LabelFor(m => m.Title)
         <div>
