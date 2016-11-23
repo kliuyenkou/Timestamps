@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Web.Mvc;
 using TimestampsWeb.Models;
 using TimestampsWeb.ViewModels;
@@ -40,8 +43,18 @@ namespace TimestampsWeb.Controllers
             _context.Projects.Add(project);
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("MyProjects", "Projects");
         }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult MyProjects()
+        {
+            var userId = User.Identity.GetUserId();
+            IEnumerable<Project> myProjects = _context.Projects.Include(p => p.Creator).Where(p => p.CreatorId == userId).ToList();
+            return View("MyProjects", myProjects);
+        }
+
 
     }
 }
