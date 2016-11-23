@@ -207,6 +207,10 @@
     <Compile Include="Migrations\201611231022215_AddProjectNomination.Designer.cs">
       <DependentUpon>201611231022215_AddProjectNomination.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611231406190_AddNameToApplicationUser.cs" />
+    <Compile Include="Migrations\201611231406190_AddNameToApplicationUser.Designer.cs">
+      <DependentUpon>201611231406190_AddNameToApplicationUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -314,6 +318,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611231022215_AddProjectNomination.resx">
       <DependentUpon>201611231022215_AddProjectNomination.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611231406190_AddNameToApplicationUser.resx">
+      <DependentUpon>201611231406190_AddNameToApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

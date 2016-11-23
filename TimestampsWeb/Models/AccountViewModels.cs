@@ -67,7 +67,7 @@ namespace TimestampsWeb.Models
         [Required]
         [StringLength(256)]
         [Display(Name = "Full name")]
-        public string UserName { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [EmailAddress]
