@@ -8,6 +8,8 @@ namespace TimestampsWeb.Models
     {
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectNomination> ProjectNominations { get; set; }
+        public DbSet<Hourage> Hourages { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
@@ -21,7 +23,9 @@ namespace TimestampsWeb.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProjectNomination>().HasRequired(pn => pn.Project).WithMany().WillCascadeOnDelete(false);
+            modelBuilder.Entity<Hourage>().HasRequired(h => h.Project).WithMany().WillCascadeOnDelete(false);
             base.OnModelCreating(modelBuilder);
         }
+        
     }
 }
