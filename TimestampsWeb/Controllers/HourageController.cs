@@ -8,6 +8,7 @@ using TimestampsWeb.ViewModels;
 
 namespace TimestampsWeb.Controllers
 {
+    [Authorize]
     public class HourageController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

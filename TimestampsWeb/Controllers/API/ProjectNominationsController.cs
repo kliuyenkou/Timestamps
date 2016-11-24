@@ -2,7 +2,8 @@
 using System.Linq;
 using System.Web.Http;
 using TimestampsWeb.Models;
-namespace TimestampsWeb.Controllers
+
+namespace TimestampsWeb.Controllers.API
 {
     [Authorize]
     public class ProjectNominationsController : ApiController
