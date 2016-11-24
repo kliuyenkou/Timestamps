@@ -26,6 +26,5 @@ namespace TimestampsWeb.Models
             modelBuilder.Entity<Hourage>().HasRequired(h => h.Project).WithMany().WillCascadeOnDelete(false);
             base.OnModelCreating(modelBuilder);
         }
-        
     }
 }

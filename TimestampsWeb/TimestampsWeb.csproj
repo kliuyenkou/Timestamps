@@ -180,6 +180,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HourageController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectNominations1Controller.cs" />
     <Compile Include="Controllers\ProjectNominationsController.cs" />
@@ -300,6 +301,11 @@
     <Content Include="Views\Projects\ViewTemplate.cshtml" />
     <Content Include="Views\Projects\List.cshtml" />
     <Content Include="Views\Projects\MyProjects.cshtml" />
+    <Content Include="Views\Hourage\Create.cshtml" />
+    <Content Include="Views\Hourage\Delete.cshtml" />
+    <Content Include="Views\Hourage\Details.cshtml" />
+    <Content Include="Views\Hourage\Edit.cshtml" />
+    <Content Include="Views\Hourage\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
