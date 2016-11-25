@@ -189,7 +189,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HourageController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\API\ProjectNominations1Controller.cs" />
     <Compile Include="Controllers\API\ProjectNominationsController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Dto\ProjectDto.cs" />
@@ -225,11 +224,11 @@
       <DependentUpon>201611232009049_AddHourage.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Hourage.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\ProjectNomination.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
