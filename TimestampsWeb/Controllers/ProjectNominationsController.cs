@@ -3,7 +3,7 @@ using System.Linq;
 using System.Web.Http;
 using TimestampsWeb.Models;
 
-namespace TimestampsWeb.Controllers.API
+namespace TimestampsWeb.Controllers
 {
     [Authorize]
     public class ProjectNominationsController : ApiController
@@ -14,7 +14,7 @@ namespace TimestampsWeb.Controllers.API
             _context = new ApplicationDbContext();
         }
 
-        
+
         [HttpPost]
         public IHttpActionResult TakePartInProject([FromBody] int projectId)
         {

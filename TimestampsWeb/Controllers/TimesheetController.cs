@@ -7,7 +7,7 @@ using System.Web.Http;
 using TimestampsWeb.Dto;
 using TimestampsWeb.Models;
 
-namespace TimestampsWeb.Controllers.API
+namespace TimestampsWeb.Controllers
 {
     [Authorize]
     public class TimesheetController : ApiController
@@ -27,7 +27,8 @@ namespace TimestampsWeb.Controllers.API
                 .Select(h => new HourageDto()
                 {
                     Id = h.Id,
-                    WorkDescripton = h.WorkDescripton,
+                    WorkDescription = h.WorkDescripton,
+                    ProjectTitle = h.Project.Title,
                     Date = h.Date,
                     Hours = h.Hours,
                     ProjectId = h.ProjectId,

@@ -19,12 +19,12 @@ namespace TimestampsWeb.Controllers
             var userId = User.Identity.GetUserId();
 
             // This solution with bad perfomance, but it's ok for testing interfaces
-            var projectsUserTakePart = db.ProjectNominations.Include(pn => pn.Project).Where(pn => pn.UserId == userId).Select(pn=>pn.Project);
-            var hourages = db.Hourages.Include(h => h.Project).Include(h => h.User).Where(h => projectsUserTakePart.Contains(h.Project));
+            var projectsUserTakePart = db.ProjectNominations.Include(pn => pn.Project).Where(pn => pn.UserId == userId).Select(pn => pn.Project);
+            var hourages = db.Hourages.Where(h => projectsUserTakePart.Contains(h.Project)).Include(h => h.Project).Include(h => h.User);
             return View(hourages.ToList());
         }
 
-    
+
         // GET: Hourage/Create
         public ActionResult Create()
         {
@@ -38,12 +38,11 @@ namespace TimestampsWeb.Controllers
         // POST: Hourage/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create( HourageViewModel viewModel)
+        public ActionResult Create(HourageViewModel viewModel)
         {
             var userId = User.Identity.GetUserId();
-            
-            if (ModelState.IsValid)
-            {
+
+            if (ModelState.IsValid) {
                 var hourage = new Hourage()
                 {
                     WorkDescripton = viewModel.WorkDescripton,
@@ -62,17 +61,15 @@ namespace TimestampsWeb.Controllers
             return View(viewModel);
         }
 
-   
+
         // GET: Hourage/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Hourage hourage = db.Hourages.Find(id);
-            if (hourage == null)
-            {
+            if (hourage == null) {
                 return HttpNotFound();
             }
             return View(hourage);
@@ -91,8 +88,7 @@ namespace TimestampsWeb.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
+            if (disposing) {
                 db.Dispose();
             }
             base.Dispose(disposing);

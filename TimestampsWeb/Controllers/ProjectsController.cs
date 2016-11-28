@@ -74,7 +74,7 @@ namespace TimestampsWeb.Controllers
         [NonAction]
         public void AddProjectNominationsRecord(int projectId)
         {
-            
+
         }
 
     }
