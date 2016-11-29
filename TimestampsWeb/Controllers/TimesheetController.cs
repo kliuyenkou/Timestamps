@@ -6,23 +6,25 @@ using System.Linq;
 using System.Web.Http;
 using TimestampsWeb.Dto;
 using TimestampsWeb.Models;
+using TimestampsWeb.TimestampsWeb.DAL.EFDataReceiving;
+using TimestampsWeb.TimestampsWeb.DAL.Interfaces;
 
 namespace TimestampsWeb.Controllers
 {
     [Authorize]
     public class TimesheetController : ApiController
     {
-        ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
         public TimesheetController()
         {
-            _context = new ApplicationDbContext();
+            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
         }
 
         [HttpGet]
         public IEnumerable<HourageDto> GetUsersRecords()
         {
             var userId = User.Identity.GetUserId();
-            var usersRecords = _context.Hourages.Where(h => h.UserId == userId).Include(h => h.Project).Include(h => h.User).ToList();
+            var usersRecords = _unitOfWork.Hourages.GetUserHourageRecordsWithProject(userId);
             var usersRecordsDto = usersRecords
                 .Select(h => new HourageDto()
                 {
@@ -65,8 +67,8 @@ namespace TimestampsWeb.Controllers
             var hourage = mapper.Map<HourageDto, Hourage>(record);
 
             hourage.UserId = User.Identity.GetUserId();
-            _context.Hourages.Add(hourage);
-            _context.SaveChangesWithErrors();
+            _unitOfWork.Hourages.Add(hourage);
+            _unitOfWork.SaveChangesWithErrors();
             return Ok(hourage);
         }
 

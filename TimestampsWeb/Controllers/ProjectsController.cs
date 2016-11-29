@@ -10,13 +10,11 @@ namespace TimestampsWeb.Controllers
 {
     public class ProjectsController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        private readonly IProjectNominationRepository _ProjectNominationRepository;
-
+        private readonly IUnitOfWork _unitOfWork;
+        
         public ProjectsController()
         {
-            _context = new ApplicationDbContext();
-            _ProjectNominationRepository = new ProjectNominationRepository(_context);
+            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
 
         }
 
@@ -43,8 +41,8 @@ namespace TimestampsWeb.Controllers
                 CreatorId = User.Identity.GetUserId()
             };
 
-            _context.Projects.Add(project);
-            _context.SaveChanges();
+            _unitOfWork.Projects.Add(project);
+            _unitOfWork.SaveChanges();
 
 
             var projectNomination = new ProjectNomination
@@ -53,8 +51,8 @@ namespace TimestampsWeb.Controllers
                 UserId = project.CreatorId
             };
 
-            _context.ProjectNominations.Add(projectNomination);
-            _context.SaveChanges();
+            _unitOfWork.ProjectNominations.Add(projectNomination);
+            _unitOfWork.SaveChanges();
 
             return RedirectToAction("MyProjects", "Projects");
         }
@@ -64,7 +62,7 @@ namespace TimestampsWeb.Controllers
         public ActionResult MyProjects()
         {
             var userId = User.Identity.GetUserId();
-            var myProjects = _ProjectNominationRepository.GetProjectsUserTakePart(userId);
+            var myProjects = _unitOfWork.ProjectNominations.GetProjectsUserTakePart(userId);
             return View("MyProjects", myProjects);
         }
 

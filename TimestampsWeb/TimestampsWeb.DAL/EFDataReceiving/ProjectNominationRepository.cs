@@ -18,5 +18,10 @@ namespace TimestampsWeb.TimestampsWeb.DAL.EFDataReceiving
         {
             return context.ProjectNominations.Where(pn => pn.UserId == userId).Include(pn => pn.Project).Select(pn => pn.Project).ToList();
         }
+
+        public bool IsUserTakePartInProject(string userId, int projectId)
+        {
+            return context.ProjectNominations.Any(pn => pn.ProjectId == projectId && pn.UserId == userId);
+        }
     }
 }

@@ -10,5 +10,6 @@ namespace TimestampsWeb.TimestampsWeb.DAL.Interfaces
     public interface IProjectNominationRepository : IRepository<ProjectNomination>
     {
         IEnumerable<Project> GetProjectsUserTakePart(string userId);
+        bool IsUserTakePartInProject(string userId, int projectId);
     }
 }

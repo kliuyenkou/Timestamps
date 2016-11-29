@@ -2,16 +2,19 @@
 using System.Linq;
 using System.Web.Http;
 using TimestampsWeb.Models;
+using TimestampsWeb.TimestampsWeb.DAL.EFDataReceiving;
+using TimestampsWeb.TimestampsWeb.DAL.Interfaces;
 
 namespace TimestampsWeb.Controllers
 {
     [Authorize]
     public class ProjectNominationsController : ApiController
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
+
         public ProjectNominationsController()
         {
-            _context = new ApplicationDbContext();
+            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
         }
 
 
@@ -19,7 +22,7 @@ namespace TimestampsWeb.Controllers
         public IHttpActionResult TakePartInProject([FromBody] int projectId)
         {
             var userId = User.Identity.GetUserId();
-            var IsExist = _context.ProjectNominations.Any(pn => pn.ProjectId == projectId && pn.UserId == userId);
+            var IsExist = _unitOfWork.ProjectNominations.IsUserTakePartInProject(userId, projectId);
             if (IsExist) {
                 return BadRequest("This user has already nominated on this project.");
             }
@@ -30,8 +33,9 @@ namespace TimestampsWeb.Controllers
                 UserId = userId
             };
 
-            _context.ProjectNominations.Add(projectNomination);
-            _context.SaveChanges();
+            _unitOfWork.ProjectNominations.Add(projectNomination);
+            _unitOfWork.SaveChanges();
+
             return Json(projectNomination);
             //return Ok();
         }

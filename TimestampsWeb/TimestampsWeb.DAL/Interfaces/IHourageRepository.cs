@@ -9,5 +9,7 @@ namespace TimestampsWeb.TimestampsWeb.DAL.Interfaces
 {
     public interface IHourageRepository : IRepository<Hourage>
     {
+        IEnumerable<Hourage> GetUserHourageRecordsWithProject(string userId);
     }
+    
 }

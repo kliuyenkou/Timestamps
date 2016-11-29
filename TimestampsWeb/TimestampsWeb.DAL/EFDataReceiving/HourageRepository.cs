@@ -13,5 +13,10 @@ namespace TimestampsWeb.TimestampsWeb.DAL.EFDataReceiving
         public HourageRepository(ApplicationDbContext context) : base(context)
         {
         }
+
+        public IEnumerable<Hourage> GetUserHourageRecordsWithProject(string userId)
+        {
+            return context.Hourages.Where(h => h.UserId == userId).Include(h => h.Project).Include(h => h.User).ToList();
+        }
     }
 }

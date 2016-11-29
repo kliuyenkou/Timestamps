@@ -5,6 +5,8 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using TimestampsWeb.Models;
+using TimestampsWeb.TimestampsWeb.DAL.EFDataReceiving;
+using TimestampsWeb.TimestampsWeb.DAL.Interfaces;
 using TimestampsWeb.ViewModels;
 
 namespace TimestampsWeb.Controllers
@@ -12,7 +14,12 @@ namespace TimestampsWeb.Controllers
     [Authorize]
     public class HourageController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly IUnitOfWork _unitOfWork;
+
+        public HourageController()
+        {
+            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
+        }
 
         // GET: Hourage
         public ActionResult Index()
@@ -20,16 +27,8 @@ namespace TimestampsWeb.Controllers
             var userId = User.Identity.GetUserId();
 
 
-            var hourages = GetUsersHourageRecords(userId);
+            var hourages = _unitOfWork.Hourages.GetUserHourageRecordsWithProject(userId);
             return View(hourages);
-        }
-
-        private IEnumerable<Hourage> GetUsersHourageRecords(string userId)
-        {
-            // This solution with bad perfomance, but it's ok for testing interfaces
-            var projectsUserTakePart = db.ProjectNominations.Include(pn => pn.Project).Where(pn => pn.UserId == userId).Select(pn => pn.Project);
-            var hourages = db.Hourages.Where(h => projectsUserTakePart.Contains(h.Project)).Include(h => h.Project).Include(h => h.User).ToList();
-            return hourages;
         }
 
 
@@ -37,16 +36,12 @@ namespace TimestampsWeb.Controllers
         public ActionResult Create()
         {
             var userId = User.Identity.GetUserId();
-            var projectsUserTakePart = GetProjectsUserTakePart(userId);
+            var projectsUserTakePart = _unitOfWork.ProjectNominations.GetProjectsUserTakePart(userId);
             ViewBag.ProjectId = new SelectList(projectsUserTakePart, "Id", "Title");
             ViewBag.UserId = userId;
             return View();
         }
 
-        private IEnumerable<Project> GetProjectsUserTakePart(string userId)
-        {
-            return db.ProjectNominations.Where(pn => pn.UserId == userId).Include(pn => pn.Project).Select(pn => pn.Project);
-        }
 
         // POST: Hourage/Create
         [HttpPost]
@@ -65,44 +60,31 @@ namespace TimestampsWeb.Controllers
                     ProjectId = viewModel.ProjectId,
                 };
 
-                db.Hourages.Add(hourage);
-                db.SaveChanges();
+                _unitOfWork.Hourages.Add(hourage);
+                _unitOfWork.SaveChanges();
                 return RedirectToAction("Index");
             }
-            var projectsUserTakePart = db.ProjectNominations.Include(pn => pn.Project).Where(pn => pn.UserId == userId).Select(pn => pn.Project);
+            var projectsUserTakePart = _unitOfWork.ProjectNominations.GetProjectsUserTakePart(userId);
             ViewBag.ProjectId = new SelectList(projectsUserTakePart, "Id", "Title");
             return View(viewModel);
         }
 
-
-        // GET: Hourage/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null) {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Hourage hourage = db.Hourages.Find(id);
-            if (hourage == null) {
-                return HttpNotFound();
-            }
-            return View(hourage);
-        }
 
         // POST: Hourage/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Hourage hourage = db.Hourages.Find(id);
-            db.Hourages.Remove(hourage);
-            db.SaveChanges();
+            var hourage = _unitOfWork.Hourages.Find(h => h.Id == id);
+            _unitOfWork.Hourages.RemoveRange(hourage);
+            _unitOfWork.SaveChanges();
             return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing) {
-                db.Dispose();
+                _unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }

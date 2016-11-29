@@ -11,6 +11,8 @@ namespace TimestampsWeb.TimestampsWeb.DAL.Interfaces
         IProjectRepository Projects { get; }
         IProjectNominationRepository ProjectNominations { get; }
         IHourageRepository Hourages { get; }
+        void Dispose();
         void SaveChanges();
+        int SaveChangesWithErrors();
     }
 }
