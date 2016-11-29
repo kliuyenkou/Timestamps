@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -18,10 +19,17 @@ namespace TimestampsWeb.Controllers
         {
             var userId = User.Identity.GetUserId();
 
+
+            var hourages = GetUsersHourageRecords(userId);
+            return View(hourages);
+        }
+
+        private IEnumerable<Hourage> GetUsersHourageRecords(string userId)
+        {
             // This solution with bad perfomance, but it's ok for testing interfaces
             var projectsUserTakePart = db.ProjectNominations.Include(pn => pn.Project).Where(pn => pn.UserId == userId).Select(pn => pn.Project);
-            var hourages = db.Hourages.Where(h => projectsUserTakePart.Contains(h.Project)).Include(h => h.Project).Include(h => h.User);
-            return View(hourages.ToList());
+            var hourages = db.Hourages.Where(h => projectsUserTakePart.Contains(h.Project)).Include(h => h.Project).Include(h => h.User).ToList();
+            return hourages;
         }
 
 
@@ -29,10 +37,15 @@ namespace TimestampsWeb.Controllers
         public ActionResult Create()
         {
             var userId = User.Identity.GetUserId();
-            var projectsUserTakePart = db.ProjectNominations.Include(pn => pn.Project).Where(pn => pn.UserId == userId).Select(pn => pn.Project);
+            var projectsUserTakePart = GetProjectsUserTakePart(userId);
             ViewBag.ProjectId = new SelectList(projectsUserTakePart, "Id", "Title");
             ViewBag.UserId = userId;
             return View();
+        }
+
+        private IEnumerable<Project> GetProjectsUserTakePart(string userId)
+        {
+            return db.ProjectNominations.Where(pn => pn.UserId == userId).Include(pn => pn.Project).Select(pn => pn.Project);
         }
 
         // POST: Hourage/Create

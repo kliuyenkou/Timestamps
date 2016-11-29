@@ -195,46 +195,52 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201611220909334_InitialModel.cs" />
-    <Compile Include="Migrations\201611220909334_InitialModel.Designer.cs">
+    <Compile Include="TimestampsWeb.DAL\EFDataReceiving\ProjectNominationRepository.cs" />
+    <Compile Include="TimestampsWeb.DAL\Interfaces\IProjectNominationRepository.cs" />
+    <Compile Include="TimestampsWeb.DAL\Interfaces\IProjectRepository.cs" />
+    <Compile Include="TimestampsWeb.DAL\Migrations\201611220909334_InitialModel.cs" />
+    <Compile Include="TimestampsWeb.DAL\Migrations\201611220909334_InitialModel.Designer.cs">
       <DependentUpon>201611220909334_InitialModel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201611220957064_CreateProjectTable.cs" />
-    <Compile Include="Migrations\201611220957064_CreateProjectTable.Designer.cs">
+    <Compile Include="TimestampsWeb.DAL\Migrations\201611220957064_CreateProjectTable.cs" />
+    <Compile Include="TimestampsWeb.DAL\Migrations\201611220957064_CreateProjectTable.Designer.cs">
       <DependentUpon>201611220957064_CreateProjectTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201611221025500_OverrideConventionsForProjects.cs" />
-    <Compile Include="Migrations\201611221025500_OverrideConventionsForProjects.Designer.cs">
+    <Compile Include="TimestampsWeb.DAL\Migrations\201611221025500_OverrideConventionsForProjects.cs" />
+    <Compile Include="TimestampsWeb.DAL\Migrations\201611221025500_OverrideConventionsForProjects.Designer.cs">
       <DependentUpon>201611221025500_OverrideConventionsForProjects.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201611221342029_AddForeignKeyPropForProject.cs" />
-    <Compile Include="Migrations\201611221342029_AddForeignKeyPropForProject.Designer.cs">
+    <Compile Include="TimestampsWeb.DAL\Migrations\201611221342029_AddForeignKeyPropForProject.cs" />
+    <Compile Include="TimestampsWeb.DAL\Migrations\201611221342029_AddForeignKeyPropForProject.Designer.cs">
       <DependentUpon>201611221342029_AddForeignKeyPropForProject.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201611231022215_AddProjectNomination.cs" />
-    <Compile Include="Migrations\201611231022215_AddProjectNomination.Designer.cs">
+    <Compile Include="TimestampsWeb.DAL\Migrations\201611231022215_AddProjectNomination.cs" />
+    <Compile Include="TimestampsWeb.DAL\Migrations\201611231022215_AddProjectNomination.Designer.cs">
       <DependentUpon>201611231022215_AddProjectNomination.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201611231406190_AddNameToApplicationUser.cs" />
-    <Compile Include="Migrations\201611231406190_AddNameToApplicationUser.Designer.cs">
+    <Compile Include="TimestampsWeb.DAL\Migrations\201611231406190_AddNameToApplicationUser.cs" />
+    <Compile Include="TimestampsWeb.DAL\Migrations\201611231406190_AddNameToApplicationUser.Designer.cs">
       <DependentUpon>201611231406190_AddNameToApplicationUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201611232009049_AddHourage.cs" />
-    <Compile Include="Migrations\201611232009049_AddHourage.Designer.cs">
+    <Compile Include="TimestampsWeb.DAL\Migrations\201611232009049_AddHourage.cs" />
+    <Compile Include="TimestampsWeb.DAL\Migrations\201611232009049_AddHourage.Designer.cs">
       <DependentUpon>201611232009049_AddHourage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201611290703320_EditHourageModel.cs" />
-    <Compile Include="Migrations\201611290703320_EditHourageModel.Designer.cs">
+    <Compile Include="TimestampsWeb.DAL\Migrations\201611290703320_EditHourageModel.cs" />
+    <Compile Include="TimestampsWeb.DAL\Migrations\201611290703320_EditHourageModel.Designer.cs">
       <DependentUpon>201611290703320_EditHourageModel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="TimestampsWeb.DAL\Migrations\Configuration.cs" />
+    <Compile Include="TimestampsWeb.DAL\EFDataReceiving\Repository.cs" />
+    <Compile Include="TimestampsWeb.DAL\Interfaces\IHourageRepository.cs" />
+    <Compile Include="TimestampsWeb.DAL\Interfaces\IRepository.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
-    <Compile Include="Models\ApplicationDbContext.cs" />
-    <Compile Include="Models\ApplicationUser.cs" />
-    <Compile Include="Models\Hourage.cs" />
+    <Compile Include="TimestampsWeb.DAL\Models\ApplicationDbContext.cs" />
+    <Compile Include="TimestampsWeb.DAL\Models\ApplicationUser.cs" />
+    <Compile Include="TimestampsWeb.DAL\Models\Hourage.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
-    <Compile Include="Models\Project.cs" />
-    <Compile Include="Models\ProjectNomination.cs" />
+    <Compile Include="TimestampsWeb.DAL\Models\Project.cs" />
+    <Compile Include="TimestampsWeb.DAL\Models\ProjectNomination.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\HourageViewModel.cs" />
@@ -327,28 +333,28 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201611220909334_InitialModel.resx">
+    <EmbeddedResource Include="TimestampsWeb.DAL\Migrations\201611220909334_InitialModel.resx">
       <DependentUpon>201611220909334_InitialModel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611220957064_CreateProjectTable.resx">
+    <EmbeddedResource Include="TimestampsWeb.DAL\Migrations\201611220957064_CreateProjectTable.resx">
       <DependentUpon>201611220957064_CreateProjectTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611221025500_OverrideConventionsForProjects.resx">
+    <EmbeddedResource Include="TimestampsWeb.DAL\Migrations\201611221025500_OverrideConventionsForProjects.resx">
       <DependentUpon>201611221025500_OverrideConventionsForProjects.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611221342029_AddForeignKeyPropForProject.resx">
+    <EmbeddedResource Include="TimestampsWeb.DAL\Migrations\201611221342029_AddForeignKeyPropForProject.resx">
       <DependentUpon>201611221342029_AddForeignKeyPropForProject.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611231022215_AddProjectNomination.resx">
+    <EmbeddedResource Include="TimestampsWeb.DAL\Migrations\201611231022215_AddProjectNomination.resx">
       <DependentUpon>201611231022215_AddProjectNomination.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611231406190_AddNameToApplicationUser.resx">
+    <EmbeddedResource Include="TimestampsWeb.DAL\Migrations\201611231406190_AddNameToApplicationUser.resx">
       <DependentUpon>201611231406190_AddNameToApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611232009049_AddHourage.resx">
+    <EmbeddedResource Include="TimestampsWeb.DAL\Migrations\201611232009049_AddHourage.resx">
       <DependentUpon>201611232009049_AddHourage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611290703320_EditHourageModel.resx">
+    <EmbeddedResource Include="TimestampsWeb.DAL\Migrations\201611290703320_EditHourageModel.resx">
       <DependentUpon>201611290703320_EditHourageModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

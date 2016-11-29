@@ -3,16 +3,21 @@ using System.Linq;
 using System.Web.Mvc;
 using TimestampsWeb.Models;
 using TimestampsWeb.ViewModels;
+using TimestampsWeb.TimestampsWeb.DAL.Interfaces;
+using TimestampsWeb.TimestampsWeb.DAL.EFDataReceiving;
 
 namespace TimestampsWeb.Controllers
 {
     public class ProjectsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IProjectNominationRepository _ProjectNominationRepository;
 
         public ProjectsController()
         {
             _context = new ApplicationDbContext();
+            _ProjectNominationRepository = new ProjectNominationRepository(_context);
+
         }
 
         // GET: Projects
@@ -59,22 +64,8 @@ namespace TimestampsWeb.Controllers
         public ActionResult MyProjects()
         {
             var userId = User.Identity.GetUserId();
-            //IEnumerable<Project> myProjects = _context.Projects.Include(p => p.Creator).Where(p => p.CreatorId == userId).ToList();
-            var myProjects = from pn in _context.ProjectNominations
-                             where pn.UserId == userId
-                             select pn.Project;
-            //var myProjects1 = from pn in _context.ProjectNominations
-            //                 where pn.UserId == userId
-            //                 group pn by new { Project = pn.ProjectId, User = pn.User} into g
-            //                 select g.Key.Project;
-
-            return View("MyProjects", myProjects.ToList());
-        }
-
-        [NonAction]
-        public void AddProjectNominationsRecord(int projectId)
-        {
-
+            var myProjects = _ProjectNominationRepository.GetProjectsUserTakePart(userId);
+            return View("MyProjects", myProjects);
         }
 
     }
