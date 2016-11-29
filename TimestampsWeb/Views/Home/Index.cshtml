@@ -9,11 +9,11 @@
         <div class="form-group">
             <label class="sr-only" for="workDescription">Description</label>
             <input type="text" class="form-control" id="workDescription" placeholder="Description">
-
         </div>
         <div class="form-group">
             <label class="sr-only" for="project">Password</label>
-            <input type="text" class="form-control" id="project" placeholder="Choose project">
+@*            <input type="text" class="form-control" id="project" placeholder="Choose project">*@
+            @Html.DropDownList("ProjectId", null, htmlAttributes: new { @class = "form-control", id = "project" })
         </div>
         <div class="form-group">
             <label class="sr-only" for="date">Date</label>
@@ -66,7 +66,33 @@
     };
 
     function AddRecord(){
+        var record = {
+            WorkDescription: $('#workDescription').val(),
+            Project: $('#project').val(),
+            Date: $('#date').val(),
+            Hours: $('#hours').val(),
+        };
 
+        $.post({
+            url: 'api/Timesheet',
+            data: record,
+            success: function (data) {
+                LoadListItems();
+            },
+            dataType: 'json'
+        });
+        //$.ajax({
+        //    url: 'api/Timesheet',
+        //    type: 'POST',
+        //    data: JSON.stringify(record),
+        //    dataType: 'json',
+        //    success: function (data) {
+        //        LoadListItems(data);
+        //    },
+        //    error: function () {
+        //        alert("Error");
+        //    }
+        //});
     };
 
     </script>

@@ -223,6 +223,10 @@
     <Compile Include="Migrations\201611232009049_AddHourage.Designer.cs">
       <DependentUpon>201611232009049_AddHourage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611290703320_EditHourageModel.cs" />
+    <Compile Include="Migrations\201611290703320_EditHourageModel.Designer.cs">
+      <DependentUpon>201611290703320_EditHourageModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -343,6 +347,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611232009049_AddHourage.resx">
       <DependentUpon>201611232009049_AddHourage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611290703320_EditHourageModel.resx">
+      <DependentUpon>201611290703320_EditHourageModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

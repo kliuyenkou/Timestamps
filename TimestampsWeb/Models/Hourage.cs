@@ -18,11 +18,11 @@ namespace TimestampsWeb.Models
         public string UserId { get; set; }
 
         [StringLength(128)]
-        public string WorkDescripton { get; set; }
+        public string WorkDescription { get; set; }
 
         [Required]
         public DateTime Date { get; set; }
-        
+
         public double Hours { get; set; }
 
         public Project Project { get; set; }

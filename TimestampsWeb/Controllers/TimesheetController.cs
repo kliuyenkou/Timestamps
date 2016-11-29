@@ -27,7 +27,7 @@ namespace TimestampsWeb.Controllers
                 .Select(h => new HourageDto()
                 {
                     Id = h.Id,
-                    WorkDescription = h.WorkDescripton,
+                    WorkDescription = h.WorkDescription,
                     ProjectTitle = h.Project.Title,
                     Date = h.Date,
                     Hours = h.Hours,

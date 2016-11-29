@@ -45,7 +45,7 @@ namespace TimestampsWeb.Controllers
             if (ModelState.IsValid) {
                 var hourage = new Hourage()
                 {
-                    WorkDescripton = viewModel.WorkDescripton,
+                    WorkDescription = viewModel.WorkDescripton,
                     Date = viewModel.Date,
                     Hours = viewModel.Hours,
                     UserId = userId,
