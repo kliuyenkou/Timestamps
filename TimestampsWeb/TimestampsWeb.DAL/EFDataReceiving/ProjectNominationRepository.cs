@@ -16,7 +16,7 @@ namespace TimestampsWeb.TimestampsWeb.DAL.EFDataReceiving
         }
         public IEnumerable<Project> GetProjectsUserTakePart(string userId)
         {
-            return Context.Set<ProjectNomination>().Where(pn => pn.UserId == userId).Include(pn => pn.Project).Select(pn => pn.Project).ToList();
+            return context.ProjectNominations.Where(pn => pn.UserId == userId).Include(pn => pn.Project).Select(pn => pn.Project).ToList();
         }
     }
 }

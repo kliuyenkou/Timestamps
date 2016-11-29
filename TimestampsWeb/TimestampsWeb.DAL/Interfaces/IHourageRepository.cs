@@ -7,7 +7,7 @@ using TimestampsWeb.Models;
 
 namespace TimestampsWeb.TimestampsWeb.DAL.Interfaces
 {
-    interface IHourageRepository : IRepository<Hourage>
+    public interface IHourageRepository : IRepository<Hourage>
     {
     }
 }

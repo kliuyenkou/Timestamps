@@ -200,9 +200,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="TimestampsWeb.DAL\EFDataReceiving\HourageRepository.cs" />
     <Compile Include="TimestampsWeb.DAL\EFDataReceiving\ProjectNominationRepository.cs" />
+    <Compile Include="TimestampsWeb.DAL\EFDataReceiving\ProjectRepository.cs" />
+    <Compile Include="TimestampsWeb.DAL\EFDataReceiving\UnitOfWork.cs" />
     <Compile Include="TimestampsWeb.DAL\Interfaces\IProjectNominationRepository.cs" />
     <Compile Include="TimestampsWeb.DAL\Interfaces\IProjectRepository.cs" />
+    <Compile Include="TimestampsWeb.DAL\Interfaces\IUnitOfWork.cs" />
     <Compile Include="TimestampsWeb.DAL\Migrations\201611220909334_InitialModel.cs" />
     <Compile Include="TimestampsWeb.DAL\Migrations\201611220909334_InitialModel.Designer.cs">
       <DependentUpon>201611220909334_InitialModel.cs</DependentUpon>

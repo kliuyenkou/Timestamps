@@ -7,7 +7,7 @@ using TimestampsWeb.Models;
 
 namespace TimestampsWeb.TimestampsWeb.DAL.Interfaces
 {
-    interface IProjectRepository : IRepository<Project>
+    public interface IProjectRepository : IRepository<Project>
     {
     }
 }

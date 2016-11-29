@@ -28,7 +28,7 @@ namespace TimestampsWeb.Models
             modelBuilder.Entity<Hourage>().HasRequired(h => h.Project).WithMany().WillCascadeOnDelete(false);
             base.OnModelCreating(modelBuilder);
         }
-      
+
     }
 
     public static class ExtensionsApplicationDbContext
@@ -53,7 +53,7 @@ namespace TimestampsWeb.Models
                 throw new DbEntityValidationException(
                     "Entity Validation Failed - errors follow:\n" +
                     sb.ToString(), ex
-                ); // Add the original exception as the innerException
+                );
             }
         }
     }
