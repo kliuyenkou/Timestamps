@@ -12,9 +12,9 @@ namespace TimestampsWeb.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         
-        public ProjectsController()
+        public ProjectsController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
+            _unitOfWork = unitOfWork;
 
         }
 

@@ -16,9 +16,9 @@ namespace TimestampsWeb.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public HourageController()
+        public HourageController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
+            _unitOfWork = unitOfWork;
         }
 
         // GET: Hourage

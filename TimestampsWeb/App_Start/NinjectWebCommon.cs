@@ -10,21 +10,24 @@ namespace TimestampsWeb.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
+    using TimestampsWeb.DAL.Interfaces;
+    using TimestampsWeb.DAL.EFDataReceiving;
+    using Ninject.Extensions.Conventions;
 
-    public static class NinjectWebCommon 
+    public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
         /// </summary>
-        public static void Start() 
+        public static void Start()
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
         }
-        
+
         /// <summary>
         /// Stops the application.
         /// </summary>
@@ -32,7 +35,7 @@ namespace TimestampsWeb.App_Start
         {
             bootstrapper.ShutDown();
         }
-        
+
         /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
@@ -40,16 +43,17 @@ namespace TimestampsWeb.App_Start
         private static IKernel CreateKernel()
         {
             var kernel = new StandardKernel();
-            try
-            {
+            try {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
                 RegisterServices(kernel);
+
+                // This is for default binding between classes and interfaces. 
+                //kernel.Bind(x => { x.FromThisAssembly().SelectAllClasses().BindDefaultInterface(); });
                 return kernel;
             }
-            catch
-            {
+            catch {
                 kernel.Dispose();
                 throw;
             }
@@ -61,6 +65,7 @@ namespace TimestampsWeb.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-        }        
+            kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
+        }
     }
 }
