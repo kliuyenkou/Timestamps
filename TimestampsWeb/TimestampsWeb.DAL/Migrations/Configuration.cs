@@ -12,6 +12,8 @@ namespace TimestampsWeb.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            // Change this path if move Migrations folder
+            MigrationsDirectory = @"TimestampsWeb.DAL\Migrations";
         }
 
         protected override void Seed(ApplicationDbContext context)
