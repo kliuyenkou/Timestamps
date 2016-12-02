@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timestamps.DAL", "Timestamp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timestamps.BLL", "Timestamps.BLL\Timestamps.BLL.csproj", "{B7919D20-D335-448F-9966-0B06F0C394F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timestasmps.DependencyResolver", "DependencyResolver\Timestasmps.DependencyResolver.csproj", "{77179E21-3056-4289-B9AB-1352BDA771B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{B7919D20-D335-448F-9966-0B06F0C394F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7919D20-D335-448F-9966-0B06F0C394F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7919D20-D335-448F-9966-0B06F0C394F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77179E21-3056-4289-B9AB-1352BDA771B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77179E21-3056-4289-B9AB-1352BDA771B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77179E21-3056-4289-B9AB-1352BDA771B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77179E21-3056-4289-B9AB-1352BDA771B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

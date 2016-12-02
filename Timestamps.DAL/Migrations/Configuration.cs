@@ -8,7 +8,7 @@ namespace Timestamps.DAL.Migrations
         {
             AutomaticMigrationsEnabled = false;
             // Change this path if move Migrations folder
-            MigrationsDirectory = @"\Migrations";
+            MigrationsDirectory = @"Timestamps.DAL\\Migrations";
         }
 
         protected override void Seed(ApplicationDbContext context)

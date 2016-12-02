@@ -35,14 +35,7 @@ namespace TimestampsWeb.Controllers
                     UserId = h.UserId
                 });
 
-
-            //Mapper.Initialize(cfg => cfg.CreateMap<ApplicationUser, ApplicationUserDto>());
-            //Mapper.Initialize(cfg => cfg.CreateMap<Project, ProjectDto>());
-            //Mapper.Initialize(cfg => cfg.CreateMap<Hourage, HourageDto>());
-
-            //var usersRecordsDto = Mapper.Map<IEnumerable<Hourage>, IEnumerable<HourageDto>>(usersRecords);
-
-            return usersRecordsDto;
+          return usersRecordsDto;
 
         }
 

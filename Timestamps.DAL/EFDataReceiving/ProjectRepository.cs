@@ -1,4 +1,5 @@
-﻿using Timestamps.DAL.DbModels;
+﻿using System.Collections.Generic;
+using Timestamps.DAL.DbModels;
 using Timestamps.DAL.Interfaces;
 
 namespace Timestamps.DAL.EFDataReceiving
@@ -7,6 +8,11 @@ namespace Timestamps.DAL.EFDataReceiving
     {
         public ProjectRepository(ApplicationDbContext context) : base(context)
         {
+        }
+
+        public IEnumerable<Project> GetProjectsUserCreate(string userId)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

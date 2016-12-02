@@ -77,6 +77,10 @@
       <HintPath>..\packages\Ninject.Web.WebApi.3.2.1.0\lib\net45-full\Ninject.Web.WebApi.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Omu.ValueInjecter, Version=3.1.1.0, Culture=neutral, PublicKeyToken=c7694541b0ac80e4, processorArchitecture=MSIL">
+      <HintPath>..\packages\valueinjecter.3.1.1.3\lib\net40\Omu.ValueInjecter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -326,6 +330,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DependencyResolver\Timestasmps.DependencyResolver.csproj">
+      <Project>{77179e21-3056-4289-b9ab-1352bda771b0}</Project>
+      <Name>Timestasmps.DependencyResolver</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Timestamps.BLL\Timestamps.BLL.csproj">
       <Project>{b7919d20-d335-448f-9966-0b06f0c394f5}</Project>
       <Name>Timestamps.BLL</Name>
