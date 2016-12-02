@@ -1,20 +1,18 @@
 ﻿using Microsoft.AspNet.Identity;
-using System.Linq;
 using System.Web.Http;
-using TimestampsWeb.Models;
-using TimestampsWeb.TimestampsWeb.DAL.EFDataReceiving;
-using TimestampsWeb.TimestampsWeb.DAL.Interfaces;
+using Timestamps.BLL.Interfaces;
+using Timestamps.BLL.Models;
 
 namespace TimestampsWeb.Controllers
 {
     [Authorize]
     public class ProjectNominationsController : ApiController
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IProjectNominationService _projectNominationService;
 
-        public ProjectNominationsController(IUnitOfWork unitOfWork)
+        public ProjectNominationsController(IProjectNominationService projectNominationService)
         {
-            _unitOfWork = unitOfWork;
+            _projectNominationService = projectNominationService;
         }
 
 
@@ -22,7 +20,7 @@ namespace TimestampsWeb.Controllers
         public IHttpActionResult TakePartInProject([FromBody] int projectId)
         {
             var userId = User.Identity.GetUserId();
-            var IsExist = _unitOfWork.ProjectNominations.IsUserTakePartInProject(userId, projectId);
+            var IsExist = _projectNominationService.IsUserTakePartInProject(userId, projectId);
             if (IsExist) {
                 return BadRequest("This user has already nominated on this project.");
             }
@@ -33,8 +31,7 @@ namespace TimestampsWeb.Controllers
                 UserId = userId
             };
 
-            _unitOfWork.ProjectNominations.Add(projectNomination);
-            _unitOfWork.SaveChanges();
+            _projectNominationService.Add(projectNomination);
 
             return Json(projectNomination);
             //return Ok();

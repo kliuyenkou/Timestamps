@@ -1,25 +1,22 @@
 ﻿using Microsoft.AspNet.Identity;
 using System.Web.Mvc;
-using TimestampsWeb.Models;
-using System.Data.Entity;
 using System.Linq;
-using TimestampsWeb.TimestampsWeb.DAL.Interfaces;
-using TimestampsWeb.TimestampsWeb.DAL.EFDataReceiving;
+using Timestamps.BLL.Interfaces;
 
 namespace TimestampsWeb.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
-        public HomeController(IUnitOfWork unitOfWork)
+        private readonly IProjectNominationService _projectNominationService;
+        public HomeController(IProjectNominationService projectNominationService)
         {
-            _unitOfWork = unitOfWork;
+            _projectNominationService = projectNominationService;
         }
         public ActionResult Index()
         {
             var userId = User.Identity.GetUserId();
-            var projectsUserTakePart = _unitOfWork.ProjectNominations.GetProjectsUserTakePart(userId);
+            var projectsUserTakePart = _projectNominationService.GetProjectsUserTakePart(userId);
             ViewBag.ProjectId = new SelectList(projectsUserTakePart, "Id", "Title");
             ViewBag.UserId = userId;
 

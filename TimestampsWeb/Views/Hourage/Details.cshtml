@@ -1,4 +1,4 @@
-﻿@model TimestampsWeb.Models.Hourage
+﻿@model Timestamps.BLL.Models.Hourage
 
 @{
     ViewBag.Title = "Details";
@@ -27,11 +27,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.WorkDescripton)
+            @Html.DisplayNameFor(model => model.WorkDescription)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.WorkDescripton)
+            @Html.DisplayFor(model => model.WorkDescription)
         </dd>
 
         <dt>
@@ -53,6 +53,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |*@
     @Html.ActionLink("Back to List", "Index")
 </p>

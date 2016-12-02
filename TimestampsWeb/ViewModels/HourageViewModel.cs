@@ -1,7 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using TimestampsWeb.Models;
+using Timestamps.BLL.Models;
+
 
 namespace TimestampsWeb.ViewModels
 {

@@ -4,9 +4,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using TimestampsWeb.Models;
-using TimestampsWeb.TimestampsWeb.DAL.EFDataReceiving;
-using TimestampsWeb.TimestampsWeb.DAL.Interfaces;
+using Timestamps.BLL.Interfaces;
+using Timestamps.BLL.Models;
 using TimestampsWeb.ViewModels;
 
 namespace TimestampsWeb.Controllers
@@ -14,20 +13,20 @@ namespace TimestampsWeb.Controllers
     [Authorize]
     public class HourageController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IHourageService _hourageService;
+        private readonly IProjectNominationService _projectNominationService;
 
-        public HourageController(IUnitOfWork unitOfWork)
+        public HourageController(IHourageService hourageService, IProjectNominationService projectNominationService)
         {
-            _unitOfWork = unitOfWork;
+            _hourageService = hourageService;
+            _projectNominationService = projectNominationService;
         }
 
         // GET: Hourage
         public ActionResult Index()
         {
             var userId = User.Identity.GetUserId();
-
-
-            var hourages = _unitOfWork.Hourages.GetUserHourageRecordsWithProject(userId);
+            var hourages = _hourageService.GetUserHourageRecordsWithProject(userId);
             return View(hourages);
         }
 
@@ -36,7 +35,7 @@ namespace TimestampsWeb.Controllers
         public ActionResult Create()
         {
             var userId = User.Identity.GetUserId();
-            var projectsUserTakePart = _unitOfWork.ProjectNominations.GetProjectsUserTakePart(userId);
+            var projectsUserTakePart = _projectNominationService.GetProjectsUserTakePart(userId);
             ViewBag.ProjectId = new SelectList(projectsUserTakePart, "Id", "Title");
             ViewBag.UserId = userId;
             return View();
@@ -60,11 +59,10 @@ namespace TimestampsWeb.Controllers
                     ProjectId = viewModel.ProjectId,
                 };
 
-                _unitOfWork.Hourages.Add(hourage);
-                _unitOfWork.SaveChanges();
+                _hourageService.Add(hourage);
                 return RedirectToAction("Index");
             }
-            var projectsUserTakePart = _unitOfWork.ProjectNominations.GetProjectsUserTakePart(userId);
+            var projectsUserTakePart = _projectNominationService.GetProjectsUserTakePart(userId);
             ViewBag.ProjectId = new SelectList(projectsUserTakePart, "Id", "Title");
             return View(viewModel);
         }
@@ -75,16 +73,15 @@ namespace TimestampsWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var hourage = _unitOfWork.Hourages.Find(h => h.Id == id);
-            _unitOfWork.Hourages.RemoveRange(hourage);
-            _unitOfWork.SaveChanges();
+            _hourageService.Delete(id);
             return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing) {
-                _unitOfWork.Dispose();
+                _hourageService.Dispose();
+                _projectNominationService.Dispose();
             }
             base.Dispose(disposing);
         }

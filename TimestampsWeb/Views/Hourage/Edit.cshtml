@@ -1,4 +1,4 @@
-﻿@model TimestampsWeb.Models.Hourage
+﻿@model Timestamps.BLL.Models.Hourage
 
 @{
     ViewBag.Title = "Edit";
@@ -33,10 +33,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.WorkDescripton, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.WorkDescription, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.WorkDescripton, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.WorkDescripton, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.WorkDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.WorkDescription, "", new { @class = "text-danger" })
             </div>
         </div>
 

@@ -1,20 +1,21 @@
 ﻿using Microsoft.AspNet.Identity;
 using System.Linq;
 using System.Web.Mvc;
-using TimestampsWeb.Models;
+using Timestamps.BLL.Interfaces;
+using Timestamps.BLL.Models;
 using TimestampsWeb.ViewModels;
-using TimestampsWeb.TimestampsWeb.DAL.Interfaces;
-using TimestampsWeb.TimestampsWeb.DAL.EFDataReceiving;
 
 namespace TimestampsWeb.Controllers
 {
     public class ProjectsController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
-        
-        public ProjectsController(IUnitOfWork unitOfWork)
+        private readonly IProjectService _projectService;
+        private readonly IProjectNominationService _projectNominationService;
+
+        public ProjectsController(IProjectService projectService, IProjectNominationService projectNominationService)
         {
-            _unitOfWork = unitOfWork;
+            _projectService = projectService;
+            _projectNominationService = projectNominationService;
 
         }
 
@@ -41,9 +42,7 @@ namespace TimestampsWeb.Controllers
                 CreatorId = User.Identity.GetUserId()
             };
 
-            _unitOfWork.Projects.Add(project);
-            _unitOfWork.SaveChanges();
-
+            _projectService.Add(project);
 
             var projectNomination = new ProjectNomination
             {
@@ -51,8 +50,7 @@ namespace TimestampsWeb.Controllers
                 UserId = project.CreatorId
             };
 
-            _unitOfWork.ProjectNominations.Add(projectNomination);
-            _unitOfWork.SaveChanges();
+            _projectNominationService.Add(projectNomination);
 
             return RedirectToAction("MyProjects", "Projects");
         }
@@ -62,7 +60,7 @@ namespace TimestampsWeb.Controllers
         public ActionResult MyProjects()
         {
             var userId = User.Identity.GetUserId();
-            var myProjects = _unitOfWork.ProjectNominations.GetProjectsUserTakePart(userId);
+            var myProjects = _projectNominationService.GetProjectsUserTakePart(userId);
             return View("MyProjects", myProjects);
         }
 

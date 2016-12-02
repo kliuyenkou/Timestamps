@@ -1,30 +1,28 @@
 ﻿using AutoMapper;
 using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
+using Timestamps.BLL.Interfaces;
+using Timestamps.BLL.Models;
 using TimestampsWeb.Dto;
-using TimestampsWeb.Models;
-using TimestampsWeb.TimestampsWeb.DAL.EFDataReceiving;
-using TimestampsWeb.TimestampsWeb.DAL.Interfaces;
 
 namespace TimestampsWeb.Controllers
 {
     [Authorize]
     public class TimesheetController : ApiController
     {
-        private readonly IUnitOfWork _unitOfWork;
-        public TimesheetController(IUnitOfWork unitOfWork)
+        private readonly IHourageService _hourageService;
+        public TimesheetController(IHourageService hourageService)
         {
-            _unitOfWork = unitOfWork;
+            _hourageService = hourageService;
         }
 
         [HttpGet]
         public IEnumerable<HourageDto> GetUsersRecords()
         {
             var userId = User.Identity.GetUserId();
-            var usersRecords = _unitOfWork.Hourages.GetUserHourageRecordsWithProject(userId);
+            var usersRecords = _hourageService.GetUserHourageRecordsWithProject(userId);
             var usersRecordsDto = usersRecords
                 .Select(h => new HourageDto()
                 {
@@ -67,8 +65,7 @@ namespace TimestampsWeb.Controllers
             var hourage = mapper.Map<HourageDto, Hourage>(record);
 
             hourage.UserId = User.Identity.GetUserId();
-            _unitOfWork.Hourages.Add(hourage);
-            _unitOfWork.SaveChangesWithErrors();
+            _hourageService.Add(hourage);
             return Ok(hourage);
         }
 
