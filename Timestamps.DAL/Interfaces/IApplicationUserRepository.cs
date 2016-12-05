@@ -11,6 +11,9 @@ namespace Timestamps.DAL.Interfaces
     {
         Task<ApplicationUser> FindByNameAsync(string name);
         Task<ApplicationUser> FindByEmailAsync(string email);
+        Task<ApplicationUser> GetByIdAsync(string id);
+        void SetPasswordHash(string userId, string passwordHash);
 
+        void SetEmail(string userId, string email);
     }
 }

@@ -8,8 +8,9 @@ using Timestamps.BLL.Models;
 
 namespace Timestamps.BLL.Interfaces
 {
-    public interface IUserStore : IUserStore<User>, IUserLoginStore<User>, IUserPasswordStore<User>
+    public interface IUserStore : IUserStore<User>, IUserLoginStore<User>, IUserPasswordStore<User>,
+        IUserLockoutStore<User, string>, IUserTwoFactorStore<User, string>, IUserEmailStore<User>
     {
-        
+
     }
 }

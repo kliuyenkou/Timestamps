@@ -24,5 +24,24 @@ namespace Timestamps.DAL.EFDataReceiving
         {
             return await context.Users.FirstOrDefaultAsync(u => u.Email.ToUpper() == email.ToUpper());
         }
+
+        public async Task<ApplicationUser> GetByIdAsync(string id)
+        {
+            return await context.Users.FirstOrDefaultAsync(u => u.Id == id);
+        }
+
+        public void SetPasswordHash(string userId, string passwordHash)
+        {
+            var applicationUser = context.Users.FirstOrDefault(u => u.Id == userId); ;
+            if (applicationUser != null)
+                applicationUser.PasswordHash = passwordHash;
+        }
+
+        public void SetEmail(string userId, string email)
+        {
+            var applicationUser = context.Users.FirstOrDefault(u => u.Id == userId); ;
+            if (applicationUser != null)
+                applicationUser.Email = email;
+        }
     }
 }
