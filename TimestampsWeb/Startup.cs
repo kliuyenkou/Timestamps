@@ -9,6 +9,7 @@ namespace TimestampsWeb
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            ConfigureAutofac(app);
         }
     }
 }
