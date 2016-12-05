@@ -1,5 +1,6 @@
 using System;
 using System.Web;
+using DependencyResolver;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Web.Common;
@@ -67,6 +68,8 @@ namespace TimestampsWeb
         {
             kernel.Load(new DALModuleBindings());
             kernel.Load(new BLLModuleBindings());
+            kernel.Load(new WebModuleBindings());
+
         }
     }
 }

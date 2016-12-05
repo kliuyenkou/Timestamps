@@ -10,7 +10,7 @@ namespace Timestamps.DAL
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectNomination> ProjectNominations { get; set; }
         public DbSet<Hourage> Hourages { get; set; }
-
+        
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

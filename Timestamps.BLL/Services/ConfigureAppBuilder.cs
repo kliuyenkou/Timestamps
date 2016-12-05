@@ -1,7 +1,6 @@
 ﻿using Owin;
 using Timestamps.BLL.Identity;
 using Timestamps.DAL;
-using Timestamps.DAL.Identity;
 
 namespace Timestamps.BLL.Services
 {
@@ -9,9 +8,9 @@ namespace Timestamps.BLL.Services
     {
         public static void ConfigureOwinContext(IAppBuilder app)
         {
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
-            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+            //app.CreatePerOwinContext(ApplicationDbContext.Create);
+            //app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            //app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
         }
     }
 }

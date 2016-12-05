@@ -9,49 +9,26 @@ using Timestamps.BLL.Interfaces;
 using Timestamps.BLL.Models;
 using TimestampsWeb.ViewModels;
 using Microsoft.Owin.Host.SystemWeb;
+using Timestamps.BLL.Identity;
 
 namespace TimestampsWeb.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        //private ApplicationSignInManager _signInManager;
-        //private ApplicationUserManager _userManager;
-
-        private readonly IUserService _userService;
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
 
         public AccountController()
         {
         }
 
-        public AccountController(IUserService userService)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
-            _userService = userService;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
-        //public ApplicationSignInManager SignInManager
-        //{
-        //    get
-        //    {
-        //        return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-        //    }
-        //    private set 
-        //    { 
-        //        _signInManager = value; 
-        //    }
-        //}
-
-        //public ApplicationUserManager UserManager
-        //{
-        //    get
-        //    {
-        //        return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-        //    }
-        //    private set
-        //    {
-        //        _userManager = value;
-        //    }
-        //}
 
         //
         // GET: /Account/Login
@@ -75,7 +52,7 @@ namespace TimestampsWeb.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await _userService.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result) {
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
@@ -90,14 +67,13 @@ namespace TimestampsWeb.Controllers
             }
         }
 
-        //
-        // GET: /Account/VerifyCode
+        ////
+        //// GET: /Account/VerifyCode
         //[AllowAnonymous]
         //public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         //{
         //    // Require that the user has already logged in via username/password or external login
-        //    if (!await SignInManager.HasBeenVerifiedAsync())
-        //    {
+        //    if (!await _signInManager.HasBeenVerifiedAsync()) {
         //        return View("Error");
         //    }
         //    return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
@@ -110,8 +86,7 @@ namespace TimestampsWeb.Controllers
         //[ValidateAntiForgeryToken]
         //public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
         //{
-        //    if (!ModelState.IsValid)
-        //    {
+        //    if (!ModelState.IsValid) {
         //        return View(model);
         //    }
 
@@ -119,9 +94,8 @@ namespace TimestampsWeb.Controllers
         //    // If a user enters incorrect codes for a specified amount of time then the user account 
         //    // will be locked out for a specified amount of time. 
         //    // You can configure the account lockout settings in IdentityConfig
-        //    var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
-        //    switch (result)
-        //    {
+        //    var result = await _signInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
+        //    switch (result) {
         //        case SignInStatus.Success:
         //            return RedirectToLocal(model.ReturnUrl);
         //        case SignInStatus.LockedOut:
@@ -149,16 +123,16 @@ namespace TimestampsWeb.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid) {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Name = model.Name };
-                var result = await _userService.CreateAsync(user, model.Password);
+                var user = new User { UserName = model.Email, Email = model.Email };
+                var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded) {
-                    await _userService.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    await _signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // string code = await _userManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    // await _userManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -169,16 +143,15 @@ namespace TimestampsWeb.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Account/ConfirmEmail
+        ////
+        //// GET: /Account/ConfirmEmail
         //[AllowAnonymous]
         //public async Task<ActionResult> ConfirmEmail(string userId, string code)
         //{
-        //    if (userId == null || code == null)
-        //    {
+        //    if (userId == null || code == null) {
         //        return View("Error");
         //    }
-        //    var result = await UserManager.ConfirmEmailAsync(userId, code);
+        //    var result = await _userManager.ConfirmEmailAsync(userId, code);
         //    return View(result.Succeeded ? "ConfirmEmail" : "Error");
         //}
 
@@ -197,20 +170,18 @@ namespace TimestampsWeb.Controllers
         //[ValidateAntiForgeryToken]
         //public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var user = await UserManager.FindByNameAsync(model.Email);
-        //        if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
-        //        {
+        //    if (ModelState.IsValid) {
+        //        var user = await _userManager.FindByNameAsync(model.Email);
+        //        if (user == null || !(await _userManager.IsEmailConfirmedAsync(user.Id))) {
         //            // Don't reveal that the user does not exist or is not confirmed
         //            return View("ForgotPasswordConfirmation");
         //        }
 
         //        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
         //        // Send an email with this link
-        //        // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+        //        // string code = await _userManager.GeneratePasswordResetTokenAsync(user.Id);
         //        // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-        //        // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+        //        // await _userManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
         //        // return RedirectToAction("ForgotPasswordConfirmation", "Account");
         //    }
 
@@ -241,19 +212,16 @@ namespace TimestampsWeb.Controllers
         //[ValidateAntiForgeryToken]
         //public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         //{
-        //    if (!ModelState.IsValid)
-        //    {
+        //    if (!ModelState.IsValid) {
         //        return View(model);
         //    }
-        //    var user = await UserManager.FindByNameAsync(model.Email);
-        //    if (user == null)
-        //    {
+        //    var user = await _userManager.FindByNameAsync(model.Email);
+        //    if (user == null) {
         //        // Don't reveal that the user does not exist
         //        return RedirectToAction("ResetPasswordConfirmation", "Account");
         //    }
-        //    var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-        //    if (result.Succeeded)
-        //    {
+        //    var result = await _userManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+        //    if (result.Succeeded) {
         //        return RedirectToAction("ResetPasswordConfirmation", "Account");
         //    }
         //    AddErrors(result);
@@ -279,37 +247,37 @@ namespace TimestampsWeb.Controllers
         //    return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         //}
 
-        //
-        // GET: /Account/SendCode
-        [AllowAnonymous]
-        public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
-        {
-            var userId = await _userService.GetVerifiedUserIdAsync();
-            if (userId == null) {
-                return View("Error");
-            }
-            var userFactors = await _userService.GetValidTwoFactorProvidersAsync(userId);
-            var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
-            return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
-        }
+        ////
+        //// GET: /Account/SendCode
+        //[AllowAnonymous]
+        //public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
+        //{
+        //    var userId = await _signInManager.GetVerifiedUserIdAsync();
+        //    if (userId == null) {
+        //        return View("Error");
+        //    }
+        //    var userFactors = await _userManager.GetValidTwoFactorProvidersAsync(userId);
+        //    var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
+        //    return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
+        //}
 
-        //
-        // POST: /Account/SendCode
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SendCode(SendCodeViewModel model)
-        {
-            if (!ModelState.IsValid) {
-                return View();
-            }
+        ////
+        //// POST: /Account/SendCode
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> SendCode(SendCodeViewModel model)
+        //{
+        //    if (!ModelState.IsValid) {
+        //        return View();
+        //    }
 
-            // Generate the token and send it
-            if (!await _userService.SendTwoFactorCodeAsync(model.SelectedProvider)) {
-                return View("Error");
-            }
-            return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
-        }
+        //    // Generate the token and send it
+        //    if (!await _signInManager.SendTwoFactorCodeAsync(model.SelectedProvider)) {
+        //        return View("Error");
+        //    }
+        //    return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
+        //}
 
         ////
         //// GET: /Account/ExternalLoginCallback
@@ -317,15 +285,13 @@ namespace TimestampsWeb.Controllers
         //public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         //{
         //    var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
-        //    if (loginInfo == null)
-        //    {
+        //    if (loginInfo == null) {
         //        return RedirectToAction("Login");
         //    }
 
         //    // Sign in the user with this external login provider if the user already has a login
-        //    var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
-        //    switch (result)
-        //    {
+        //    var result = await _signInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+        //    switch (result) {
         //        case SignInStatus.Success:
         //            return RedirectToLocal(returnUrl);
         //        case SignInStatus.LockedOut:
@@ -348,27 +314,22 @@ namespace TimestampsWeb.Controllers
         //[ValidateAntiForgeryToken]
         //public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         //{
-        //    if (User.Identity.IsAuthenticated)
-        //    {
+        //    if (User.Identity.IsAuthenticated) {
         //        return RedirectToAction("Index", "Manage");
         //    }
 
-        //    if (ModelState.IsValid)
-        //    {
+        //    if (ModelState.IsValid) {
         //        // Get the information about the user from the external login provider
         //        var info = await AuthenticationManager.GetExternalLoginInfoAsync();
-        //        if (info == null)
-        //        {
+        //        if (info == null) {
         //            return View("ExternalLoginFailure");
         //        }
-        //        var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-        //        var result = await UserManager.CreateAsync(user);
-        //        if (result.Succeeded)
-        //        {
-        //            result = await UserManager.AddLoginAsync(user.Id, info.Login);
-        //            if (result.Succeeded)
-        //            {
-        //                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+        //        var user = new User { UserName = model.Email, Email = model.Email };
+        //        var result = await _userManager.CreateAsync(user);
+        //        if (result.Succeeded) {
+        //            result = await _userManager.AddLoginAsync(user.Id, info.Login);
+        //            if (result.Succeeded) {
+        //                await _signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
         //                return RedirectToLocal(returnUrl);
         //            }
         //        }
@@ -399,8 +360,17 @@ namespace TimestampsWeb.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            _userService.DisposeUserManager(disposing);
-            _userService.DisposeSignInManager(disposing);
+            if (disposing) {
+                if (_userManager != null) {
+                    _userManager.Dispose();
+                    _userManager = null;
+                }
+
+                if (_signInManager != null) {
+                    _signInManager.Dispose();
+                    _signInManager = null;
+                }
+            }
 
             base.Dispose(disposing);
         }

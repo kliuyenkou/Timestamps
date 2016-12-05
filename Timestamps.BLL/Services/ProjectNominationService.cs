@@ -24,7 +24,7 @@ namespace Timestamps.BLL.Services
             IEnumerable<DAL.Entities.Project> dbprojects = _projectNominationRepository.GetProjectsUserTakePart(userId);
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<DAL.Entities.ApplicationUser, ApplicationUser>();
+                cfg.CreateMap<DAL.Entities.ApplicationUser, User>();
                 cfg.CreateMap<DAL.Entities.Project, Project>();
             });
 

@@ -17,6 +17,7 @@ namespace Timestamps.DependencyResolver
             Bind<IProjectNominationRepository>().To<ProjectNominationRepository>();
             Bind<IProjectRepository>().To<ProjectRepository>();
             Bind<IHourageRepository>().To<HourageRepository>();
+            Bind<IApplicationUserRepository>().To<ApplicationUserRepository>();
             Bind<IUnitOfWork>().To<UnitOfWork>();
         }
     }

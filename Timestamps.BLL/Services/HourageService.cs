@@ -20,7 +20,7 @@ namespace Timestamps.BLL.Services
             var dbHourageRecords = _hourageRepository.GetUserHourageRecordsWithProject(userId);
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<DAL.Entities.ApplicationUser, ApplicationUser>();
+                cfg.CreateMap<DAL.Entities.ApplicationUser, User>();
                 cfg.CreateMap<DAL.Entities.Project, Project>();
                 cfg.CreateMap<DAL.Entities.Hourage, Hourage>();
             });

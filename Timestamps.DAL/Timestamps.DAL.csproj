@@ -86,12 +86,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="EFDataReceiving\ApplicationUserRepository.cs" />
     <Compile Include="EFDataReceiving\HourageRepository.cs" />
     <Compile Include="EFDataReceiving\ProjectNominationRepository.cs" />
     <Compile Include="EFDataReceiving\ProjectRepository.cs" />
     <Compile Include="EFDataReceiving\Repository.cs" />
     <Compile Include="EFDataReceiving\UnitOfWork.cs" />
-    <Compile Include="Identity\UserStore.cs" />
+    <Compile Include="Interfaces\IApplicationUserRepository.cs" />
     <Compile Include="Interfaces\IHourageRepository.cs" />
     <Compile Include="Interfaces\IProjectNominationRepository.cs" />
     <Compile Include="Interfaces\IProjectRepository.cs" />
@@ -166,7 +167,9 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Identity\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

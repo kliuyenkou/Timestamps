@@ -49,7 +49,7 @@ namespace TimestampsWeb.Controllers
 
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<ApplicationUserDto, ApplicationUser>();
+                cfg.CreateMap<ApplicationUserDto, User>();
                 cfg.CreateMap<ProjectDto, Project>();
                 cfg.CreateMap<HourageDto, Hourage>();
             });

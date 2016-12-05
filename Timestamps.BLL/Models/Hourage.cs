@@ -15,6 +15,6 @@ namespace Timestamps.BLL.Models
         public DateTime Date { get; set; }
         public double Hours { get; set; }
         public Project Project { get; set; }
-        public ApplicationUser User { get; set; }
+        public User User { get; set; }
     }
 }
