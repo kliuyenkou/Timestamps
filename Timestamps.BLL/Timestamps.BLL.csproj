@@ -97,11 +97,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Identity\ApplicationSignInManager1.cs" />
     <Compile Include="Identity\ApplicationSignInManager.cs" />
+    <Compile Include="Identity\ApplicationUserManager1.cs" />
     <Compile Include="Identity\ApplicationUserManager.cs" />
     <Compile Include="Identity\EmailService.cs" />
     <Compile Include="Identity\SmsService.cs" />
     <Compile Include="Identity\UserStore.cs" />
+    <Compile Include="Identity\UserStore1.cs" />
     <Compile Include="Interfaces\IUserStore.cs" />
     <Compile Include="Services\ConfigureAppBuilder.cs" />
     <Compile Include="Services\HourageService.cs" />
