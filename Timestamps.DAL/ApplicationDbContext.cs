@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Timestamps.DAL.DbModels;
+using Timestamps.DAL.Entities;
 
 namespace Timestamps.DAL
 {

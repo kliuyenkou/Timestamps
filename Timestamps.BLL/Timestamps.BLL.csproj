@@ -97,8 +97,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigureAppBuilder.cs" />
-    <Compile Include="HourageService.cs" />
+    <Compile Include="Identity\ApplicationSignInManager.cs" />
+    <Compile Include="Identity\ApplicationUserManager.cs" />
+    <Compile Include="Identity\EmailService.cs" />
+    <Compile Include="Identity\SmsService.cs" />
+    <Compile Include="Services\ConfigureAppBuilder.cs" />
+    <Compile Include="Services\HourageService.cs" />
     <Compile Include="Interfaces\IHourageService.cs" />
     <Compile Include="Interfaces\IProjectNominationService.cs" />
     <Compile Include="Interfaces\IProjectService.cs" />
@@ -107,11 +111,10 @@
     <Compile Include="Models\Hourage.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\ProjectNomination.cs" />
-    <Compile Include="NinjectBindings.cs" />
-    <Compile Include="ProjectNominationService.cs" />
-    <Compile Include="ProjectService.cs" />
+    <Compile Include="Services\ProjectNominationService.cs" />
+    <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserService.cs" />
+    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

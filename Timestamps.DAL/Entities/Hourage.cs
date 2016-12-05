@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Timestamps.DAL.DbModels
+namespace Timestamps.DAL.Entities
 {
     public class Hourage
     {

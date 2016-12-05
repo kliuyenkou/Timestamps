@@ -91,10 +91,7 @@
     <Compile Include="EFDataReceiving\ProjectRepository.cs" />
     <Compile Include="EFDataReceiving\Repository.cs" />
     <Compile Include="EFDataReceiving\UnitOfWork.cs" />
-    <Compile Include="Identity\ApplicationSignInManager.cs" />
-    <Compile Include="Identity\ApplicationUserManager.cs" />
-    <Compile Include="Identity\EmailService.cs" />
-    <Compile Include="Identity\SmsService.cs" />
+    <Compile Include="Identity\UserStore.cs" />
     <Compile Include="Interfaces\IHourageRepository.cs" />
     <Compile Include="Interfaces\IProjectNominationRepository.cs" />
     <Compile Include="Interfaces\IProjectRepository.cs" />
@@ -133,10 +130,10 @@
       <DependentUpon>201611290703320_EditHourageModel.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="DbModels\Hourage.cs" />
-    <Compile Include="DbModels\ApplicationUser.cs" />
-    <Compile Include="DbModels\Project.cs" />
-    <Compile Include="DbModels\ProjectNomination.cs" />
+    <Compile Include="Entities\Hourage.cs" />
+    <Compile Include="Entities\ApplicationUser.cs" />
+    <Compile Include="Entities\Project.cs" />
+    <Compile Include="Entities\ProjectNomination.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +166,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

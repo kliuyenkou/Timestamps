@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Timestamps.DAL.DbModels;
+using Timestamps.DAL.Entities;
 
 namespace Timestamps.DAL.Interfaces
 {

@@ -1,8 +1,7 @@
 ﻿using System.Data.Entity.Validation;
+using System.Net;
 using System.Text;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Timestamps.DAL.DbModels;
-using Timestamps.DAL.Identity;
 using Timestamps.DAL.Interfaces;
 
 namespace Timestamps.DAL.EFDataReceiving
@@ -16,19 +15,15 @@ namespace Timestamps.DAL.EFDataReceiving
             Projects = new ProjectRepository(_context);
             ProjectNominations = new ProjectNominationRepository(_context);
             Hourages = new HourageRepository(_context);
-            ApplicationUserManager = new ApplicationUserManager( new UserStore<ApplicationUser>(_context));
-            
         }
 
         public IProjectRepository Projects { get; private set; }
         public IProjectNominationRepository ProjectNominations { get; private set; }
         public IHourageRepository Hourages { get; private set; }
-        public ApplicationUserManager ApplicationUserManager { get; private set; }
         public void SaveChanges()
         {
             _context.SaveChanges();
         }
-
         /// Wrapper for SaveChanges adding the Validation Messages to the generated exception
         public int SaveChangesWithErrors()
         {

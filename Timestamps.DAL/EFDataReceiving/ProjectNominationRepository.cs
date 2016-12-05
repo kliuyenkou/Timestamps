@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using Timestamps.DAL.DbModels;
+using Timestamps.DAL.Entities;
 using Timestamps.DAL.Interfaces;
 
 namespace Timestamps.DAL.EFDataReceiving

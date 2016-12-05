@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Owin;
+﻿using Owin;
+using Timestamps.BLL.Identity;
 using Timestamps.DAL;
 using Timestamps.DAL.Identity;
 
-namespace Timestamps.BLL
+namespace Timestamps.BLL.Services
 {
     public static class ConfigureAppBuilder
     {

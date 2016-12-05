@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using Ninject.Modules;
 using Timestamps.BLL;
 using Timestamps.BLL.Interfaces;
+using Timestamps.BLL.Services;
+using Timestamps.DAL.Identity;
+using Timestamps.DAL.Interfaces;
+
 
 namespace Timestamps.DependencyResolver
 {

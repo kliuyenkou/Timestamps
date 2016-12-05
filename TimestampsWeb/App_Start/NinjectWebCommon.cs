@@ -50,7 +50,7 @@ namespace TimestampsWeb
                 RegisterServices(kernel);
 
                 // This is for default binding between classes and interfaces. 
-                //kernel.Bind(x => { x.FromThisAssembly().SelectAllClasses().BindDefaultInterface(); });
+                kernel.Bind(x => { x.FromThisAssembly().SelectAllClasses().BindDefaultInterface(); });
                 return kernel;
             }
             catch {

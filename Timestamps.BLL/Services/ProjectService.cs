@@ -1,37 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using Timestamps.BLL.Interfaces;
 using Timestamps.BLL.Models;
-using Timestamps.DAL.EFDataReceiving;
 using Timestamps.DAL.Interfaces;
-using dbModels = Timestamps.DAL.DbModels;
 
-namespace Timestamps.BLL
+namespace Timestamps.BLL.Services
 {
     public class ProjectService : IProjectService
     {
         private readonly IProjectRepository _projectRepository;
         private readonly IProjectNominationRepository _projectNominationRepository;
-        public ProjectService(IProjectRepository projectRepository, IProjectNominationRepository projectNominationRepository)
+        public ProjectService(IUnitOfWork unitOfWork)
         {
-            _projectRepository = projectRepository;
-            _projectNominationRepository = projectNominationRepository;
+            _projectRepository = unitOfWork.Projects;
+            _projectNominationRepository = unitOfWork.ProjectNominations;
         }
 
         public IEnumerable<Project> GetProjectsUserCreate(string userId)
         {
-            IEnumerable<dbModels.Project> dbprojects = _projectRepository.GetProjectsUserCreate(userId);
+            IEnumerable<DAL.Entities.Project> dbprojects = _projectRepository.GetProjectsUserCreate(userId);
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<Project, dbModels.Project>();
+                cfg.CreateMap<DAL.Entities.ApplicationUser, ApplicationUser>();
+                cfg.CreateMap<DAL.Entities.Project, Project>();
             });
 
             var mapper = config.CreateMapper();
-            var projects = mapper.Map<IEnumerable<dbModels.Project>, IEnumerable<Project>>(dbprojects);
+            var projects = mapper.Map<IEnumerable<DAL.Entities.Project>, IEnumerable<Project>>(dbprojects);
             return projects;
 
 

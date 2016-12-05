@@ -1,23 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Omu.ValueInjecter;
+using AutoMapper;
 using Timestamps.BLL.Interfaces;
 using Timestamps.BLL.Models;
-using Timestamps.DAL.EFDataReceiving;
 using Timestamps.DAL.Interfaces;
 
-namespace Timestamps.BLL
+namespace Timestamps.BLL.Services
 {
     public class ProjectNominationService : IProjectNominationService
     {
         private readonly IProjectNominationRepository _projectNominationRepository;
-        public ProjectNominationService(IProjectNominationRepository projectNominationRepository)
+        public ProjectNominationService(IUnitOfWork unitOfWork)
         {
-            _projectNominationRepository = projectNominationRepository;
+            _projectNominationRepository = unitOfWork.ProjectNominations;
         }
         public void Add(ProjectNomination projectNomination)
         {
@@ -26,10 +21,17 @@ namespace Timestamps.BLL
 
         public IEnumerable<Project> GetProjectsUserTakePart(string userId)
         {
-            IEnumerable<DAL.DbModels.Project> dbprojects = _projectNominationRepository.GetProjectsUserTakePart(userId);
-            IEnumerable<Project> projects = new Collection<Project>();
-            projects.InjectFrom(dbprojects);
+            IEnumerable<DAL.Entities.Project> dbprojects = _projectNominationRepository.GetProjectsUserTakePart(userId);
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<DAL.Entities.ApplicationUser, ApplicationUser>();
+                cfg.CreateMap<DAL.Entities.Project, Project>();
+            });
+
+            var mapper = config.CreateMapper();
+            var projects = mapper.Map<IEnumerable<DAL.Entities.Project>, IEnumerable<Project>>(dbprojects);
             return projects;
+
         }
 
         public bool IsUserTakePartInProject(string userId, int projectId)
@@ -39,7 +41,7 @@ namespace Timestamps.BLL
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

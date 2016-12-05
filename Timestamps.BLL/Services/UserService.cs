@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Timestamps.BLL.Identity;
 using Timestamps.BLL.Interfaces;
 using Timestamps.BLL.Models;
-using Timestamps.DAL.Identity;
-using dbApplicationUser = Timestamps.DAL.DbModels.ApplicationUser;
+using dbApplicationUser = Timestamps.DAL.Entities.ApplicationUser;
 
-namespace Timestamps.BLL
+namespace Timestamps.BLL.Services
 {
     public class UserService : IUserService
     {
