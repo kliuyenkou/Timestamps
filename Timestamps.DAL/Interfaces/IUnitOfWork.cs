@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Timestamps.DAL.Entities;
 
 namespace Timestamps.DAL.Interfaces
 {
@@ -7,8 +8,7 @@ namespace Timestamps.DAL.Interfaces
         IProjectRepository Projects { get; }
         IProjectNominationRepository ProjectNominations { get; }
         IHourageRepository Hourages { get; }
-        IApplicationUserRepository ApplicationUsers { get; }
-        void Dispose();
+        IUserManager<ApplicationUser> UserManager { get; }
         void SaveChanges();
         Task SaveChangesAsync();
         int SaveChangesWithErrors();

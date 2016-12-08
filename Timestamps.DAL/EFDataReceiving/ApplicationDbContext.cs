@@ -2,7 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using Timestamps.DAL.Entities;
 
-namespace Timestamps.DAL
+namespace Timestamps.DAL.EFDataReceiving
 {
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

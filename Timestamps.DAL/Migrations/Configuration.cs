@@ -1,4 +1,5 @@
 using System.Data.Entity.Migrations;
+using Timestamps.DAL.EFDataReceiving;
 
 namespace Timestamps.DAL.Migrations
 {

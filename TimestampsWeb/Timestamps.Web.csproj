@@ -202,7 +202,6 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\Startup.Autofac.cs" />
@@ -311,6 +310,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Infrastructure\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -327,10 +327,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DependencyResolver\Timestasmps.DependencyResolverHelper.csproj">
-      <Project>{77179e21-3056-4289-b9ab-1352bda771b0}</Project>
-      <Name>Timestasmps.DependencyResolverHelper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Timestamps.BLL\Timestamps.BLL.csproj">
       <Project>{b7919d20-d335-448f-9966-0b06f0c394f5}</Project>
       <Name>Timestamps.BLL</Name>

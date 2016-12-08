@@ -3,6 +3,8 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Timestamps.DAL.Entities;
+using Timestamps.DAL.Identity;
 using Timestamps.DAL.Interfaces;
 
 namespace Timestamps.DAL.EFDataReceiving
@@ -16,25 +18,24 @@ namespace Timestamps.DAL.EFDataReceiving
             Projects = new ProjectRepository(_context);
             ProjectNominations = new ProjectNominationRepository(_context);
             Hourages = new HourageRepository(_context);
-            ApplicationUsers = new ApplicationUserRepository(_context);
+            UserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(_context));
 
         }
-
         public IProjectRepository Projects { get; private set; }
         public IProjectNominationRepository ProjectNominations { get; private set; }
         public IHourageRepository Hourages { get; private set; }
-        public IApplicationUserRepository ApplicationUsers { get; private set; }
+        public IUserManager<ApplicationUser> UserManager { get; private set; }
         public void SaveChanges()
         {
             _context.SaveChanges();
         }
-
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
         }
 
         /// Wrapper for SaveChanges adding the Validation Messages to the generated exception
+        /// 
         public int SaveChangesWithErrors()
         {
             try {
@@ -56,11 +57,6 @@ namespace Timestamps.DAL.EFDataReceiving
                     sb.ToString(), ex
                 );
             }
-        }
-
-        public void Dispose()
-        {
-            _context.Dispose();
         }
 
     }

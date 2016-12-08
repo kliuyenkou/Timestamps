@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using AutoMapper;
 using Timestamps.BLL.Interfaces;
 using Timestamps.BLL.Models;
+using Timestamps.DAL.Entities;
 using Timestamps.DAL.Interfaces;
+using Hourage = Timestamps.BLL.Models.Hourage;
+using Project = Timestamps.BLL.Models.Project;
 
 namespace Timestamps.BLL.Services
 {
@@ -20,7 +23,7 @@ namespace Timestamps.BLL.Services
             var dbHourageRecords = _hourageRepository.GetUserHourageRecordsWithProject(userId);
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<DAL.Entities.ApplicationUser, User>();
+                cfg.CreateMap<ApplicationUser, User>();
                 cfg.CreateMap<DAL.Entities.Project, Project>();
                 cfg.CreateMap<DAL.Entities.Hourage, Hourage>();
             });

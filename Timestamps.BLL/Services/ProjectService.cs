@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using AutoMapper;
 using Timestamps.BLL.Interfaces;
 using Timestamps.BLL.Models;
+using Timestamps.DAL.Entities;
 using Timestamps.DAL.Interfaces;
+using Project = Timestamps.BLL.Models.Project;
 
 namespace Timestamps.BLL.Services
 {
@@ -22,7 +24,7 @@ namespace Timestamps.BLL.Services
             IEnumerable<DAL.Entities.Project> dbprojects = _projectRepository.GetProjectsUserCreate(userId);
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<DAL.Entities.ApplicationUser, User>();
+                cfg.CreateMap<ApplicationUser, User>();
                 cfg.CreateMap<DAL.Entities.Project, Project>();
             });
 

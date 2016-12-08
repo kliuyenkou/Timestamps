@@ -7,7 +7,10 @@ using Autofac.Integration.Mvc;
 using Microsoft.Owin.Security.DataProtection;
 using Owin;
 using System.Web.Mvc;
-using DependencyResolverHelper;
+using Microsoft.Owin.Security;
+using Timestamps.BLL.Infrastructure;
+using Timestamps.BLL.Interfaces;
+using Timestamps.BLL.Services;
 
 namespace TimestampsWeb
 {
@@ -17,20 +20,30 @@ namespace TimestampsWeb
         {
             var builder = new ContainerBuilder();
 
-            builder.RegisterModule(new DALModule());
-            builder.RegisterModule(new BLLModule());
+            // REGISTER MODULS
+            builder.RegisterModule(new AutofacBLLModule());
 
-            builder.Register(c => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
-            builder.Register(c => app.GetDataProtectionProvider()).InstancePerRequest();
+            // REGISTER DEPENDENCIES
+            builder.Register<IAuthenticationManager>(c => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
+            builder.Register<IDataProtectionProvider>(c => app.GetDataProtectionProvider()).InstancePerRequest();
+            builder.RegisterType<UserService>().As<IUserService>().InstancePerRequest();
+            builder.RegisterType<ProjectNominationService>().As<IProjectNominationService>().InstancePerRequest();
+            builder.RegisterType<ProjectService>().As<IProjectService>().InstancePerRequest();
+            builder.RegisterType<HourageService>().As<IHourageService>().InstancePerRequest();
 
+
+            // REGISTER CONTROLLERS SO DEPENDENCIES ARE CONSTRUCTOR INJECTED
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
 
+            // BUILD THE CONTAINER
             var container = builder.Build();
 
+            // REPLACE THE MVC DEPENDENCY RESOLVER WITH AUTOFAC
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
+            // REGISTER WITH OWIN
             app.UseAutofacMiddleware(container);
-            app.UseAutofacMvc();
+            //app.UseAutofacMvc();
         }
     }
 }
