@@ -9,8 +9,9 @@ namespace Timestamps.BLL.Interfaces
 {
     public interface IProjectService
     {
-        Project GetProject(int projectId);
+        Project GetProjectById(int projectId);
         IEnumerable<Project> GetProjectsUserCreate(string userId);
+        Task CreateProjectAsync(Project project);
         void Add(Project project);
         void Dispose();
 

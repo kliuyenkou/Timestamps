@@ -1,22 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
+using Omu.ValueInjecter;
 using Timestamps.BLL.Interfaces;
 using Timestamps.BLL.Models;
 using Timestamps.DAL.Entities;
 using Timestamps.DAL.Interfaces;
 using Hourage = Timestamps.BLL.Models.Hourage;
+using HourageEntity = Timestamps.DAL.Entities.Hourage;
 using Project = Timestamps.BLL.Models.Project;
 
 namespace Timestamps.BLL.Services
 {
     public class HourageService : IHourageService
     {
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IHourageRepository _hourageRepository;
 
         public HourageService(IUnitOfWork unitOfWork)
         {
             _hourageRepository = unitOfWork.Hourages;
+            _unitOfWork = unitOfWork;
         }
         public IEnumerable<Hourage> GetUserHourageRecordsWithProject(string userId)
         {
@@ -34,7 +38,10 @@ namespace Timestamps.BLL.Services
 
         public void Add(Hourage hourage)
         {
-            throw new NotImplementedException();
+            HourageEntity hourageEntity = new HourageEntity();
+            hourageEntity.InjectFrom(hourage);
+            _hourageRepository.Add(hourageEntity);
+            _unitOfWork.SaveChangesWithErrors();
         }
 
         public void Delete(int hourageId)

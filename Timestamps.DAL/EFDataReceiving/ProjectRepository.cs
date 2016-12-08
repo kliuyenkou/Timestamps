@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Timestamps.DAL.Entities;
 using Timestamps.DAL.Interfaces;
 
@@ -14,5 +15,11 @@ namespace Timestamps.DAL.EFDataReceiving
         {
             throw new System.NotImplementedException();
         }
+
+        public Project GetProjectById(int projectId)
+        {
+            return context.Projects.Find(projectId);
+        }
+
     }
 }

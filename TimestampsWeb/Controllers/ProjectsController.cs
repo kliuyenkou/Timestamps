@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Timestamps.BLL.Interfaces;
 using Timestamps.BLL.Models;
@@ -30,7 +31,7 @@ namespace TimestampsWeb.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ProjectViewModel viewModel)
+        public async Task<ActionResult> Create(ProjectViewModel viewModel)
         {
             if (!ModelState.IsValid) {
                 return View("Create", viewModel);
@@ -41,16 +42,7 @@ namespace TimestampsWeb.Controllers
                 Description = viewModel.Description,
                 CreatorId = User.Identity.GetUserId()
             };
-
-            _projectService.Add(project);
-
-            var projectNomination = new ProjectNomination
-            {
-                ProjectId = project.Id,
-                UserId = project.CreatorId
-            };
-
-            _projectNominationService.Add(projectNomination);
+            await _projectService.CreateProjectAsync(project);
 
             return RedirectToAction("MyProjects", "Projects");
         }

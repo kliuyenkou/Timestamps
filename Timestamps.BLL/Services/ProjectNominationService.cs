@@ -1,25 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
+using Omu.ValueInjecter;
 using Timestamps.BLL.Interfaces;
 using Timestamps.BLL.Models;
 using Timestamps.DAL.Entities;
 using Timestamps.DAL.Interfaces;
 using Project = Timestamps.BLL.Models.Project;
 using ProjectNomination = Timestamps.BLL.Models.ProjectNomination;
+using ProjectNominationEntity = Timestamps.DAL.Entities.ProjectNomination;
 
 namespace Timestamps.BLL.Services
 {
     public class ProjectNominationService : IProjectNominationService
     {
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IProjectNominationRepository _projectNominationRepository;
+
         public ProjectNominationService(IUnitOfWork unitOfWork)
         {
             _projectNominationRepository = unitOfWork.ProjectNominations;
+            _unitOfWork = unitOfWork;
         }
         public void Add(ProjectNomination projectNomination)
         {
-            throw new NotImplementedException();
+            ProjectNominationEntity projectNominationEntity = new ProjectNominationEntity();
+            projectNominationEntity.InjectFrom(projectNomination);
+            _projectNominationRepository.Add(projectNominationEntity);
+            _unitOfWork.SaveChangesWithErrors();
         }
 
         public IEnumerable<Project> GetProjectsUserTakePart(string userId)
