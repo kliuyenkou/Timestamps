@@ -34,7 +34,7 @@ namespace TimestampsWeb
             builder.RegisterType<ProjectNominationService>().As<IProjectNominationService>().InstancePerRequest();
             builder.RegisterType<ProjectService>().As<IProjectService>().InstancePerRequest();
             builder.RegisterType<HourageService>().As<IHourageService>().InstancePerRequest();
-            
+
 
             // REGISTER CONTROLLERS SO DEPENDENCIES ARE CONSTRUCTOR INJECTED
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
@@ -44,14 +44,17 @@ namespace TimestampsWeb
             var container = builder.Build();
 
 
-            // REPLACE THE MVC DEPENDENCY RESOLVER WITH AUTOFAC
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            // REPLACE THE MVC AND WEB API DEPENDENCY RESOLVER WITH AUTOFAC
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
             // REGISTER WITH OWIN
             app.UseAutofacMiddleware(container);
+            app.UseAutofacMvc();
             app.UseAutofacWebApi(config);
-            app.UseWebApi(config);
+            //app.UseWebApi(config);
+
+
         }
     }
 }
