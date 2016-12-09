@@ -38,12 +38,13 @@ namespace TimestampsWeb
             // BUILD THE CONTAINER
             var container = builder.Build();
 
+
             // REPLACE THE MVC DEPENDENCY RESOLVER WITH AUTOFAC
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
             // REGISTER WITH OWIN
             app.UseAutofacMiddleware(container);
-            //app.UseAutofacMvc();
+            app.UseAutofacMvc();
         }
     }
 }

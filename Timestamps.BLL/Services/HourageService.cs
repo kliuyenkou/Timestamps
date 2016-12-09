@@ -46,7 +46,8 @@ namespace Timestamps.BLL.Services
 
         public void Delete(int hourageId)
         {
-            throw new NotImplementedException();
+            _hourageRepository.RemoveById(hourageId);
+
         }
 
         public void Dispose()
