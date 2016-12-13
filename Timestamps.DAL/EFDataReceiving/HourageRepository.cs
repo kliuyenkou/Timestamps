@@ -22,7 +22,6 @@ namespace Timestamps.DAL.EFDataReceiving
             var record = context.Hourages.Find(hourageId);
             if (record != null) {
                 context.Hourages.Remove(record);
-                context.SaveChanges();
             }
         }
     }

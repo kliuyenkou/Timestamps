@@ -44,9 +44,18 @@ namespace Timestamps.BLL.Services
             _unitOfWork.SaveChangesWithErrors();
         }
 
+        public Hourage GetHourageById(int hourageId)
+        {
+            var hourageDb = _hourageRepository.Get(hourageId);
+            var hourage = new Hourage();
+            hourage.InjectFrom(hourageDb);
+            return hourage;
+        }
+
         public void Delete(int hourageId)
         {
             _hourageRepository.RemoveById(hourageId);
+            _unitOfWork.SaveChanges();
 
         }
 

@@ -10,9 +10,7 @@ namespace TimestampsWeb.Dto
         public double Hours { get; set; }
         public int ProjectId { get; set; }
         public string ProjectTitle { get; set; }
-        //public ProjectDto Project { get; set; }
         public string UserId { get; set; }
-        //public ApplicationUserDto User { get; set; }
 
     }
 }

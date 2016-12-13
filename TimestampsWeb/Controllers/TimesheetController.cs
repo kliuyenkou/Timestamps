@@ -1,11 +1,14 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Omu.ValueInjecter;
 using Timestamps.BLL.Interfaces;
 using Timestamps.BLL.Models;
 using TimestampsWeb.Dto;
+using TimestampsWeb.ViewModels;
 
 namespace TimestampsWeb.Controllers
 {
@@ -13,6 +16,7 @@ namespace TimestampsWeb.Controllers
     public class TimesheetController : ApiController
     {
         private readonly IHourageService _hourageService;
+
         public TimesheetController(IHourageService hourageService)
         {
             _hourageService = hourageService;
@@ -29,39 +33,57 @@ namespace TimestampsWeb.Controllers
                     Id = h.Id,
                     WorkDescription = h.WorkDescription,
                     ProjectTitle = h.Project.Title,
-                    Date = h.Date,
+                    Date = h.Date.Date,
                     Hours = h.Hours,
                     ProjectId = h.ProjectId,
                     UserId = h.UserId
                 });
 
-          return usersRecordsDto;
+            return usersRecordsDto;
 
         }
 
         [HttpPost]
-        public IHttpActionResult AddRecord(HourageDto record)
+        public IHttpActionResult AddRecord(HourageViewModel record)
         {
-            if (!ModelState.IsValid) {
+            if (!ModelState.IsValid)
+            {
                 return BadRequest();
             }
 
-
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<ApplicationUserDto, User>();
-                cfg.CreateMap<ProjectDto, Project>();
-                cfg.CreateMap<HourageDto, Hourage>();
-            });
-
-            var mapper = config.CreateMapper();
-            var hourage = mapper.Map<HourageDto, Hourage>(record);
-
+            var hourage = new Hourage();
+            hourage.InjectFrom(record);
             hourage.UserId = User.Identity.GetUserId();
-            _hourageService.Add(hourage);
+
+            try
+            {
+                _hourageService.Add(hourage);
+                return Ok(hourage);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
             return Ok(hourage);
         }
 
+        [HttpDelete]
+        public void DeleteRecord(int id)
+        {
+            try
+            {
+                _hourageService.Delete(id);
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+            
+        }
+       
     }
 
 }

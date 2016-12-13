@@ -219,7 +219,6 @@
     <Compile Include="App_Start\Startup.Autofac.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Dto\ApplicationUserDto.cs" />
     <Compile Include="Dto\HourageDto.cs" />
     <Compile Include="Controllers\TimesheetController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -227,7 +226,6 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectNominationsController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
-    <Compile Include="Dto\ProjectDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

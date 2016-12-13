@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using System.Linq;
 using Timestamps.BLL.Interfaces;
+using TimestampsWeb.ViewModels;
 
 namespace TimestampsWeb.Controllers
 {
@@ -19,8 +20,8 @@ namespace TimestampsWeb.Controllers
             var projectsUserTakePart = _projectNominationService.GetProjectsUserTakePart(userId);
             ViewBag.ProjectId = new SelectList(projectsUserTakePart, "Id", "Title");
             ViewBag.UserId = userId;
-
-            return View("Index");
+            HourageViewModel viewModel = new HourageViewModel();
+            return View("Index", viewModel);
         }
 
     }

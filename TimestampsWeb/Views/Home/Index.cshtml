@@ -1,33 +1,34 @@
-﻿@{
+﻿@using System.Web.UI.WebControls
+@model TimestampsWeb.ViewModels.HourageViewModel
+@{
     ViewBag.Title = "Index2";
 }
 
 <h2>Timesheet</h2>
-<div class="js-form-inline">
-    <form class="form-inline">
-        @Html.AntiForgeryToken()
-        <div class="form-group">
-            <label class="sr-only" for="workDescription">Description</label>
-            <input type="text" class="form-control" id="workDescription" placeholder="Description">
-        </div>
-        <div class="form-group">
-            <label class="sr-only" for="project">Password</label>
-@*            <input type="text" class="form-control" id="project" placeholder="Choose project">*@
-            @Html.DropDownList("ProjectId", null, htmlAttributes: new { @class = "form-control", id = "project" })
-        </div>
-        <div class="form-group">
-            <label class="sr-only" for="date">Date</label>
-            <input type="date" class="form-control" id="date" placeholder="Date">
-        </div>
-        <div class="form-group">
-            <label class="sr-only" for="hours">Hours</label>
-            <input type="text" class="form-control" id="hours" placeholder="Hours">
-        </div>
-        <button id="addRecord" type="submit" class="btn btn-primary">Submit</button>
-    </form>
-</div>
-<hr />
 
+        <form class="form-inline" id="recordForm">
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label class="sr-only" for="workDescription">Description</label>
+                <input type="text" class="form-control" id="workDescription" placeholder="Description">
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="project">Password</label>
+                @Html.DropDownList("projectId", null, htmlAttributes: new { @class = "form-control", id = "project" })
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="date">Date</label>
+                <input type="date" class="form-control" id="date" placeholder="Date">
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="hours">Hours</label>
+                <input type="text" class="form-control" id="hours" placeholder="Hours">
+            </div>
+            <button id="addRecord" type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+
+<br />
 
 <div id="recordsTable" class="recordsTable">
 
@@ -35,65 +36,66 @@
 
 @section scripts{
     <script type="text/javascript">
-    $(document).ready(function(){
-        GetAllRecords();
-        $('#addRecord').click(function(){
-            AddRecord();
-        });
-    });
 
-    function GetAllRecords(){$.ajax({
-        url: '/api/Timesheet',
-        type: 'GET',
-        dataType: 'json',
-        success: function(data){
+        $(document).ready(function () {
+            GetAllRecords();
+            $('#addRecord').click(function () {
+                //$('#recordForm').validate();
+                AddRecord();
+            });
+        });
+
+        function FormSucces(data) {
             LoadListItems(data);
         }
-        //error: function(){
-        //    alert("Error");
-        //}
-        });
-    };
 
-    function LoadListItems(records){
-        var strLayout = "<table class='table'><tr><th>Work description</th><th>Project</th><th>Date</th><th>Hours</th></tr>";
-        $.each(records, function(index, record){
-            strLayout += "<tr><td>" + record.WorkDescription + "</td><td>" + record.ProjectTitle + "</td><td>"
-                + record.Date + "</td><td>" + record.Hours + "</td><tr>"
-        });
-        strLayout += "</table>";
-        $("#recordsTable").html(strLayout);
-    };
-
-    function AddRecord(){
-        var record = {
-            WorkDescription: $('#workDescription').val(),
-            Project: $('#project').val(),
-            Date: $('#date').val(),
-            Hours: $('#hours').val()
+        function GetAllRecords() {
+            $.ajax({
+                url: '/api/Timesheet',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    LoadListItems(data);
+                },
+                error: function () {
+                    alert("Error");
+                }
+            });
         };
 
-        $.post({
-            url: 'api/Timesheet',
-            data: record,
-            success: function (data) {
-                LoadListItems();
-            },
-            dataType: 'json'
-        });
-        //$.ajax({
-        //    url: 'api/Timesheet',
-        //    type: 'POST',
-        //    data: JSON.stringify(record),
-        //    dataType: 'json',
-        //    success: function (data) {
-        //        LoadListItems(data);
-        //    },
-        //    error: function () {
-        //        alert("Error");
-        //    }
-        //});
-    };
+        function LoadListItems(records) {
+            var strLayout = "<table class='table'><tr><th>Work description</th><th>Project</th><th>Date</th><th>Hours</th></tr>";
+            $.each(records, function (index, record) {
+                strLayout += "<tr><td>" + record.WorkDescription + "</td><td>" + record.ProjectTitle + "</td><td>"
+                    + record.Date + "</td><td>" + record.Hours + "</td><tr>"
+            });
+            strLayout += "</table>";
+            $("#recordsTable").html(strLayout);
+        };
+        function AddHourageToListItems(record) {
+            var str = "<tr><td>" + record.WorkDescription + "</td><td>" + record.ProjectTitle + "</td><td>"
+                  + record.Date + "</td><td>" + record.Hours + "</td><tr>";
+            $('#recordsTable tbody').append(str);
+        };
+
+        function AddRecord() {
+            var record = {
+                WorkDescription: $('#workDescription').val(),
+                ProjectId: $('#project').val(),
+                Date: $('#date').val(),
+                Hours: $('#hours').val()
+            };
+
+            $.post({
+                url: '/api/Timesheet',
+                data: record,
+                dataType: 'json',
+                success: function (data) {
+                    AddHourageToListItems(data);
+                }
+
+            });
+          };
 
     </script>
 }

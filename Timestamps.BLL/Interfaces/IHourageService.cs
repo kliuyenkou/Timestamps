@@ -11,6 +11,7 @@ namespace Timestamps.BLL.Interfaces
     {
         IEnumerable<Hourage> GetUserHourageRecordsWithProject(string userId);
         void Add(Hourage hourage);
+        Hourage GetHourageById(int hourageId);
         void Delete(int hourageId);
         void Dispose();
 

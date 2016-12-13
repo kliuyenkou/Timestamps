@@ -10,7 +10,7 @@ namespace TimestampsWeb.ViewModels
     {
         [StringLength(128)]
         [DisplayName("Work description")]
-        public string WorkDescripton { get; set; }
+        public string WorkDescription { get; set; }
 
         [Required]
         [DisplayName("Project")]
@@ -22,6 +22,7 @@ namespace TimestampsWeb.ViewModels
         [Required]
         public DateTime Date { get; set; }
 
+        [Required]
         public double Hours { get; set; }
 
     }

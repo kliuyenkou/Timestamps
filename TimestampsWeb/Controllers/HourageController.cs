@@ -52,7 +52,7 @@ namespace TimestampsWeb.Controllers
             if (ModelState.IsValid) {
                 var hourage = new Hourage()
                 {
-                    WorkDescription = viewModel.WorkDescripton,
+                    WorkDescription = viewModel.WorkDescription,
                     Date = viewModel.Date,
                     Hours = viewModel.Hours,
                     UserId = userId,
@@ -67,6 +67,18 @@ namespace TimestampsWeb.Controllers
             return View(viewModel);
         }
 
+        // GET: Hourage/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null) {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Hourage hourage = _hourageService.GetHourageById(id.Value);
+            if (hourage == null) {
+                return HttpNotFound();
+            }
+            return View(hourage);
+        }
 
         // POST: Hourage/Delete/5
         [HttpPost, ActionName("Delete")]
