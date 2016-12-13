@@ -10,6 +10,10 @@ using TimestampsWeb.ViewModels;
 
 namespace TimestampsWeb.Controllers
 {
+
+    #region Dissabled
+
+
     [Authorize]
     public class ManageController : Controller
     {
@@ -386,4 +390,5 @@ namespace TimestampsWeb.Controllers
 
         //#endregion
     }
+    #endregion
 }
