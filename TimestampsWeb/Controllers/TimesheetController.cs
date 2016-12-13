@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using Omu.ValueInjecter;
+using Timestamps.BLL.Dto;
 using Timestamps.BLL.Interfaces;
 using Timestamps.BLL.Models;
-using TimestampsWeb.Dto;
 using TimestampsWeb.ViewModels;
 
 namespace TimestampsWeb.Controllers
@@ -46,8 +46,7 @@ namespace TimestampsWeb.Controllers
         [HttpPost]
         public IHttpActionResult AddRecord(HourageViewModel record)
         {
-            if (!ModelState.IsValid)
-            {
+            if (!ModelState.IsValid) {
                 return BadRequest();
             }
 
@@ -55,35 +54,30 @@ namespace TimestampsWeb.Controllers
             hourage.InjectFrom(record);
             hourage.UserId = User.Identity.GetUserId();
 
-            try
-            {
+            try {
                 _hourageService.Add(hourage);
                 return Ok(hourage);
             }
-            catch (Exception)
-            {
+            catch (Exception) {
 
                 throw;
             }
 
-            return Ok(hourage);
         }
 
         [HttpDelete]
         public void DeleteRecord(int id)
         {
-            try
-            {
+            try {
                 _hourageService.Delete(id);
             }
-            catch (Exception)
-            {
-                
+            catch (Exception) {
+
                 throw;
             }
-            
+
         }
-       
+
     }
 
 }

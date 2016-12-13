@@ -34,6 +34,7 @@ namespace TimestampsWeb
             builder.RegisterType<ProjectNominationService>().As<IProjectNominationService>().InstancePerRequest();
             builder.RegisterType<ProjectService>().As<IProjectService>().InstancePerRequest();
             builder.RegisterType<HourageService>().As<IHourageService>().InstancePerRequest();
+            builder.RegisterType<ReportsService>().As<IReportsService>().InstancePerRequest();
 
 
             // REGISTER CONTROLLERS SO DEPENDENCIES ARE CONSTRUCTOR INJECTED

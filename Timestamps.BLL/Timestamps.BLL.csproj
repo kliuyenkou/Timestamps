@@ -101,8 +101,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\HourageDto.cs" />
+    <Compile Include="Dto\ProjectsReportDto.cs" />
     <Compile Include="Infrastructure\AutofacBLLModule.cs" />
     <Compile Include="Infrastructure\OperationResult.cs" />
+    <Compile Include="Interfaces\IReportsService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Services\HourageService.cs" />
     <Compile Include="Interfaces\IHourageService.cs" />
@@ -115,6 +118,7 @@
     <Compile Include="Services\ProjectNominationService.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ReportsService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>

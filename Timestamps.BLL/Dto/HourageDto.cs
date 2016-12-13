@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TimestampsWeb.Dto
+namespace Timestamps.BLL.Dto
 {
     public class HourageDto
     {
