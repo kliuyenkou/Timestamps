@@ -4,11 +4,9 @@
     ViewBag.Title = "Index2";
 }
 
-<h2>Timesheet</h2>
-
         <form class="form-inline" id="recordForm">
             @Html.AntiForgeryToken()
-            <div class="form-group">
+            <div class="form-group form-group-workDescription">
                 <label class="sr-only" for="workDescription">Description</label>
                 <input type="text" class="form-control" id="workDescription" placeholder="Description">
             </div>
