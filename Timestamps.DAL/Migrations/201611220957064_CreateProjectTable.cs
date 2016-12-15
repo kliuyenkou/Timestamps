@@ -7,24 +7,23 @@ namespace Timestamps.DAL.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Projects",
-                c => new
+                    "dbo.Projects",
+                    c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Int(false, true),
                         Title = c.String(),
                         Description = c.String(),
-                        Creator_Id = c.String(maxLength: 128),
+                        Creator_Id = c.String(maxLength: 128)
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.Creator_Id)
                 .Index(t => t.Creator_Id);
-            
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.Projects", "Creator_Id", "dbo.AspNetUsers");
-            DropIndex("dbo.Projects", new[] { "Creator_Id" });
+            DropIndex("dbo.Projects", new[] {"Creator_Id"});
             DropTable("dbo.Projects");
         }
     }

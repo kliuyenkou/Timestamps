@@ -8,7 +8,7 @@ namespace Timestamps.DAL.Migrations
         {
             AddColumn("dbo.AspNetUsers", "Name", c => c.String());
         }
-        
+
         public override void Down()
         {
             DropColumn("dbo.AspNetUsers", "Name");

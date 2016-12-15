@@ -20,9 +20,7 @@ namespace Timestamps.DAL.EFDataReceiving
         public void RemoveById(int hourageId)
         {
             var record = context.Hourages.Find(hourageId);
-            if (record != null) {
-                context.Hourages.Remove(record);
-            }
+            if (record != null) context.Hourages.Remove(record);
         }
     }
 }

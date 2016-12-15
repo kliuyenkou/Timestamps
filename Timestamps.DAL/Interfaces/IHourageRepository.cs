@@ -8,5 +8,4 @@ namespace Timestamps.DAL.Interfaces
         IEnumerable<Hourage> GetUserHourageRecordsWithProject(string userId);
         void RemoveById(int hourageId);
     }
-    
 }

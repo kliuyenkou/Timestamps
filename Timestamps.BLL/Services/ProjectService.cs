@@ -9,16 +9,16 @@ using Timestamps.DAL.Entities;
 using Timestamps.DAL.Interfaces;
 using Project = Timestamps.BLL.Models.Project;
 using ProjectEntity = Timestamps.DAL.Entities.Project;
-using ProjectNomination = Timestamps.BLL.Models.ProjectNomination;
 using ProjectNominationEntity = Timestamps.DAL.Entities.ProjectNomination;
 
 namespace Timestamps.BLL.Services
 {
     public class ProjectService : IProjectService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IProjectRepository _projectRepository;
         private readonly IProjectNominationRepository _projectNominationRepository;
+        private readonly IProjectRepository _projectRepository;
+        private readonly IUnitOfWork _unitOfWork;
+
         public ProjectService(IUnitOfWork unitOfWork)
         {
             _projectRepository = unitOfWork.Projects;
@@ -28,7 +28,7 @@ namespace Timestamps.BLL.Services
 
         public IEnumerable<Project> GetProjectsUserCreate(string userId)
         {
-            IEnumerable<ProjectEntity> dbprojects = _projectRepository.GetProjectsUserCreate(userId);
+            var dbprojects = _projectRepository.GetProjectsUserCreate(userId);
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<ApplicationUser, User>();
@@ -42,7 +42,7 @@ namespace Timestamps.BLL.Services
 
         public async Task CreateProjectAsync(Project project)
         {
-            ProjectEntity projectEntity = new ProjectEntity();
+            var projectEntity = new ProjectEntity();
             projectEntity.InjectFrom(project);
             _projectRepository.Add(projectEntity);
 
@@ -55,16 +55,14 @@ namespace Timestamps.BLL.Services
 
             _projectNominationRepository.Add(projectNomination);
             await _unitOfWork.SaveChangesAsync();
-
         }
 
         public void Add(Project project)
         {
-            ProjectEntity projectEntity = new ProjectEntity();
+            var projectEntity = new ProjectEntity();
             projectEntity.InjectFrom(project);
             _projectRepository.Add(projectEntity);
             _unitOfWork.SaveChangesWithErrors();
-
         }
 
         public void Dispose()
@@ -75,7 +73,7 @@ namespace Timestamps.BLL.Services
         public Project GetProjectById(int projectId)
         {
             var projectEntity = _projectRepository.GetProjectById(projectId);
-            Project project = new Project();
+            var project = new Project();
             project.InjectFrom(projectEntity);
             return project;
         }

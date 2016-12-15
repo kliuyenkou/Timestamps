@@ -1,7 +1,4 @@
-﻿using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Timestamps.DAL.Entities
 {
@@ -9,6 +6,5 @@ namespace Timestamps.DAL.Entities
     public class ApplicationUser : IdentityUser
     {
         public string Name { get; set; }
-
     }
 }

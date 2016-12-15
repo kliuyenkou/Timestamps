@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Web;
 using System.Web.Http;
+using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
+using Autofac.Integration.WebApi;
 using Microsoft.Owin.Security.DataProtection;
 using Owin;
-using System.Web.Mvc;
-using Autofac.Integration.WebApi;
-using Microsoft.Owin.Security;
 using Timestamps.BLL.Infrastructure;
 using Timestamps.BLL.Interfaces;
 using Timestamps.BLL.Services;
@@ -28,8 +24,8 @@ namespace TimestampsWeb
             builder.RegisterModule(new AutofacBLLModule());
 
             // REGISTER DEPENDENCIES
-            builder.Register<IAuthenticationManager>(c => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
-            builder.Register<IDataProtectionProvider>(c => app.GetDataProtectionProvider()).InstancePerRequest();
+            builder.Register(c => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
+            builder.Register(c => app.GetDataProtectionProvider()).InstancePerRequest();
             builder.RegisterType<UserService>().As<IUserService>().InstancePerRequest();
             builder.RegisterType<ProjectNominationService>().As<IProjectNominationService>().InstancePerRequest();
             builder.RegisterType<ProjectService>().As<IProjectService>().InstancePerRequest();
@@ -54,8 +50,6 @@ namespace TimestampsWeb
             app.UseAutofacMvc();
             app.UseAutofacWebApi(config);
             //app.UseWebApi(config);
-
-
         }
     }
 }

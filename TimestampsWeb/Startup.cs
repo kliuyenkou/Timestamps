@@ -1,7 +1,9 @@
 ﻿using Microsoft.Owin;
 using Owin;
+using TimestampsWeb;
 
-[assembly: OwinStartupAttribute(typeof(TimestampsWeb.Startup))]
+[assembly: OwinStartup(typeof(Startup))]
+
 namespace TimestampsWeb
 {
     public partial class Startup

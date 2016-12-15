@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNet.Identity;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Timestamps.BLL.Interfaces;
 using Timestamps.BLL.Models;
 using TimestampsWeb.ViewModels;
@@ -49,14 +46,15 @@ namespace TimestampsWeb.Controllers
         {
             var userId = User.Identity.GetUserId();
 
-            if (ModelState.IsValid) {
-                var hourage = new Hourage()
+            if (ModelState.IsValid)
+            {
+                var hourage = new Hourage
                 {
                     WorkDescription = viewModel.WorkDescription,
                     Date = viewModel.Date,
                     Hours = viewModel.Hours,
                     UserId = userId,
-                    ProjectId = viewModel.ProjectId,
+                    ProjectId = viewModel.ProjectId
                 };
 
                 _hourageService.Add(hourage);
@@ -70,32 +68,20 @@ namespace TimestampsWeb.Controllers
         // GET: Hourage/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null) {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Hourage hourage = _hourageService.GetHourageById(id.Value);
-            if (hourage == null) {
-                return HttpNotFound();
-            }
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var hourage = _hourageService.GetHourageById(id.Value);
+            if (hourage == null) return HttpNotFound();
             return View(hourage);
         }
 
         // POST: Hourage/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             _hourageService.Delete(id);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing) {
-                _hourageService.Dispose();
-                _projectNominationService.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
-using System.Web.Http;
+﻿using System.Web.Http;
+using Microsoft.AspNet.Identity;
 using Timestamps.BLL.Interfaces;
 using Timestamps.BLL.Models;
 
@@ -21,9 +21,7 @@ namespace TimestampsWeb.Controllers
         {
             var userId = User.Identity.GetUserId();
             var IsExist = _projectNominationService.IsUserTakePartInProject(userId, projectId);
-            if (IsExist) {
-                return BadRequest("This user has already nominated on this project.");
-            }
+            if (IsExist) return BadRequest("This user has already nominated on this project.");
 
             var projectNomination = new ProjectNomination
             {
@@ -36,7 +34,5 @@ namespace TimestampsWeb.Controllers
             return Json(projectNomination);
             //return Ok();
         }
-
-
     }
 }

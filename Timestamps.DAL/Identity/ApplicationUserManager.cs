@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Timestamps.DAL.Entities;
 using Timestamps.DAL.Interfaces;
 
@@ -23,7 +22,7 @@ namespace Timestamps.DAL.Identity
                 RequireNonLetterOrDigit = true,
                 RequireDigit = true,
                 RequireLowercase = true,
-                RequireUppercase = true,
+                RequireUppercase = true
             };
 
             // Configure user lockout defaults
@@ -46,9 +45,6 @@ namespace Timestamps.DAL.Identity
             //SmsService = new SmsService();
             //UserTokenProvider =
             //        new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
-
         }
-
-
     }
 }

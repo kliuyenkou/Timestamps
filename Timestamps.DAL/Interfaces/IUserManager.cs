@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 
@@ -10,6 +9,28 @@ namespace Timestamps.DAL.Interfaces
 {
     public interface IUserManager<TUser> where TUser : class, IUser<string>
     {
+        IPasswordHasher PasswordHasher { get; set; }
+        IIdentityValidator<TUser> UserValidator { get; set; }
+        IIdentityValidator<string> PasswordValidator { get; set; }
+        IClaimsIdentityFactory<TUser, string> ClaimsIdentityFactory { get; set; }
+        IIdentityMessageService EmailService { get; set; }
+        IIdentityMessageService SmsService { get; set; }
+        IUserTokenProvider<TUser, string> UserTokenProvider { get; set; }
+        bool UserLockoutEnabledByDefault { get; set; }
+        int MaxFailedAccessAttemptsBeforeLockout { get; set; }
+        TimeSpan DefaultAccountLockoutTimeSpan { get; set; }
+        bool SupportsUserTwoFactor { get; }
+        bool SupportsUserPassword { get; }
+        bool SupportsUserSecurityStamp { get; }
+        bool SupportsUserRole { get; }
+        bool SupportsUserLogin { get; }
+        bool SupportsUserEmail { get; }
+        bool SupportsUserPhoneNumber { get; }
+        bool SupportsUserClaim { get; }
+        bool SupportsUserLockout { get; }
+        bool SupportsQueryableUsers { get; }
+        IQueryable<TUser> Users { get; }
+        IDictionary<string, IUserTokenProvider<TUser, string>> TwoFactorProviders { get; }
         void Dispose();
         Task<ClaimsIdentity> CreateIdentityAsync(TUser user, string authenticationType);
         Task<IdentityResult> CreateAsync(TUser user);
@@ -72,27 +93,5 @@ namespace Timestamps.DAL.Interfaces
         Task<IdentityResult> AccessFailedAsync(string userId);
         Task<IdentityResult> ResetAccessFailedCountAsync(string userId);
         Task<int> GetAccessFailedCountAsync(string userId);
-        IPasswordHasher PasswordHasher { get; set; }
-        IIdentityValidator<TUser> UserValidator { get; set; }
-        IIdentityValidator<string> PasswordValidator { get; set; }
-        IClaimsIdentityFactory<TUser, string> ClaimsIdentityFactory { get; set; }
-        IIdentityMessageService EmailService { get; set; }
-        IIdentityMessageService SmsService { get; set; }
-        IUserTokenProvider<TUser, string> UserTokenProvider { get; set; }
-        bool UserLockoutEnabledByDefault { get; set; }
-        int MaxFailedAccessAttemptsBeforeLockout { get; set; }
-        TimeSpan DefaultAccountLockoutTimeSpan { get; set; }
-        bool SupportsUserTwoFactor { get; }
-        bool SupportsUserPassword { get; }
-        bool SupportsUserSecurityStamp { get; }
-        bool SupportsUserRole { get; }
-        bool SupportsUserLogin { get; }
-        bool SupportsUserEmail { get; }
-        bool SupportsUserPhoneNumber { get; }
-        bool SupportsUserClaim { get; }
-        bool SupportsUserLockout { get; }
-        bool SupportsQueryableUsers { get; }
-        IQueryable<TUser> Users { get; }
-        IDictionary<string, IUserTokenProvider<TUser, string>> TwoFactorProviders { get; }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autofac;
+﻿using Autofac;
 using Timestamps.DAL.EFDataReceiving;
 using Timestamps.DAL.Identity;
 using Timestamps.DAL.Interfaces;
@@ -20,7 +15,6 @@ namespace Timestamps.BLL.Infrastructure
             builder.RegisterType<ProjectNominationRepository>().As<IProjectNominationRepository>().InstancePerRequest();
             builder.RegisterType<HourageRepository>().As<IHourageRepository>().InstancePerRequest();
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
-
         }
     }
 }

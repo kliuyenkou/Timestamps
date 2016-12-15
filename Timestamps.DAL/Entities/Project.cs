@@ -15,7 +15,7 @@ namespace Timestamps.DAL.Entities
 
         [Required]
         public string CreatorId { get; set; }
-        public ApplicationUser Creator { get; set; }
 
+        public ApplicationUser Creator { get; set; }
     }
 }

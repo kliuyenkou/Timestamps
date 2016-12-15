@@ -14,17 +14,18 @@ namespace Timestamps.BLL.Services
 {
     public class ProjectNominationService : IProjectNominationService
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IProjectNominationRepository _projectNominationRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
         public ProjectNominationService(IUnitOfWork unitOfWork)
         {
             _projectNominationRepository = unitOfWork.ProjectNominations;
             _unitOfWork = unitOfWork;
         }
+
         public void Add(ProjectNomination projectNomination)
         {
-            ProjectNominationEntity projectNominationEntity = new ProjectNominationEntity();
+            var projectNominationEntity = new ProjectNominationEntity();
             projectNominationEntity.InjectFrom(projectNomination);
             _projectNominationRepository.Add(projectNominationEntity);
             _unitOfWork.SaveChangesWithErrors();
@@ -32,7 +33,7 @@ namespace Timestamps.BLL.Services
 
         public IEnumerable<Project> GetProjectsUserTakePart(string userId)
         {
-            IEnumerable<DAL.Entities.Project> dbprojects = _projectNominationRepository.GetProjectsUserTakePart(userId);
+            var dbprojects = _projectNominationRepository.GetProjectsUserTakePart(userId);
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<ApplicationUser, User>();
@@ -42,7 +43,6 @@ namespace Timestamps.BLL.Services
             var mapper = config.CreateMapper();
             var projects = mapper.Map<IEnumerable<DAL.Entities.Project>, IEnumerable<Project>>(dbprojects);
             return projects;
-
         }
 
         public bool IsUserTakePartInProject(string userId, int projectId)

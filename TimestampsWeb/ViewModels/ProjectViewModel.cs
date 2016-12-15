@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+
 namespace TimestampsWeb.ViewModels
 {
     public class ProjectViewModel
@@ -9,6 +10,5 @@ namespace TimestampsWeb.ViewModels
 
         [StringLength(256)]
         public string Description { get; set; }
-
     }
 }

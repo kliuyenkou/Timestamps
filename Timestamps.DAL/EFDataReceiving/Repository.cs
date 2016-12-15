@@ -9,10 +9,12 @@ namespace Timestamps.DAL.EFDataReceiving
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected readonly ApplicationDbContext context;
+
         public Repository(ApplicationDbContext context)
         {
             this.context = context;
         }
+
         public void Add(TEntity entity)
         {
             context.Set<TEntity>().Add(entity);

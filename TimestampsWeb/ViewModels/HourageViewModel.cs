@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Timestamps.BLL.Models;
 
-
 namespace TimestampsWeb.ViewModels
 {
     public class HourageViewModel
@@ -24,6 +23,5 @@ namespace TimestampsWeb.ViewModels
 
         [Required]
         public double Hours { get; set; }
-
     }
 }

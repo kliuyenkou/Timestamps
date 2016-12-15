@@ -1,17 +1,10 @@
-﻿using System.Linq;
-using System.Security.Claims;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 using Timestamps.BLL.Interfaces;
 using Timestamps.BLL.Models;
 using TimestampsWeb.ViewModels;
-using Microsoft.Owin.Host.SystemWeb;
-using Microsoft.Owin.Security.DataProtection;
-using Timestamps.BLL.Infrastructure;
 
 namespace TimestampsWeb.Controllers
 {
@@ -19,18 +12,14 @@ namespace TimestampsWeb.Controllers
     public class AccountController : Controller
     {
         private readonly IUserService _userService;
-        private readonly IAuthenticationManager _authManager;
 
         public AccountController(IUserService userService, IAuthenticationManager authManager)
         {
             _userService = userService;
-            _authManager = authManager;
+            AuthenticationManager = authManager;
         }
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get { return _authManager; }
-        }
+        private IAuthenticationManager AuthenticationManager { get; }
 
         //GET: /Account/Register
         [AllowAnonymous]
@@ -46,24 +35,25 @@ namespace TimestampsWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid) {
-                User user = new User
+            if (ModelState.IsValid)
+            {
+                var user = new User
                 {
                     Email = model.Email,
                     Password = model.Password,
                     Name = model.Name
                 };
-                OperationResult operationDetails = await _userService.CreateAsync(user);
-                if (operationDetails.Succedeed) {
-                    ClaimsIdentity claim = await _userService.SignInAsync(user);
+                var operationDetails = await _userService.CreateAsync(user);
+                if (operationDetails.Succedeed)
+                {
+                    var claim = await _userService.SignInAsync(user);
                     AuthenticationManager.SignIn(new AuthenticationProperties
                     {
                         IsPersistent = true
                     }, claim);
                     return RedirectToAction("Index", "Home");
                 }
-                else
-                    ModelState.AddModelError(operationDetails.Property, operationDetails.Message);
+                ModelState.AddModelError(operationDetails.Property, operationDetails.Message);
             }
             return View(model);
         }
@@ -80,20 +70,22 @@ namespace TimestampsWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (ModelState.IsValid) {
-                User user = new User { Email = model.Email, Password = model.Password };
-                ClaimsIdentity claim = await _userService.SignInAsync(user);
-                if (claim == null) {
+            if (ModelState.IsValid)
+            {
+                var user = new User {Email = model.Email, Password = model.Password};
+                var claim = await _userService.SignInAsync(user);
+                if (claim == null)
+                {
                     ModelState.AddModelError("", "Incorrect login or password");
                 }
-                else {
+                else
+                {
                     AuthenticationManager.SignOut();
                     AuthenticationManager.SignIn(new AuthenticationProperties
                     {
                         IsPersistent = true
                     }, claim);
                     return RedirectToAction("Index", "Home");
-
                 }
             }
             return View(model);
@@ -110,9 +102,8 @@ namespace TimestampsWeb.Controllers
         }
     }
 
-
-
     #region Template AccountController
+
     //[Authorize]
     //public class AccountController : Controller
     //{
@@ -533,5 +524,6 @@ namespace TimestampsWeb.Controllers
     //    }
     //    #endregion
     //}
+
     #endregion
 }

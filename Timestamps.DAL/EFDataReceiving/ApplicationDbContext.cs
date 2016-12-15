@@ -4,17 +4,16 @@ using Timestamps.DAL.Entities;
 
 namespace Timestamps.DAL.EFDataReceiving
 {
-
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public ApplicationDbContext()
+            : base("DefaultConnection", false)
+        {
+        }
+
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectNomination> ProjectNominations { get; set; }
         public DbSet<Hourage> Hourages { get; set; }
-        
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-        {
-        }
 
         public static ApplicationDbContext Create()
         {
@@ -27,8 +26,5 @@ namespace Timestamps.DAL.EFDataReceiving
             modelBuilder.Entity<Hourage>().HasRequired(h => h.Project).WithMany().WillCascadeOnDelete(false);
             base.OnModelCreating(modelBuilder);
         }
-
     }
-
-    
 }

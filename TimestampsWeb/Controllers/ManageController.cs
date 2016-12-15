@@ -1,28 +1,15 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using TimestampsWeb.ViewModels;
+﻿using System.Web.Mvc;
 
 namespace TimestampsWeb.Controllers
 {
 
     #region Dissabled
 
-
     [Authorize]
     public class ManageController : Controller
     {
         //private ApplicationSignInManager _signInManager;
         //private ApplicationUserManager _userManager;
-
-        public ManageController()
-        {
-        }
 
         //public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         //{
@@ -390,5 +377,6 @@ namespace TimestampsWeb.Controllers
 
         //#endregion
     }
+
     #endregion
 }

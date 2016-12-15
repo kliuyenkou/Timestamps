@@ -1,9 +1,8 @@
 ﻿using System;
-using AutoMapper;
-using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
 using Omu.ValueInjecter;
 using Timestamps.BLL.Dto;
 using Timestamps.BLL.Interfaces;
@@ -28,7 +27,7 @@ namespace TimestampsWeb.Controllers
             var userId = User.Identity.GetUserId();
             var usersRecords = _hourageService.GetUserHourageRecordsWithProject(userId);
             var usersRecordsDto = usersRecords
-                .Select(h => new HourageDto()
+                .Select(h => new HourageDto
                 {
                     Id = h.Id,
                     WorkDescription = h.WorkDescription,
@@ -40,44 +39,39 @@ namespace TimestampsWeb.Controllers
                 });
 
             return usersRecordsDto;
-
         }
 
         [HttpPost]
         public IHttpActionResult AddRecord(HourageViewModel record)
         {
-            if (!ModelState.IsValid) {
-                return BadRequest();
-            }
+            if (!ModelState.IsValid) return BadRequest();
 
             var hourage = new Hourage();
             hourage.InjectFrom(record);
             hourage.UserId = User.Identity.GetUserId();
 
-            try {
+            try
+            {
                 _hourageService.Add(hourage);
                 return Ok(hourage);
             }
-            catch (Exception) {
-
+            catch (Exception)
+            {
                 throw;
             }
-
         }
 
         [HttpDelete]
         public void DeleteRecord(int id)
         {
-            try {
+            try
+            {
                 _hourageService.Delete(id);
             }
-            catch (Exception) {
-
+            catch (Exception)
+            {
                 throw;
             }
-
         }
-
     }
-
 }

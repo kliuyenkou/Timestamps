@@ -11,6 +11,5 @@ namespace Timestamps.BLL.Dto
         public int ProjectId { get; set; }
         public string ProjectTitle { get; set; }
         public string UserId { get; set; }
-
     }
 }
