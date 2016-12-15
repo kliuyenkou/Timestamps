@@ -57,10 +57,5 @@ namespace Timestamps.BLL.Services
             _hourageRepository.RemoveById(hourageId);
             _unitOfWork.SaveChanges();
         }
-
-        public void Dispose()
-        {
-            //_hourageRepository.Dispose();
-        }
     }
 }

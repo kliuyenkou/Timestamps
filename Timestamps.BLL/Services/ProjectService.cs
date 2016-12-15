@@ -65,11 +65,6 @@ namespace Timestamps.BLL.Services
             _unitOfWork.SaveChangesWithErrors();
         }
 
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
         public Project GetProjectById(int projectId)
         {
             var projectEntity = _projectRepository.GetProjectById(projectId);

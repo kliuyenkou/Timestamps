@@ -9,6 +9,5 @@ namespace Timestamps.BLL.Interfaces
         void Add(Hourage hourage);
         Hourage GetHourageById(int hourageId);
         void Delete(int hourageId);
-        void Dispose();
     }
 }

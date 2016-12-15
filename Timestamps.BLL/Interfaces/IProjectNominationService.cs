@@ -8,6 +8,5 @@ namespace Timestamps.BLL.Interfaces
         void Add(ProjectNomination projectNomination);
         IEnumerable<Project> GetProjectsUserTakePart(string userId);
         bool IsUserTakePartInProject(string userId, int projectId);
-        void Dispose();
     }
 }
