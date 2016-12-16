@@ -12,6 +12,7 @@ namespace TimestampsWeb
         {
             ConfigureAuth(app);
             ConfigureAutofac(app);
+            InitAutoMapper();
         }
     }
 }

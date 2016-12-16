@@ -104,6 +104,10 @@
     <Compile Include="Dto\HourageDto.cs" />
     <Compile Include="Dto\ProjectsReportDto.cs" />
     <Compile Include="Infrastructure\AutofacBLLModule.cs" />
+    <Compile Include="Infrastructure\AutoMapperConfiguration\AutoMapperBLLConfiguration.cs" />
+    <Compile Include="Infrastructure\AutoMapperConfiguration\HourageProfile.cs" />
+    <Compile Include="Infrastructure\AutoMapperConfiguration\ProjectProfile.cs" />
+    <Compile Include="Infrastructure\AutoMapperConfiguration\UserProfile.cs" />
     <Compile Include="Infrastructure\OperationResult.cs" />
     <Compile Include="Interfaces\IReportsService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />

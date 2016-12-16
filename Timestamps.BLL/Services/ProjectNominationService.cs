@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using AutoMapper;
 using Omu.ValueInjecter;
 using Timestamps.BLL.Interfaces;
-using Timestamps.BLL.Models;
-using Timestamps.DAL.Entities;
 using Timestamps.DAL.Interfaces;
+using Mapper = AutoMapper.Mapper;
 using Project = Timestamps.BLL.Models.Project;
 using ProjectNomination = Timestamps.BLL.Models.ProjectNomination;
 using ProjectNominationEntity = Timestamps.DAL.Entities.ProjectNomination;
@@ -34,14 +32,7 @@ namespace Timestamps.BLL.Services
         public IEnumerable<Project> GetProjectsUserTakePart(string userId)
         {
             var dbprojects = _projectNominationRepository.GetProjectsUserTakePart(userId);
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<ApplicationUser, User>();
-                cfg.CreateMap<DAL.Entities.Project, Project>();
-            });
-
-            var mapper = config.CreateMapper();
-            var projects = mapper.Map<IEnumerable<DAL.Entities.Project>, IEnumerable<Project>>(dbprojects);
+            var projects = Mapper.Map<IEnumerable<DAL.Entities.Project>, IEnumerable<Project>>(dbprojects);
             return projects;
         }
 

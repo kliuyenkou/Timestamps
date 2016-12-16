@@ -2,12 +2,10 @@
 using AutoMapper;
 using Omu.ValueInjecter;
 using Timestamps.BLL.Interfaces;
-using Timestamps.BLL.Models;
-using Timestamps.DAL.Entities;
 using Timestamps.DAL.Interfaces;
 using Hourage = Timestamps.BLL.Models.Hourage;
 using HourageEntity = Timestamps.DAL.Entities.Hourage;
-using Project = Timestamps.DAL.Entities.Project;
+using Mapper = AutoMapper.Mapper;
 
 namespace Timestamps.BLL.Services
 {
@@ -25,14 +23,7 @@ namespace Timestamps.BLL.Services
         public IEnumerable<Hourage> GetUserHourageRecordsWithProject(string userId)
         {
             var dbHourageRecords = _hourageRepository.GetUserHourageRecordsWithProject(userId);
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<ApplicationUser, User>();
-                cfg.CreateMap<Project, Models.Project>();
-                cfg.CreateMap<HourageEntity, Hourage>();
-            });
-            var mapper = config.CreateMapper();
-            var records = mapper.Map<IEnumerable<HourageEntity>, IEnumerable<Hourage>>(dbHourageRecords);
+            var records = Mapper.Map<IEnumerable<HourageEntity>, IEnumerable<Hourage>>(dbHourageRecords);
             return records;
         }
 
