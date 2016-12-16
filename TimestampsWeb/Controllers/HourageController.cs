@@ -7,7 +7,6 @@ using TimestampsWeb.ViewModels;
 
 namespace TimestampsWeb.Controllers
 {
-    [Authorize]
     public class HourageController : Controller
     {
         private readonly IHourageService _hourageService;
@@ -46,8 +45,7 @@ namespace TimestampsWeb.Controllers
         {
             var userId = User.Identity.GetUserId();
 
-            if (ModelState.IsValid)
-            {
+            if (ModelState.IsValid) {
                 var hourage = new Hourage
                 {
                     WorkDescription = viewModel.WorkDescription,

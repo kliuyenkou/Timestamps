@@ -19,14 +19,12 @@ namespace TimestampsWeb.Controllers
         }
 
         // GET: Projects
-        [Authorize]
         [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(ProjectViewModel viewModel)
@@ -43,7 +41,6 @@ namespace TimestampsWeb.Controllers
             return RedirectToAction("MyProjects", "Projects");
         }
 
-        [Authorize]
         [HttpGet]
         public ActionResult MyProjects()
         {

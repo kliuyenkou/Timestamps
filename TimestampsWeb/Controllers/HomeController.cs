@@ -5,7 +5,6 @@ using TimestampsWeb.ViewModels;
 
 namespace TimestampsWeb.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly IProjectNominationService _projectNominationService;

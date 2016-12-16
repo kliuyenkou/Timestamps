@@ -11,7 +11,6 @@ using TimestampsWeb.ViewModels;
 
 namespace TimestampsWeb.Controllers
 {
-    [Authorize]
     public class TimesheetController : ApiController
     {
         private readonly IHourageService _hourageService;
@@ -50,13 +49,11 @@ namespace TimestampsWeb.Controllers
             hourage.InjectFrom(record);
             hourage.UserId = User.Identity.GetUserId();
 
-            try
-            {
+            try {
                 _hourageService.Add(hourage);
                 return Ok(hourage);
             }
-            catch (Exception)
-            {
+            catch (Exception) {
                 throw;
             }
         }
@@ -64,12 +61,10 @@ namespace TimestampsWeb.Controllers
         [HttpDelete]
         public void DeleteRecord(int id)
         {
-            try
-            {
+            try {
                 _hourageService.Delete(id);
             }
-            catch (Exception)
-            {
+            catch (Exception) {
                 throw;
             }
         }

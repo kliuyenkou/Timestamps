@@ -6,7 +6,6 @@ using Timestamps.BLL.Interfaces;
 
 namespace TimestampsWeb.Controllers
 {
-    [Authorize]
     public class ProjectsReportController : ApiController
     {
         private readonly IReportsService _reportsService;

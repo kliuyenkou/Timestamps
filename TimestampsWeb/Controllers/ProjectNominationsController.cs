@@ -5,7 +5,6 @@ using Timestamps.BLL.Models;
 
 namespace TimestampsWeb.Controllers
 {
-    [Authorize]
     public class ProjectNominationsController : ApiController
     {
         private readonly IProjectNominationService _projectNominationService;
