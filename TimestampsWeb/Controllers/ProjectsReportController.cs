@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Timestamps.BLL.Interfaces;
-using Timestamps.BLL.Models;
+using TimestampsWeb.Dto;
 
 namespace TimestampsWeb.Controllers
 {
@@ -16,11 +17,18 @@ namespace TimestampsWeb.Controllers
         }
 
         // GET: api/ProjectsReport
-        public IEnumerable<ProjectWithTotalHours> GetUserProjectsWithOverallTime()
+        public IEnumerable<ProjectWithTotalHoursDto> GetUserProjectsWithOverallTime()
         {
             var userId = User.Identity.GetUserId();
             var userProjectsWithOverallTime = _reportsService.GetUserProjectsWithOverallTime(userId);
-            return userProjectsWithOverallTime;
+            var userProjectsWithOverallTimeDto = userProjectsWithOverallTime.Select(p => new ProjectWithTotalHoursDto()
+            {
+                Hours = p.Hours,
+                ProjectId = p.Project.Id,
+                ProjectTitle = p.Project.Title
+
+            });
+            return userProjectsWithOverallTimeDto;
         }
     }
 }

@@ -2,8 +2,7 @@
 {
     public class ProjectWithTotalHours
     {
-        public int ProjectId { get; set; }
-        public string ProjectTitle { get; set; }
+        public Project Project { get; set; }
         public double Hours { get; set; }
     }
 }
