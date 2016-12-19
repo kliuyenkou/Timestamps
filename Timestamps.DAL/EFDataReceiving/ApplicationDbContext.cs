@@ -15,11 +15,6 @@ namespace Timestamps.DAL.EFDataReceiving
         public DbSet<ProjectNomination> ProjectNominations { get; set; }
         public DbSet<Hourage> Hourages { get; set; }
 
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
-        }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProjectNomination>().HasRequired(pn => pn.Project).WithMany().WillCascadeOnDelete(false);

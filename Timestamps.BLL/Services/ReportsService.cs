@@ -31,17 +31,17 @@ namespace Timestamps.BLL.Services
                         Project = hg.Key,
                         TotalHours = hg.Sum(r => r.Hours)
                     });
-            var result = from pu in projectsUserTakePart
-                         join hourageRecord in houragesGroupedByProject on pu equals hourageRecord.Project into allProjects
-                         from p in allProjects.DefaultIfEmpty()
-                         select new { Project = pu, TotalHours = p?.TotalHours ?? 0 };
+            var projectsWithTotalHours = from pu in projectsUserTakePart
+                                         join hourageRecord in houragesGroupedByProject on pu equals hourageRecord.Project into allProjects
+                                         from p in allProjects.DefaultIfEmpty()
+                                         select new { Project = pu, TotalHours = p?.TotalHours ?? 0 };
 
-            var projectsWithTotalHours = result.Select(h => new ProjectWithTotalHours()
+            var result = projectsWithTotalHours.Select(h => new ProjectWithTotalHours()
             {
                 Project = Mapper.Map<Project>(h.Project),
                 Hours = h.TotalHours
             });
-            return projectsWithTotalHours;
+            return result;
         }
     }
 }
