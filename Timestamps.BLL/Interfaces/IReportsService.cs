@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Timestamps.BLL.Dto;
+using Timestamps.BLL.Models;
 
 namespace Timestamps.BLL.Interfaces
 {
     public interface IReportsService
     {
-        IEnumerable<ProjectsReportDto> GetUserProjectsWithOverallTime(string userId);
+        IEnumerable<ProjectWithTotalHours> GetUserProjectsWithOverallTime(string userId);
     }
 }

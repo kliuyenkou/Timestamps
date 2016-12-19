@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Omu.ValueInjecter;
-using Timestamps.BLL.Dto;
 using Timestamps.BLL.Interfaces;
 using Timestamps.BLL.Models;
 using TimestampsWeb.ViewModels;
@@ -21,20 +20,18 @@ namespace TimestampsWeb.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<HourageDto> GetUsersRecords()
+        public IEnumerable<HourageViewModel> GetUsersRecords()
         {
             var userId = User.Identity.GetUserId();
             var usersRecords = _hourageService.GetUserHourageRecordsWithProject(userId);
             var usersRecordsDto = usersRecords
-                .Select(h => new HourageDto
+                .Select(h => new HourageViewModel
                 {
-                    Id = h.Id,
                     WorkDescription = h.WorkDescription,
-                    ProjectTitle = h.Project.Title,
+                    Project = h.Project,
                     Date = h.Date.Date,
                     Hours = h.Hours,
                     ProjectId = h.ProjectId,
-                    UserId = h.UserId
                 });
 
             return usersRecordsDto;

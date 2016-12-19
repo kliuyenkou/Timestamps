@@ -101,8 +101,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dto\HourageDto.cs" />
-    <Compile Include="Dto\ProjectsReportDto.cs" />
+    <Compile Include="Models\ProjectWithTotalHours.cs" />
     <Compile Include="Infrastructure\AutofacBLLModule.cs" />
     <Compile Include="Infrastructure\AutoMapperConfiguration\AutoMapperBLLConfiguration.cs" />
     <Compile Include="Infrastructure\AutoMapperConfiguration\HourageProfile.cs" />

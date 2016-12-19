@@ -1,6 +1,6 @@
-﻿namespace Timestamps.BLL.Dto
+﻿namespace Timestamps.BLL.Models
 {
-    public class ProjectsReportDto
+    public class ProjectWithTotalHours
     {
         public int ProjectId { get; set; }
         public string ProjectTitle { get; set; }

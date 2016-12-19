@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Timestamps.BLL.Dto;
 using Timestamps.BLL.Interfaces;
+using Timestamps.BLL.Models;
 using Timestamps.DAL.Interfaces;
 
 namespace Timestamps.BLL.Services
@@ -17,7 +17,7 @@ namespace Timestamps.BLL.Services
             _unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<ProjectsReportDto> GetUserProjectsWithOverallTime(string userId)
+        public IEnumerable<ProjectWithTotalHours> GetUserProjectsWithOverallTime(string userId)
         {
             var hourages = _hourageRepository.GetUserHourageRecordsWithProject(userId);
             var houragesGroupedByProject = hourages.GroupBy(h => h.Project)
@@ -27,14 +27,13 @@ namespace Timestamps.BLL.Services
                         Project = hg.Key,
                         TotalHours = hg.Sum(r => r.Hours)
                     });
-            IEnumerable<ProjectsReportDto> projectsReportDtos;
-            projectsReportDtos = houragesGroupedByProject.Select(h => new ProjectsReportDto
+            var projectsWithTotalHours = houragesGroupedByProject.Select(h => new ProjectWithTotalHours
             {
                 ProjectId = h.Project.Id,
                 ProjectTitle = h.Project.Title,
                 Hours = h.TotalHours
             });
-            return projectsReportDtos;
+            return projectsWithTotalHours;
         }
     }
 }
