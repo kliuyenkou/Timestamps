@@ -33,85 +33,15 @@
 
 @section scripts{
     <script type="text/javascript">
-
         $(document)
             .ready(function() {
-                GetAllRecords();
+                houragesController.loadRecordsList();
                 $('#addRecord')
                     .click(function() {
                         //$('#recordForm').validate();
-                        AddRecord();
+                        houragesController.appendRecordToList();
                     });
             });
 
-        function FormSucces(data) {
-            LoadListItems(data);
-        }
-
-        function GetAllRecords() {
-            $.ajax({
-                url: '/api/Timesheet',
-                type: 'GET',
-                dataType: 'json',
-                success: function(data) {
-                    LoadListItems(data);
-                },
-                error: function() {
-                    alert("Error");
-                }
-            });
-        };
-
-        function LoadListItems(records) {
-            var strLayout =
-                "<table class='table'><tr><th>Work description</th><th>Project</th><th>Date</th><th>Hours</th></tr>";
-            $.each(records,
-                function(index, record) {
-                    strLayout += "<tr><td>" +
-                        record.WorkDescription +
-                        "</td><td>" +
-                        record.Project.Title+
-                        "</td><td>" +
-                        record.Date +
-                        "</td><td>" +
-                        record.Hours +
-                        "</td><tr>";
-                });
-            strLayout += "</table>";
-            $("#recordsTable").html(strLayout);
-        };
-
-        function AddHourageToListItems(record) {
-            var str = "<tr><td>" +
-                record.WorkDescription +
-                "</td><td>" +
-                record.Project.Title +
-                "</td><td>" +
-                record.Date +
-                "</td><td>" +
-                record.Hours +
-                "</td><tr>";
-            $('#recordsTable tbody').append(str);
-        };
-
-        function AddRecord() {
-            var record = {
-                WorkDescription: $('#workDescription').val(),
-                ProjectId: $('#project').val(),
-                Date: $('#date').val(),
-                Hours: $('#hours').val()
-            };
-
-            $.post({
-                url: '/api/Timesheet',
-                data: record,
-                dataType: 'json',
-                success: function(data) {
-                    AddHourageToListItems(data);
-                }
-
-            });
-        };
-
-    </script>
+   </script>
 }
