@@ -27,7 +27,7 @@ namespace Timestamps.DAL.EFDataReceiving
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
-            return context.Set<TEntity>().Where(predicate);
+            return context.Set<TEntity>().Where(predicate).ToList();
         }
 
         public TEntity Get(int id)
