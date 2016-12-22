@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.Configuration;
 using Timestamps.BLL.Infrastructure.AutoMapperConfiguration;
+using TimestampsWeb.Infrastructure.AutoMapperConfiguration;
 
 namespace TimestampsWeb
 {
@@ -10,6 +11,7 @@ namespace TimestampsWeb
         {
             var cfg = new MapperConfigurationExpression();
             AutoMapperBLLConfiguration.Configure(cfg);
+            AutoMapperWebConfiguration.Configure(cfg);
             Mapper.Initialize(cfg);
         }
     }
