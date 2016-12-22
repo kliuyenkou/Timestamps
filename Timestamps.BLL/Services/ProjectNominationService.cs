@@ -38,7 +38,7 @@ namespace Timestamps.BLL.Services
 
         public bool IsUserTakePartInProject(string userId, int projectId)
         {
-            throw new NotImplementedException();
+            return _projectNominationRepository.IsUserTakePartInProject(userId, projectId);
         }
     }
 }

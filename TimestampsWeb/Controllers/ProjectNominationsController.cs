@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using Timestamps.BLL.Interfaces;
 using Timestamps.BLL.Models;
+using TimestampsWeb.Dto;
 
 namespace TimestampsWeb.Controllers
 {
@@ -16,22 +17,21 @@ namespace TimestampsWeb.Controllers
 
 
         [HttpPost]
-        public IHttpActionResult TakePartInProject([FromBody] int projectId)
+        public IHttpActionResult TakePartInProject(ProjectNominationDto projectNominationDto)
         {
             var userId = User.Identity.GetUserId();
-            var IsExist = _projectNominationService.IsUserTakePartInProject(userId, projectId);
-            if (IsExist) return BadRequest("This user has already nominated on this project.");
+            if (_projectNominationService.IsUserTakePartInProject(userId, projectNominationDto.ProjectId))
+                return BadRequest("This user has already nominated on this project.");
 
             var projectNomination = new ProjectNomination
             {
-                ProjectId = projectId,
+                ProjectId = projectNominationDto.ProjectId,
                 UserId = userId
             };
 
             _projectNominationService.Add(projectNomination);
 
-            return Json(projectNomination);
-            //return Ok();
+            return Ok();
         }
     }
 }
