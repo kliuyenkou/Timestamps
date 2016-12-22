@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using Timestamps.DAL.Entities;
 using Timestamps.DAL.Interfaces;
 
@@ -19,6 +21,11 @@ namespace Timestamps.DAL.EFDataReceiving
         public Project GetProjectById(int projectId)
         {
             return context.Projects.Find(projectId);
+        }
+
+        public IEnumerable<Project> GetAllProjectsWithCreator()
+        {
+            return context.Projects.Include(project => project.Creator).ToList();
         }
     }
 }

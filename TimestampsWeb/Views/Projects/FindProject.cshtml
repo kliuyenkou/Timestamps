@@ -1,0 +1,33 @@
+﻿@model IEnumerable<TimestampsWeb.ViewModels.ProjectWithCreatorViewModel>
+@{
+    ViewBag.Title = "FindProject";
+}
+
+<h2>FindProject</h2>
+
+<table class="table table-hover">
+    <tr>
+        <th>Project</th>
+        <th>Creator</th>
+        <th>Creation date</th>
+        <th>Take part in</th>
+    </tr>
+    <tbody>
+        @foreach (var project in Model) {
+            <tr>
+                <td>
+                    <div class="projectDetails">
+                        <div class="title">@project.Title</div>
+                        <div class="description">@project.Description</div>
+                    </div>
+                </td>
+                <td>@project.CreatorName</td>
+                <td>@project.CreationDate.ToString("yyyy MMMM dd")</td>
+                <td>
+                    <div class="takePart"></div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

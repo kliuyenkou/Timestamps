@@ -63,5 +63,14 @@ namespace Timestamps.BLL.Services
             project.InjectFrom(projectEntity);
             return project;
         }
+
+        public IEnumerable<Project> GetAllProjects()
+        {
+
+            var dbprojects = _projectRepository.GetAllProjectsWithCreator();
+            var projects = Mapper.Map<IEnumerable<ProjectEntity>, IEnumerable<Project>>(dbprojects);
+            return projects;
+
+        }
     }
 }

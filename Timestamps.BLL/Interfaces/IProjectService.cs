@@ -10,5 +10,6 @@ namespace Timestamps.BLL.Interfaces
         IEnumerable<Project> GetProjectsUserCreate(string userId);
         Task CreateProjectAsync(Project project);
         void Add(Project project);
+        IEnumerable<Project> GetAllProjects();
     }
 }
