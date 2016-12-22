@@ -9,10 +9,9 @@
     <tr>
         <th>Project</th>
         <th>Creator</th>
-        <th>Creation date</th>
         <th>Take part in</th>
     </tr>
-    <tbody>
+    <tbody class="projects">
         @foreach (var project in Model) {
             <tr>
                 <td>
@@ -20,9 +19,9 @@
                         <div class="title">@project.Title</div>
                         <div class="description">@project.Description</div>
                     </div>
+                    
                 </td>
                 <td>@project.CreatorName</td>
-                <td>@project.CreationDate.ToString("yyyy MMMM dd")</td>
                 <td>
                     <div class="takePart"></div>
                 </td>

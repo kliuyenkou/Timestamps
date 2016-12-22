@@ -22,6 +22,18 @@ input,
 select,
 textarea { max-width: 280px; }
 
+/*Page-level styles*/
+
+.projectDetails > .title{
+    font-size: 15px; 
+}
+
+.projectDetails > .description{
+    font-size: 12px;
+    margin-left: 20px;
+}
+
+
 
 /*Bootstrap Overrides*/
 
@@ -29,22 +41,6 @@ body {
     font-family: Open sans, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
 }
-
-/*#hours {
-    width: 70px;
-}
-
-#date {
-    width: 160px;
-}*/
-
-/*.form-group-workDescription {
-    max-width: 600px;
-    width: 100%;
-}
-#workDescription {
-    width: 100%;
-}*/
 
 .form-control:focus {
     -webkit-box-shadow: none;
