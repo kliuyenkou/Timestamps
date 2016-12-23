@@ -20,7 +20,8 @@
 
     function loadListItems(records) {
         var strLayout =
-            "<table class='table'><tr><th>Work description</th><th>Project</th><th>Date</th><th>Hours</th></tr>";
+            "<table class='table'><tr><th>Work description</th><th>Project</th><th>Date</th><th>Hours</th><th></th></tr>" +
+            "<tbody class='records'>";
         $.each(records,
             function (index, record) {
                 strLayout += "<tr><td>" +
@@ -31,9 +32,11 @@
                     record.Date +
                     "</td><td>" +
                     record.Hours +
+                    "</td><td>"+
+                    "<a href='#' data-record-id=" + record.Id + " class='js-delete-record deletelink'>Delete</a>" +
                     "</td><tr>";
             });
-        strLayout += "</table>";
+        strLayout += "</tbody></table>";
         $('#recordsTable').html(strLayout);
     };
 

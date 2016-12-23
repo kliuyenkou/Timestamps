@@ -7,6 +7,8 @@ namespace TimestampsWeb.ViewModels
 {
     public class HourageViewModel
     {
+        public int Id { get; set; }
+
         [StringLength(128)]
         [DisplayName("Work description")]
         public string WorkDescription { get; set; }

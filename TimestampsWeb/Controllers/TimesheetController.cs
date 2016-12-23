@@ -24,9 +24,10 @@ namespace TimestampsWeb.Controllers
         {
             var userId = User.Identity.GetUserId();
             var usersRecords = _hourageService.GetUserHourageRecordsWithProject(userId);
-            var usersRecordsDto = usersRecords
+            var records = usersRecords
                 .Select(h => new HourageViewModel
                 {
+                    Id = h.Id,
                     WorkDescription = h.WorkDescription,
                     Project = h.Project,
                     Date = h.Date.Date,
@@ -34,7 +35,7 @@ namespace TimestampsWeb.Controllers
                     ProjectId = h.ProjectId,
                 });
 
-            return usersRecordsDto;
+            return records;
         }
 
         [HttpPost]
@@ -46,24 +47,14 @@ namespace TimestampsWeb.Controllers
             hourage.InjectFrom(record);
             hourage.UserId = User.Identity.GetUserId();
 
-            try {
-                _hourageService.Add(hourage);
-                return Ok(hourage);
-            }
-            catch (Exception) {
-                throw;
-            }
+            _hourageService.Add(hourage);
+            return Ok(hourage);
         }
 
         [HttpDelete]
         public void DeleteRecord(int id)
         {
-            try {
-                _hourageService.Delete(id);
-            }
-            catch (Exception) {
-                throw;
-            }
+            _hourageService.Delete(id);
         }
     }
 }

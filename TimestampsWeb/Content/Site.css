@@ -41,13 +41,12 @@ body {
     box-shadow: none;
 }
 
-
-
 .navbar-brand { font-weight: 700; }
 
-#recordForm { padding-top: 30px; }
 
 /*Page-level styles*/
+
+ .form-addrecord { margin-top: 20px; }
 
 .projectDetails > .title {
     font-size: 15px; 
@@ -63,7 +62,14 @@ body {
     display: none;
 }
 
-
 .myprojects > tr:hover .editLink {
+    display: block;
+}
+
+.deletelink {
+    display: none;
+}
+
+.records > tr:hover .deletelink {
     display: block;
 }
