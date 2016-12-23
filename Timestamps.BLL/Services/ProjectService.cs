@@ -70,7 +70,22 @@ namespace Timestamps.BLL.Services
             var dbprojects = _projectRepository.GetAllProjectsWithCreator();
             var projects = Mapper.Map<IEnumerable<ProjectEntity>, IEnumerable<Project>>(dbprojects);
             return projects;
+        }
 
+        public Project GetUserProjectById(string userId, int projectId)
+        {
+            var projectEntity = _projectRepository.GetUserProjectById(userId, projectId);
+            var project = new Project();
+            project.InjectFrom(projectEntity);
+            return project;
+        }
+
+        public async Task UpdateAsync(Project project)
+        {
+            var projectDb = _projectRepository.GetProjectById(project.Id);
+            projectDb.Title = project.Title;
+            projectDb.Description = project.Description;
+            await _unitOfWork.SaveChangesAsync();
         }
     }
 }

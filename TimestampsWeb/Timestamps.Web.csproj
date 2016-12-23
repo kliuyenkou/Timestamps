@@ -315,9 +315,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Projects\Create.cshtml" />
-    <Content Include="Views\Projects\ViewTemplate.cshtml" />
-    <Content Include="Views\Projects\List.cshtml" />
+    <Content Include="Views\Projects\ProjectForm.cshtml" />
     <Content Include="Views\Projects\MyProjects.cshtml" />
     <Content Include="Views\Hourage\Create.cshtml" />
     <Content Include="Views\Hourage\Delete.cshtml" />

@@ -4,7 +4,7 @@
     ViewBag.Title = "Projects";
 }
 
-<h2>Projects</h2>
+<h2>My projects</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -20,22 +20,20 @@
 
         <th></th>
     </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
-            </td>
-        </tr>
-    }
+    <tbody class="myprojects">
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", "Projects", new {id=item.Id})" class="editLink">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
 
 </table>

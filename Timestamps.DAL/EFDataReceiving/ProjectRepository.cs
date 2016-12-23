@@ -15,7 +15,7 @@ namespace Timestamps.DAL.EFDataReceiving
 
         public IEnumerable<Project> GetProjectsUserCreate(string userId)
         {
-            throw new NotImplementedException();
+            return context.Projects.Where(p => p.CreatorId == userId);
         }
 
         public Project GetProjectById(int projectId)
@@ -26,6 +26,11 @@ namespace Timestamps.DAL.EFDataReceiving
         public IEnumerable<Project> GetAllProjectsWithCreator()
         {
             return context.Projects.Include(project => project.Creator).ToList();
+        }
+
+        public Project GetUserProjectById(string userId, int projectId)
+        {
+            return context.Projects.Single(p => p.CreatorId == userId && p.Id == projectId);
         }
     }
 }

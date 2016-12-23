@@ -20,18 +20,19 @@ namespace TimestampsWeb.Controllers
             _projectNominationService = projectNominationService;
         }
 
-        // GET: Projects
         [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            ViewBag.Title = "Create project";
+            var projectViewModel = new ProjectViewModel { Action = "Edit" };
+            return View("ProjectForm", projectViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(ProjectViewModel viewModel)
         {
-            if (!ModelState.IsValid) return View("Create", viewModel);
+            if (!ModelState.IsValid) return View("ProjectForm", viewModel);
             var project = new Project
             {
                 Title = viewModel.Title,
@@ -44,10 +45,37 @@ namespace TimestampsWeb.Controllers
         }
 
         [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var userId = User.Identity.GetUserId();
+            var project = _projectService.GetUserProjectById(userId, id);
+            var projectViewModel = Mapper.Map<ProjectViewModel>(project);
+            projectViewModel.Action = "Edit";
+            ViewBag.Title = "Edit project";
+            return View("ProjectForm", projectViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(ProjectViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+                return View("ProjectForm", viewModel);
+            var userId = User.Identity.GetUserId();
+            var project = _projectService.GetUserProjectById(userId, viewModel.Id);
+            project.Title = viewModel.Title;
+            project.Description = viewModel.Description;
+
+            await _projectService.UpdateAsync(project);
+
+            return RedirectToAction("MyProjects", "Projects");
+        }
+
+        [HttpGet]
         public ActionResult MyProjects()
         {
             var userId = User.Identity.GetUserId();
-            var myProjects = _projectNominationService.GetProjectsUserTakePart(userId);
+            var myProjects = _projectService.GetProjectsUserCreate(userId);
             var projects = Mapper.Map<IEnumerable<ProjectViewModel>>(myProjects);
             return View("MyProjects", projects);
         }

@@ -8,5 +8,6 @@ namespace Timestamps.DAL.Interfaces
         IEnumerable<Project> GetProjectsUserCreate(string userId);
         Project GetProjectById(int projectId);
         IEnumerable<Project> GetAllProjectsWithCreator();
+        Project GetUserProjectById(string userId, int projectId);
     }
 }

@@ -22,16 +22,6 @@ input,
 select,
 textarea { max-width: 280px; }
 
-/*Page-level styles*/
-
-.projectDetails > .title{
-    font-size: 15px; 
-}
-
-.projectDetails > .description{
-    font-size: 12px;
-    margin-left: 20px;
-}
 
 /*Bootstrap Overrides*/
 
@@ -56,3 +46,24 @@ body {
 .navbar-brand { font-weight: 700; }
 
 #recordForm { padding-top: 30px; }
+
+/*Page-level styles*/
+
+.projectDetails > .title {
+    font-size: 15px; 
+}
+
+.projectDetails > .description {
+    font-size: 12px;
+    margin-left: 20px;
+}
+
+.editLink {
+    font-size: 12px;
+    display: none;
+}
+
+
+.myprojects > tr:hover .editLink {
+    display: block;
+}

@@ -1,22 +1,17 @@
 ﻿@model TimestampsWeb.ViewModels.ProjectViewModel
-@{
-    ViewBag.Title = "Create";
-}
 
-<h2>Add a project</h2>
+<h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm("Create", "Projects"))
+@using (Html.BeginForm(Model.Action, "Projects"))
 {
     @Html.AntiForgeryToken()
-
+    @Html.HiddenFor(m => m.Id)   
     <div class="form-group">
         @Html.LabelFor(m => m.Title)
         <div>
             @Html.ValidationMessageFor(m => m.Title, "", new {@class = "text-danger"})
             @Html.TextBoxFor(m => m.Title, new {@class = "form-control"})
         </div>
-
-
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Description)
@@ -24,7 +19,6 @@
             @Html.ValidationMessageFor(m => m.Description, "", new {@class = "text-danger"})
             @Html.TextAreaFor(m => m.Description, new {@class = "form-control"})
         </div>
-
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
 }
