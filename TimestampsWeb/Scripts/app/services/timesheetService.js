@@ -14,7 +14,7 @@
         }).done(success).fail(error);
     }
     return {
-        getAllRecrods: getAllRecords,
+        getAllRecords: getAllRecords,
         addRecord: addRecord
     }
 }();

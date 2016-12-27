@@ -1,7 +1,7 @@
 ﻿var houragesController = function (timesheetService) {
 
     var loadRecordsList = function () {
-        timesheetService.getAllRecrods(loadListItems,
+        timesheetService.getAllRecords(loadListItems,
             function () { alert("Fail to load records."); }
             );
     };
@@ -19,38 +19,62 @@
     };
 
     function loadListItems(records) {
-        var strLayout =
-            "<table class='table'><tr><th>Work description</th><th>Project</th><th>Date</th><th>Hours</th><th></th></tr>" +
-            "<tbody class='records'>";
+        var table = $('#Timesheet');
+        var tbody = document.createElement('tbody');
+        table.append(tbody);
         $.each(records,
             function (index, record) {
-                strLayout += "<tr><td>" +
-                    record.WorkDescription +
-                    "</td><td>" +
-                    record.Project.Title +
-                    "</td><td>" +
-                    record.Date +
-                    "</td><td>" +
-                    record.Hours +
-                    "</td><td>"+
-                    "<a href='#' data-record-id=" + record.Id + " class='js-delete-record deletelink'>Delete</a>" +
-                    "</td><tr>";
+                var tRow = document.createElement('tr');
+                var tdWorkDescription = document.createElement('td');
+                tdWorkDescription.innerHTML = record.WorkDescription;
+                tRow.appendChild(tdWorkDescription);
+                var tdProject = document.createElement('td');
+                tdProject.innerHTML = record.Project.Title;
+                tRow.appendChild(tdProject);
+                var tdDate = document.createElement('td');
+                tdDate.innerHTML = record.Date;
+                tRow.appendChild(tdDate);
+                var tdHours = document.createElement('td');
+                tdHours.innerHTML = record.Hours;
+                tRow.appendChild(tdHours);
+                var tdDelete = document.createElement('td');
+                var a = document.createElement('a');
+                var linkText = document.createTextNode('Delete');
+                a.appendChild(linkText);
+                a.href = "#";
+                a.class = "js-delete-record";
+                a.setAttribute("data-record-id", record.Id);
+                tdDelete.appendChild(a);
+                tRow.appendChild(tdDelete);
+                tbody.appendChild(tRow);
+
             });
-        strLayout += "</tbody></table>";
-        $('#recordsTable').html(strLayout);
     };
 
+
     function addHourageToListItems(record) {
-        var str = "<tr><td>" +
-            record.WorkDescription +
-            "</td><td>" +
-            record.Project.Title +
-            "</td><td>" +
-            record.Date +
-            "</td><td>" +
-            record.Hours +
-            "</td><tr>";
-        $('#recordsTable tbody').append(str);
+        var tRow = document.createElement('tr');
+        var tdWorkDescription = document.createElement('td');
+        tdWorkDescription.innerHTML = record.WorkDescription;
+        tRow.appendChild(tdWorkDescription);
+        var tdProject = document.createElement('td');
+        tdProject.innerHTML = record.ProjectId;
+        tRow.appendChild(tdProject);
+        var tdDate = document.createElement('td');
+        tdDate.innerHTML = record.Date;
+        tRow.appendChild(tdDate);
+        var tdHours = document.createElement('td');
+        tdHours.innerHTML = record.Hours;
+        tRow.appendChild(tdHours);
+        var tdDelete = document.createElement('td');
+        var a = document.createElement('a');
+        var linkText = document.createTextNode('Delete');
+        a.appendChild(linkText);
+        a.className = "js-delete-record";
+        a.href = "#";
+        tdDelete.appendChild(a);
+        tRow.appendChild(tdDelete);
+        $('#Timesheet tbody').append(tRow);
     };
 
     return {

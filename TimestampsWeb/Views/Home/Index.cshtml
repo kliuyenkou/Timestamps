@@ -1,6 +1,6 @@
 ﻿@model TimestampsWeb.ViewModels.HourageViewModel
 @{
-    ViewBag.Title = "Index2";
+    ViewBag.Title = "Timesheet";
 }
 
 <form class="form-inline form-addrecord" id="recordForm">
@@ -11,7 +11,7 @@
     </div>
     <div class="form-group">
         <label class="sr-only" for="project">Password</label>
-        @Html.DropDownList("projectId", null, new {@class = "form-control", id = "project"})
+        @Html.DropDownList("projectId", null, new { @class = "form-control", id = "project" })
     </div>
     <div class="form-group">
         <label class="sr-only" for="date">Date</label>
@@ -25,7 +25,21 @@
 </form>
 
 
-<br/>
+<br />
+
+<div id="TimesheetContainer">
+    <table id="Timesheet" class="table">
+        <thead>
+            <tr>
+                <th>Work descritpion</th>
+                <th>Project</th>
+                <th>Date</th>
+                <th>Hours</th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+</div>
 
 <div id="recordsTable" class="recordsTable">
 
@@ -34,32 +48,28 @@
 @section scripts{
     <script type="text/javascript">
         $(document)
-            .ready(function() {
+            .ready(function () {
                 houragesController.loadRecordsList();
-                $('#addRecord')
-                    .click(function() {
-                        //$('#recordForm').validate();
-                        houragesController.appendRecordToList();
-                    });
-                $('js-delete-record')
-                    .click(function(e) {
-                        var link = $(e.target);
-                        if (confirm("Are you sure you want to delete this record?")) {
-                            $.ajax({
-                                    url: "/api/Timesheet/" + link.attr("data-record-id"),
-                                    method: "DELETE"
-                                })
-                                .done(function() {
-                                    link.parents("tr").fadeOut(function() {
-                                        $(this).remove();
-                                    });
-                                })
-                                .fail(function() {
-                                    alert("Something failed.");
+                $('#addRecord').click(function() {
+                    houragesController.appendRecordToList();
+                });
+                $('.js-delete-record').click(function(e) {
+                    var link = $(e.target);
+                    if (confirm("Are you sure you want to delete this record?")) {
+                        $.ajax({
+                                url: "/api/Timesheet/" + link.attr("data-record-id"),
+                                method: "DELETE"
+                            })
+                            .done(function() {
+                                link.parents("tr").fadeOut(function() {
+                                    $(this).remove();
                                 });
-                        }
-                    });
+                            })
+                            .fail(function() {
+                                alert("Something failed.");
+                            });
+                    }
+                });
             });
-
     </script>
 }
