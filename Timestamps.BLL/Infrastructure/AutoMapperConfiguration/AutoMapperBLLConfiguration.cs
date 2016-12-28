@@ -9,6 +9,8 @@ namespace Timestamps.BLL.Infrastructure.AutoMapperConfiguration
             cfg.AddProfile(new UserProfile());
             cfg.AddProfile(new ProjectProfile());
             cfg.AddProfile(new HourageProfile());
+            cfg.AddProfile(new NotificationProfile());
+            cfg.AddProfile(new UserNotificationProfile());
         }
     }
 }

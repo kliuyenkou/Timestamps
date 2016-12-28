@@ -101,6 +101,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\AutoMapperConfiguration\NotificationProfile.cs" />
+    <Compile Include="Infrastructure\AutoMapperConfiguration\UserNotificationProfile.cs" />
+    <Compile Include="Interfaces\INotificationService.cs" />
+    <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\NotificationType.cs" />
     <Compile Include="Models\ProjectWithTotalHours.cs" />
     <Compile Include="Infrastructure\AutofacBLLModule.cs" />
     <Compile Include="Infrastructure\AutoMapperConfiguration\AutoMapperBLLConfiguration.cs" />
@@ -110,6 +115,7 @@
     <Compile Include="Infrastructure\OperationResult.cs" />
     <Compile Include="Interfaces\IReportsService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Models\UserNotification.cs" />
     <Compile Include="Services\HourageService.cs" />
     <Compile Include="Interfaces\IHourageService.cs" />
     <Compile Include="Interfaces\IProjectNominationService.cs" />
@@ -118,6 +124,7 @@
     <Compile Include="Models\Hourage.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\ProjectNomination.cs" />
+    <Compile Include="Services\NotificationService.cs" />
     <Compile Include="Services\ProjectNominationService.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

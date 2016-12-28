@@ -220,6 +220,9 @@
     <Compile Include="App_Start\Startup.Automapper.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Dto\ProjectDto.cs" />
+    <Compile Include="Dto\NotificationDto.cs" />
+    <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\ProjectsApiController.cs" />
     <Compile Include="Dto\ProjectNominationDto.cs" />
     <Compile Include="Controllers\ProjectsReportController.cs" />
@@ -234,6 +237,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\AutoMapperConfiguration\AutoMapperWebConfiguration.cs" />
+    <Compile Include="Infrastructure\AutoMapperConfiguration\NotififcationToNotificationDtoProfile.cs" />
+    <Compile Include="Infrastructure\AutoMapperConfiguration\ProjectToProjectDto.cs" />
     <Compile Include="Infrastructure\AutoMapperConfiguration\ProjectToProjectViewModelProfile.cs" />
     <Compile Include="Infrastructure\AutoMapperConfiguration\ProjectToProjectWithCreatorViewModelProfile.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

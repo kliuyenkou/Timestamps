@@ -8,6 +8,8 @@ namespace TimestampsWeb.Infrastructure.AutoMapperConfiguration
         {
             cfg.AddProfile(new ProjectToProjectViewModelProfile());
             cfg.AddProfile(new ProjectToProjectWithCreatorViewModelProfile());
+            cfg.AddProfile(new ProjectToProjectDto());
+            cfg.AddProfile(new NotififcationToNotificationDtoProfile());
         }
     }
 }

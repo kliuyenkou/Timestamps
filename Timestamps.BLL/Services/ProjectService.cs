@@ -104,21 +104,22 @@ namespace Timestamps.BLL.Services
             }
             projectEntity.IsArchived = true;
 
-            var notification = new Notification()
+            var notificationEntity = new Notification()
             {
                 DateTime = DateTime.Now,
                 ProjectId = projectEntity.Id,
                 Type = NotificationType.ProjectArchived
             };
-            _notificationRepository.Add(notification);
+            _notificationRepository.Add(notificationEntity);
+
             var usersOnThisProject = _projectNominationRepository.GetAllUsersOnProject(projectId);
             foreach (var applicationUser in usersOnThisProject) {
-                var userNotification = new UserNotification()
+                var userNotificationEntity = new UserNotification()
                 {
                     User = applicationUser,
-                    Notification = notification
+                    Notification = notificationEntity
                 };
-                _userNotificationRepository.Add(userNotification);
+                _userNotificationRepository.Add(userNotificationEntity);
             }
 
             _unitOfWork.SaveChanges();

@@ -1,4 +1,7 @@
-﻿using Timestamps.DAL.Entities;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using Timestamps.DAL.Entities;
 using Timestamps.DAL.Interfaces;
 
 namespace Timestamps.DAL.EFDataReceiving
@@ -7,6 +10,14 @@ namespace Timestamps.DAL.EFDataReceiving
     {
         public UserNotificationRepository(ApplicationDbContext context) : base(context)
         {
+        }
+
+        public IEnumerable<Notification> GetNewNotificationsForUser(string userId)
+        {
+            return context.UserNotifications.Where(un => un.UserId == userId && !un.IsRead)
+                .Select(un => un.Notification)
+                .Include(n => n.Project.Creator)
+                .ToList();
         }
     }
 }
