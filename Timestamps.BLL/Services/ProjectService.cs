@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Omu.ValueInjecter;
@@ -82,10 +83,21 @@ namespace Timestamps.BLL.Services
 
         public async Task UpdateAsync(Project project)
         {
-            var projectDb = _projectRepository.GetProjectById(project.Id);
-            projectDb.Title = project.Title;
-            projectDb.Description = project.Description;
+            var projectEntity = _projectRepository.GetProjectById(project.Id);
+            projectEntity.Title = project.Title;
+            projectEntity.Description = project.Description;
+            projectEntity.IsArchived = project.IsArchived;
             await _unitOfWork.SaveChangesAsync();
+        }
+
+        public void ArchiveUserProjectById(string userId, int projectId)
+        {
+            var projectEntity = _projectRepository.GetUserProjectById(userId, projectId);
+            if (projectEntity.IsArchived) {
+                throw new Exception("Project has already archived.");
+            }
+            projectEntity.IsArchived = true;
+            _unitOfWork.SaveChanges();
         }
     }
 }

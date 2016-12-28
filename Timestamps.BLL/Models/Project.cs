@@ -7,5 +7,6 @@
         public string Description { get; set; }
         public string CreatorId { get; set; }
         public User Creator { get; set; }
+        public bool IsArchived { get; set; }
     }
 }

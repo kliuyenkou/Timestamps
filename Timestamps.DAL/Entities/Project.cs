@@ -17,5 +17,7 @@ namespace Timestamps.DAL.Entities
         public string CreatorId { get; set; }
 
         public ApplicationUser Creator { get; set; }
+
+        public bool IsArchived { get; set; }
     }
 }

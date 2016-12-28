@@ -17,7 +17,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
-
         <th></th>
     </tr>
     <tbody class="myprojects">
@@ -25,15 +24,48 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
+                    @if (item.IsArchived)
+                    {
+                        <span class="label label-warning">Archived</span>
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    <a href="@Url.Action("Edit", "Projects", new {id=item.Id})" class="editLink">Edit</a>
+                    <a href="@Url.Action("Edit", "Projects", new {id=item.Id})" class="">Edit</a>
+                    @if (!item.IsArchived)
+                    {
+                        <span>|</span>
+                        <a href="" class="js-archive-project" data-project-id="@item.Id">Archive</a>
+                    }
                 </td>
             </tr>
         }
     </tbody>
 
 </table>
+
+@section scripts
+{
+    <script>
+        $('.js-archive-project').click(function (e) {
+            var link = $(e.target);
+            if (confirm("Are you sure you want to archive this project?")) {
+                $.ajax({
+                        url: "/api/projectsapi/" + link.attr("data-project-id"),
+                        method: "DELETE"
+                    })
+                    .done(function () {
+                        link.parents("tr").children().first().append($("<span class='label label-warning'>Archived</span>"));
+                        $('span', link.parents("td")).remove();
+                        link.remove();
+                    })
+                    .fail(function () {
+                        alert("Something failed.");
+                    });
+            }
+        });
+    </script>
+
+}

@@ -13,5 +13,6 @@ namespace Timestamps.BLL.Interfaces
         IEnumerable<Project> GetAllProjects();
         Project GetUserProjectById(string userId, int projectId);
         Task UpdateAsync(Project project);
+        void ArchiveUserProjectById(string userId, int projectId);
     }
 }

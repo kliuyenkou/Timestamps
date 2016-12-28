@@ -1,23 +1,33 @@
 ﻿@model TimestampsWeb.ViewModels.ProjectViewModel
 
 <h2>@ViewBag.Title</h2>
+<div>
+    @if (Model.IsArchived) {
+        <span class="label label-warning pull-right" >Archived</span>
+        <button id="#restore" class="btn btn-link pull-right">Restore</button>
+    }
+    else {
+        <button id="#archive" class="btn btn-link pull-right">Archive</button>
+    }
 
-@using (Html.BeginForm(Model.Action, "Projects"))
-{
+</div>
+
+@using (Html.BeginForm(Model.Action, "Projects")) {
     @Html.AntiForgeryToken()
-    @Html.HiddenFor(m => m.Id)   
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.IsArchived)
     <div class="form-group">
         @Html.LabelFor(m => m.Title)
         <div>
-            @Html.ValidationMessageFor(m => m.Title, "", new {@class = "text-danger"})
-            @Html.TextBoxFor(m => m.Title, new {@class = "form-control"})
+            @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Description)
         <div>
-            @Html.ValidationMessageFor(m => m.Description, "", new {@class = "text-danger"})
-            @Html.TextAreaFor(m => m.Description, new {@class = "form-control"})
+            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+            @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
         </div>
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
@@ -25,5 +35,25 @@
 
 @section scripts
 {
+    <script>
+        $(document).ready(function () {
+            $('#archive').click(function (e) {
+                var link = $(e.target);
+                if (confirm("Are you sure you want to archive this project?")) {
+                    $.ajax({
+                        url: "/api/projectsapi/" + $('#IsArchived').attr("value"),
+                        method: "DELETE"
+                    })
+                        .done(function () {
+                            link.parents("div")
+                                .prepend($("<span class='label label-warning'>Archived</span>"));
+                        })
+                        .fail(function () {
+                            alert("Something failed.");
+                        });
+                }
+            });
+        });
+    </script>
     @Scripts.Render("~/bundles/jqueryval")
 }

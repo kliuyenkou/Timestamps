@@ -65,6 +65,7 @@ namespace TimestampsWeb.Controllers
             var project = _projectService.GetUserProjectById(userId, viewModel.Id);
             project.Title = viewModel.Title;
             project.Description = viewModel.Description;
+            project.IsArchived = viewModel.IsArchived;
 
             await _projectService.UpdateAsync(project);
 

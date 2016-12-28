@@ -103,6 +103,10 @@
     <Compile Include="Migrations\201611290703320_EditHourageModel.Designer.cs">
       <DependentUpon>201611290703320_EditHourageModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612270956183_AddIsArchivedToProject.cs" />
+    <Compile Include="Migrations\201612270956183_AddIsArchivedToProject.Designer.cs">
+      <DependentUpon>201612270956183_AddIsArchivedToProject.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Entities\Hourage.cs" />
     <Compile Include="Entities\Project.cs" />
@@ -133,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611290703320_EditHourageModel.resx">
       <DependentUpon>201611290703320_EditHourageModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612270956183_AddIsArchivedToProject.resx">
+      <DependentUpon>201612270956183_AddIsArchivedToProject.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

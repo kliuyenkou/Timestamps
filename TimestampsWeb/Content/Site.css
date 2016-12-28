@@ -73,3 +73,7 @@ body {
 .records > tr:hover .deletelink {
     display: block;
 }
+
+.strikethrogh {
+    text-decoration: line-through;
+}

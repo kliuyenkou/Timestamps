@@ -14,5 +14,7 @@ namespace TimestampsWeb.ViewModels
         public string Description { get; set; }
 
         public string Action { get; set; }
+
+        public bool IsArchived { get; set; }
     }
 }

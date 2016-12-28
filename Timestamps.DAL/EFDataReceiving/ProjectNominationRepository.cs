@@ -17,6 +17,7 @@ namespace Timestamps.DAL.EFDataReceiving
             return
                 context.ProjectNominations.Where(pn => pn.UserId == userId)
                     .Include(pn => pn.Project)
+                    .Where(p => !p.Project.IsArchived)
                     .Select(pn => pn.Project)
                     .ToList();
         }

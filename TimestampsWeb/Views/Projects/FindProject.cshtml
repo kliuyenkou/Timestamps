@@ -6,11 +6,6 @@
 <h2>Find Project</h2>
 
 <table class="table table-hover">
-    @*<tr>
-        <th>Project</th>
-        <th>Creator</th>
-        <th>Take part in</th>
-    </tr>*@
     <tbody class="projects">
         @foreach (var project in Model) {
             <tr>
@@ -19,7 +14,6 @@
                         <div class="title">@project.Title</div>
                         <div class="description">@project.Description</div>
                     </div>
-                    
                 </td>
                 <td>@project.CreatorName</td>
                 <td>
