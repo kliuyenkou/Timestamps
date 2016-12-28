@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Omu.ValueInjecter;
 using Timestamps.BLL.Interfaces;
+using Timestamps.DAL.Entities;
 using Timestamps.DAL.Interfaces;
 using Mapper = AutoMapper.Mapper;
 using Project = Timestamps.BLL.Models.Project;
@@ -16,13 +17,18 @@ namespace Timestamps.BLL.Services
     {
         private readonly IProjectNominationRepository _projectNominationRepository;
         private readonly IProjectRepository _projectRepository;
+        private readonly INotificationRepository _notificationRepository;
+        private readonly IUserNotificationRepository _userNotificationRepository;
         private readonly IUnitOfWork _unitOfWork;
 
         public ProjectService(IUnitOfWork unitOfWork)
         {
+            _unitOfWork = unitOfWork;
             _projectRepository = unitOfWork.Projects;
             _projectNominationRepository = unitOfWork.ProjectNominations;
-            _unitOfWork = unitOfWork;
+            _notificationRepository = unitOfWork.Notifications;
+            _userNotificationRepository = unitOfWork.UserNotifications;
+
         }
 
         public IEnumerable<Project> GetProjectsUserCreate(string userId)
@@ -97,6 +103,24 @@ namespace Timestamps.BLL.Services
                 throw new Exception("Project has already archived.");
             }
             projectEntity.IsArchived = true;
+
+            var notification = new Notification()
+            {
+                DateTime = DateTime.Now,
+                ProjectId = projectEntity.Id,
+                Type = NotificationType.ProjectArchived
+            };
+            _notificationRepository.Add(notification);
+            var usersOnThisProject = _projectNominationRepository.GetAllUsersOnProject(projectId);
+            foreach (var applicationUser in usersOnThisProject) {
+                var userNotification = new UserNotification()
+                {
+                    User = applicationUser,
+                    Notification = notification
+                };
+                _userNotificationRepository.Add(userNotification);
+            }
+
             _unitOfWork.SaveChanges();
         }
     }

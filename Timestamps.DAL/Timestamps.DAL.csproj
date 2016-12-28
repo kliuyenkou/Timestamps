@@ -59,18 +59,25 @@
   <ItemGroup>
     <Compile Include="EFDataReceiving\ApplicationDbContext.cs" />
     <Compile Include="EFDataReceiving\HourageRepository.cs" />
+    <Compile Include="EFDataReceiving\NotificationRepository.cs" />
     <Compile Include="EFDataReceiving\ProjectNominationRepository.cs" />
     <Compile Include="EFDataReceiving\ProjectRepository.cs" />
     <Compile Include="EFDataReceiving\Repository.cs" />
     <Compile Include="EFDataReceiving\UnitOfWork.cs" />
+    <Compile Include="EFDataReceiving\UserNotificationRepository.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
+    <Compile Include="Entities\Notification.cs" />
+    <Compile Include="Entities\NotificationType.cs" />
+    <Compile Include="Entities\UserNotification.cs" />
     <Compile Include="Identity\ApplicationUserManager.cs" />
     <Compile Include="Interfaces\IHourageRepository.cs" />
+    <Compile Include="Interfaces\INotificationRepository.cs" />
     <Compile Include="Interfaces\IProjectNominationRepository.cs" />
     <Compile Include="Interfaces\IProjectRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IUserManager.cs" />
+    <Compile Include="Interfaces\IUserNotificationRepository.cs" />
     <Compile Include="Migrations\201611220909334_InitialModel.cs" />
     <Compile Include="Migrations\201611220909334_InitialModel.Designer.cs">
       <DependentUpon>201611220909334_InitialModel.cs</DependentUpon>
@@ -107,6 +114,10 @@
     <Compile Include="Migrations\201612270956183_AddIsArchivedToProject.Designer.cs">
       <DependentUpon>201612270956183_AddIsArchivedToProject.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612280859013_AddNotification.cs" />
+    <Compile Include="Migrations\201612280859013_AddNotification.Designer.cs">
+      <DependentUpon>201612280859013_AddNotification.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Entities\Hourage.cs" />
     <Compile Include="Entities\Project.cs" />
@@ -140,6 +151,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612270956183_AddIsArchivedToProject.resx">
       <DependentUpon>201612270956183_AddIsArchivedToProject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612280859013_AddNotification.resx">
+      <DependentUpon>201612280859013_AddNotification.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

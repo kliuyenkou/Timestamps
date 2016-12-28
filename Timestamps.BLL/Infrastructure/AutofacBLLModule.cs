@@ -14,6 +14,8 @@ namespace Timestamps.BLL.Infrastructure
             builder.RegisterType<ProjectRepository>().As<IProjectRepository>().InstancePerRequest();
             builder.RegisterType<ProjectNominationRepository>().As<IProjectNominationRepository>().InstancePerRequest();
             builder.RegisterType<HourageRepository>().As<IHourageRepository>().InstancePerRequest();
+            builder.RegisterType<NotificationRepository>().As<INotificationRepository>().InstancePerRequest();
+            builder.RegisterType<UserNotificationRepository>().As<IUserNotificationRepository>().InstancePerRequest();
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
         }
     }

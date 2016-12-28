@@ -7,5 +7,6 @@ namespace Timestamps.DAL.Interfaces
     {
         IEnumerable<Project> GetProjectsUserTakePart(string userId);
         bool IsUserTakePartInProject(string userId, int projectId);
+        IEnumerable<ApplicationUser> GetAllUsersOnProject(int projectId);
     }
 }

@@ -26,5 +26,10 @@ namespace Timestamps.DAL.EFDataReceiving
         {
             return context.ProjectNominations.Any(pn => (pn.ProjectId == projectId) && (pn.UserId == userId));
         }
+
+        public IEnumerable<ApplicationUser> GetAllUsersOnProject(int projectId)
+        {
+            return context.ProjectNominations.Where(pn => pn.ProjectId == projectId).Select(pn => pn.User).ToList();
+        }
     }
 }
