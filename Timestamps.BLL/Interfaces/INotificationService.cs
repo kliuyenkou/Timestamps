@@ -6,5 +6,7 @@ namespace Timestamps.BLL.Interfaces
     public interface INotificationService
     {
         IEnumerable<Notification> GetNewNotificationsForUser(string userId);
+        void MarkNotificationAsReadByUser(Notification notification, string userId);
+        void MarkAllNewNotificationsAsReadByUser(string userId);
     }
 }

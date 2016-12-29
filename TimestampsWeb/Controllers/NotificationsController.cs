@@ -3,6 +3,7 @@ using System.Web.Http;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Timestamps.BLL.Interfaces;
+using Timestamps.BLL.Models;
 using TimestampsWeb.Dto;
 
 namespace TimestampsWeb.Controllers
@@ -23,6 +24,15 @@ namespace TimestampsWeb.Controllers
             var notifications = _notificationService.GetNewNotificationsForUser(userId);
             var notificationsDto = Mapper.Map<IEnumerable<NotificationDto>>(notifications);
             return notificationsDto;
+        }
+
+        [HttpPost]
+        public IHttpActionResult MarkNotificationAsRead(IEnumerable<NotificationDto> notificationsDto)
+        {
+            var userId = User.Identity.GetUserId();
+            _notificationService.MarkAllNewNotificationsAsReadByUser(userId);
+
+            return Ok();
         }
     }
 }
