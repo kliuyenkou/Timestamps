@@ -5,18 +5,18 @@ using Timestamps.BLL.Interfaces;
 
 namespace TimestampsWeb.Controllers
 {
-    public class ProjectsApiController : ApiController
+    public class ArchiveProjectController : ApiController
     {
         private readonly IProjectNominationService _projectNominationService;
         private readonly IProjectService _projectService;
 
-        public ProjectsApiController(IProjectService projectService, IProjectNominationService projectNominationService)
+        public ArchiveProjectController(IProjectService projectService, IProjectNominationService projectNominationService)
         {
             _projectService = projectService;
             _projectNominationService = projectNominationService;
         }
 
-        [HttpDelete]
+        [HttpPost]
         public IHttpActionResult Archive(int id)
         {
             string userId = User.Identity.GetUserId();
@@ -29,5 +29,21 @@ namespace TimestampsWeb.Controllers
 
             return Ok();
         }
+
+        [HttpDelete]
+        public IHttpActionResult Restore(int id)
+        {
+            string userId = User.Identity.GetUserId();
+            try {
+                _projectService.RestoreUserProjectById(userId, id);
+            }
+            catch (Exception) {
+                return NotFound();
+            }
+
+            return Ok();
+        }
+
+
     }
 }

@@ -41,9 +41,9 @@
                 var a = document.createElement('a');
                 var linkText = document.createTextNode('Delete');
                 a.appendChild(linkText);
-                a.href = "#";
-                a.class = "js-delete-record";
-                a.setAttribute("data-record-id", record.Id);
+                a.href = '#';
+                a.className += 'js-delete-record';
+                a.setAttribute('data-record-id', record.Id);
                 tdDelete.appendChild(a);
                 tRow.appendChild(tdDelete);
                 tbody.appendChild(tRow);
@@ -70,7 +70,7 @@
         var a = document.createElement('a');
         var linkText = document.createTextNode('Delete');
         a.appendChild(linkText);
-        a.className = "js-delete-record";
+        a.className += "js-delete-record";
         a.href = "#";
         tdDelete.appendChild(a);
         tRow.appendChild(tdDelete);

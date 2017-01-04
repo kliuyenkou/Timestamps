@@ -50,10 +50,10 @@
         $(document)
             .ready(function () {
                 houragesController.loadRecordsList();
-                $('#addRecord').click(function() {
+                $("#addRecord").click(function() {
                     houragesController.appendRecordToList();
                 });
-                $('.js-delete-record').click(function(e) {
+                $(document).on("click", "a.js-delete-record", function (e) {
                     var link = $(e.target);
                     if (confirm("Are you sure you want to delete this record?")) {
                         $.ajax({
@@ -61,7 +61,7 @@
                                 method: "DELETE"
                             })
                             .done(function() {
-                                link.parents("tr").fadeOut(function() {
+                                link.parents('tr').fadeOut(function() {
                                     $(this).remove();
                                 });
                             })

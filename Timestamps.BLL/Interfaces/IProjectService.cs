@@ -14,5 +14,6 @@ namespace Timestamps.BLL.Interfaces
         Project GetUserProjectById(string userId, int projectId);
         Task UpdateAsync(Project project);
         void ArchiveUserProjectById(string userId, int projectId);
+        void RestoreUserProjectById(string userId, int projectId);
     }
 }

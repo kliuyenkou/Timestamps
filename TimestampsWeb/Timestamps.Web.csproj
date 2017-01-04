@@ -223,7 +223,7 @@
     <Compile Include="Dto\ProjectDto.cs" />
     <Compile Include="Dto\NotificationDto.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
-    <Compile Include="Controllers\ProjectsApiController.cs" />
+    <Compile Include="Controllers\ArchiveProjectController.cs" />
     <Compile Include="Dto\ProjectNominationDto.cs" />
     <Compile Include="Controllers\ProjectsReportController.cs" />
     <Compile Include="Controllers\TimesheetController.cs" />

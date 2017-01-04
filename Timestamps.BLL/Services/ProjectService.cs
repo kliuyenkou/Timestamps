@@ -124,5 +124,10 @@ namespace Timestamps.BLL.Services
 
             _unitOfWork.SaveChanges();
         }
+
+        public void RestoreUserProjectById(string userId, int projectId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
