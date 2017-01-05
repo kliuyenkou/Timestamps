@@ -32,15 +32,16 @@
                 tdProject.innerHTML = record.Project.Title;
                 tRow.appendChild(tdProject);
                 var tdDate = document.createElement('td');
-                tdDate.innerHTML = record.Date;
+                tdDate.innerHTML = new Date(record.Date).toLocaleDateString();
                 tRow.appendChild(tdDate);
                 var tdHours = document.createElement('td');
                 tdHours.innerHTML = record.Hours;
                 tRow.appendChild(tdHours);
                 var tdDelete = document.createElement('td');
                 var a = document.createElement('a');
-                var linkText = document.createTextNode('Delete');
-                a.appendChild(linkText);
+                var icon = document.createElement('i');
+                icon.className += 'glyphicon glyphicon-remove';
+                a.appendChild(icon);
                 a.href = '#';
                 a.className += 'js-delete-record';
                 a.setAttribute('data-record-id', record.Id);
@@ -61,7 +62,7 @@
         tdProject.innerHTML = record.ProjectId;
         tRow.appendChild(tdProject);
         var tdDate = document.createElement('td');
-        tdDate.innerHTML = record.Date;
+        tdDate.innerHTML = new Date(record.Date).toLocaleDateString();
         tRow.appendChild(tdDate);
         var tdHours = document.createElement('td');
         tdHours.innerHTML = record.Hours;

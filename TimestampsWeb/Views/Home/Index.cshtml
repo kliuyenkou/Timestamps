@@ -3,6 +3,8 @@
     ViewBag.Title = "Timesheet";
 }
 
+<div class="gap-60"></div>
+
 <form class="form-inline form-addrecord" id="recordForm">
     @Html.AntiForgeryToken()
     <div class="form-group form-group-workDescription">
@@ -24,8 +26,7 @@
     <button id="addRecord" type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-
-<br />
+<div class="gap-30"></div>
 
 <div id="TimesheetContainer">
     <table id="Timesheet" class="table">
@@ -40,10 +41,8 @@
         </thead>
     </table>
 </div>
-
-<div id="recordsTable" class="recordsTable">
-
-</div>
+   
+<div class="gap-60"></div>
 
 @section scripts{
     <script type="text/javascript">
@@ -57,7 +56,7 @@
                     var link = $(e.target);
                     if (confirm("Are you sure you want to delete this record?")) {
                         $.ajax({
-                                url: "/api/Timesheet/" + link.attr("data-record-id"),
+                                url: "/api/Timesheet/" + link.parent().attr("data-record-id"),
                                 method: "DELETE"
                             })
                             .done(function() {

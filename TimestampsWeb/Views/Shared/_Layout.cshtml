@@ -78,24 +78,27 @@
         $.each(notifications,
             function(index, record) {
                 var li = document.createElement('li');
+                var spanMessage;
+                var spanTitle;
+                var spanText;
                 if (record.Type == 1) {
-                    var spanMessage = document.createElement('span');
-                    var spanTitle = document.createElement('span');
+                    spanMessage = document.createElement('span');
+                    spanTitle = document.createElement('span');
                     spanTitle.className = "highlight";
                     spanTitle.innerHTML = record.Project.Title;
                     spanMessage.appendChild(spanTitle);
-                    var spanText = document.createElement('span');
+                    spanText = document.createElement('span');
                     spanText.innerText = ' moved to archive.';
                     spanMessage.appendChild(spanText);
                     li.appendChild(spanMessage);
                 }
                 if (record.Type == 2) {
-                    var spanMessage = document.createElement('span');
-                    var spanTitle = document.createElement('span');
+                    spanMessage = document.createElement('span');
+                    spanTitle = document.createElement('span');
                     spanTitle.className = "highlight";
                     spanTitle.innerHTML = record.Project.Title;
                     spanMessage.appendChild(spanTitle);
-                    var spanText = document.createElement('span');
+                    spanText = document.createElement('span');
                     spanText.innerText = ' restored from archive.';
                     spanMessage.appendChild(spanText);
                     li.appendChild(spanMessage);
