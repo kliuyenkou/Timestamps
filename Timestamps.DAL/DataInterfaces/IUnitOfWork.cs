@@ -1,5 +1,8 @@
 ﻿using System.Threading.Tasks;
+using Timestamps.DAL.DataInterfaces.Repositories;
 using Timestamps.DAL.Entities;
+using Timestamps.DAL.Identity;
+using Timestamps.DAL.Management.Interfaces;
 
 namespace Timestamps.DAL.Interfaces
 {

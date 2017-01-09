@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Timestamps.BLL.Models;
 using Timestamps.BLL.Services;
+using Timestamps.DAL.DataInterfaces.Repositories;
 using Timestamps.DAL.Interfaces;
 
 namespace Timestamps.Tests.Services

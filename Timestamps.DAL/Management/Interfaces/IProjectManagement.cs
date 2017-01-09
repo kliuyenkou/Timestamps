@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Timestamps.DAL.DataContracts;
 using Timestamps.DAL.Entities;
 
-namespace Timestamps.DAL.Interfaces
+namespace Timestamps.DAL.Management.Interfaces
 {
     public interface IProjectManagement
     {

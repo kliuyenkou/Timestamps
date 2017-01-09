@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Timestamps.DAL.Entities;
-using Timestamps.DAL.Interfaces;
+using Timestamps.DAL.Management.Interfaces;
 
 namespace Timestamps.DAL.Identity
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Timestamps.DAL.Interfaces
+namespace Timestamps.DAL.DataInterfaces.Repositories
 {
     public interface IRepository<TEntity> where TEntity : class
     {

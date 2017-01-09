@@ -58,28 +58,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EFDataReceiving\ApplicationDbContext.cs" />
-    <Compile Include="EFDataReceiving\HourageRepository.cs" />
-    <Compile Include="EFDataReceiving\NotificationRepository.cs" />
-    <Compile Include="EFDataReceiving\ProjectManagement.cs" />
-    <Compile Include="EFDataReceiving\ProjectNominationRepository.cs" />
-    <Compile Include="EFDataReceiving\ProjectRepository.cs" />
-    <Compile Include="EFDataReceiving\Repository.cs" />
+    <Compile Include="EFDataReceiving\Repositories\HourageRepository.cs" />
+    <Compile Include="EFDataReceiving\Repositories\NotificationRepository.cs" />
+    <Compile Include="Management\AccountManager.cs" />
+    <Compile Include="Management\Interfaces\IAccountManager.cs" />
+    <Compile Include="Management\ProjectManagement.cs" />
+    <Compile Include="EFDataReceiving\Repositories\ProjectNominationRepository.cs" />
+    <Compile Include="EFDataReceiving\Repositories\ProjectRepository.cs" />
+    <Compile Include="EFDataReceiving\Repositories\Repository.cs" />
     <Compile Include="EFDataReceiving\UnitOfWork.cs" />
-    <Compile Include="EFDataReceiving\UserNotificationRepository.cs" />
+    <Compile Include="EFDataReceiving\Repositories\UserNotificationRepository.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\Notification.cs" />
     <Compile Include="Entities\NotificationType.cs" />
     <Compile Include="Entities\UserNotification.cs" />
     <Compile Include="Identity\ApplicationUserManager.cs" />
-    <Compile Include="Interfaces\IHourageRepository.cs" />
-    <Compile Include="Interfaces\INotificationRepository.cs" />
-    <Compile Include="Interfaces\IProjectManagement.cs" />
-    <Compile Include="Interfaces\IProjectNominationRepository.cs" />
-    <Compile Include="Interfaces\IProjectRepository.cs" />
-    <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="Interfaces\IUnitOfWork.cs" />
-    <Compile Include="Interfaces\IUserManager.cs" />
-    <Compile Include="Interfaces\IUserNotificationRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\IHourageRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\INotificationRepository.cs" />
+    <Compile Include="Management\Interfaces\IProjectManagement.cs" />
+    <Compile Include="DataInterfaces\Repositories\IProjectNominationRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\IProjectRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\IRepository.cs" />
+    <Compile Include="DataInterfaces\IUnitOfWork.cs" />
+    <Compile Include="Identity\IUserManager.cs" />
+    <Compile Include="DataInterfaces\Repositories\IUserNotificationRepository.cs" />
     <Compile Include="Migrations\201611220909334_InitialModel.cs" />
     <Compile Include="Migrations\201611220909334_InitialModel.Designer.cs">
       <DependentUpon>201611220909334_InitialModel.cs</DependentUpon>

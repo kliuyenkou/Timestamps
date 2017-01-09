@@ -2,6 +2,7 @@
 using AutoMapper;
 using Omu.ValueInjecter;
 using Timestamps.BLL.Interfaces;
+using Timestamps.DAL.DataInterfaces.Repositories;
 using Timestamps.DAL.Interfaces;
 using Hourage = Timestamps.BLL.Models.Hourage;
 using HourageEntity = Timestamps.DAL.Entities.Hourage;

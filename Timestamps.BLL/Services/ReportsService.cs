@@ -3,6 +3,7 @@ using System.Linq;
 using AutoMapper;
 using Timestamps.BLL.Interfaces;
 using Timestamps.BLL.Models;
+using Timestamps.DAL.DataInterfaces.Repositories;
 using Timestamps.DAL.Interfaces;
 
 namespace Timestamps.BLL.Services

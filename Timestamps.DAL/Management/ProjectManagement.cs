@@ -3,8 +3,9 @@ using System.Threading.Tasks;
 using Timestamps.DAL.DataContracts;
 using Timestamps.DAL.Entities;
 using Timestamps.DAL.Interfaces;
+using Timestamps.DAL.Management.Interfaces;
 
-namespace Timestamps.DAL.EFDataReceiving
+namespace Timestamps.DAL.Management
 {
     public class ProjectManagement : IProjectManagement
     {

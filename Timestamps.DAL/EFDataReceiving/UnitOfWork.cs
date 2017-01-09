@@ -2,6 +2,8 @@
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Timestamps.DAL.DataInterfaces.Repositories;
+using Timestamps.DAL.EFDataReceiving.Repositories;
 using Timestamps.DAL.Entities;
 using Timestamps.DAL.Identity;
 using Timestamps.DAL.Interfaces;

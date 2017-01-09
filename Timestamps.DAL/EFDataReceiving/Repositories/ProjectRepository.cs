@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using Timestamps.DAL.DataInterfaces.Repositories;
 using Timestamps.DAL.Entities;
 using Timestamps.DAL.Interfaces;
 
-namespace Timestamps.DAL.EFDataReceiving
+namespace Timestamps.DAL.EFDataReceiving.Repositories
 {
     public class ProjectRepository : Repository<Project>, IProjectRepository
     {

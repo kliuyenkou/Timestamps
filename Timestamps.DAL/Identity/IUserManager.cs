@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 
-namespace Timestamps.DAL.Interfaces
+namespace Timestamps.DAL.Identity
 {
     public interface IUserManager<TUser> where TUser : class, IUser<string>
     {

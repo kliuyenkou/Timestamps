@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Timestamps.DAL.DataInterfaces.Repositories;
 using Timestamps.DAL.Interfaces;
 
-namespace Timestamps.DAL.EFDataReceiving
+namespace Timestamps.DAL.EFDataReceiving.Repositories
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
