@@ -45,8 +45,10 @@
     $(document).ready(function() {
         $.get("/api/notifications",
             function (notifications) {
-                if (notifications.length == 0)
+                if (notifications.length === 0)
                     return;
+
+
 
                 $('.js-notifications-count').text(notifications.length).removeClass('hide');
 
@@ -57,8 +59,15 @@
                         return createNotificationsMarkup(notifications);
                     },
                     placement: "bottom"
-                }).on("shown.bs.popover", function() {
-                    $.post("/api/notifications")
+                }).on("shown.bs.popover",
+                    function() {
+                        $.ajax({
+                            method: "POST",
+                            url: "/api/notifications",
+                            data: JSON.stringify(notifications),
+                            contentType:"application/json; charset=utf-8",
+                            dataType: "json"
+                        })
                         .done(function () {
                             $('.js-notifications-count')
                                 .text("")
@@ -81,7 +90,7 @@
                 var spanMessage;
                 var spanTitle;
                 var spanText;
-                if (record.Type == 1) {
+                if (record.Type === 1) {
                     spanMessage = document.createElement('span');
                     spanTitle = document.createElement('span');
                     spanTitle.className = "highlight";
@@ -92,7 +101,7 @@
                     spanMessage.appendChild(spanText);
                     li.appendChild(spanMessage);
                 }
-                if (record.Type == 2) {
+                if (record.Type === 2) {
                     spanMessage = document.createElement('span');
                     spanTitle = document.createElement('span');
                     spanTitle.className = "highlight";

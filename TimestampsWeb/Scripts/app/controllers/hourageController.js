@@ -1,9 +1,20 @@
 ﻿var houragesController = function (timesheetService) {
 
     var loadRecordsList = function () {
-        timesheetService.getAllRecords(loadListItems,
-            function () { alert("Fail to load records."); }
-            );
+        var d = $.Deferred();
+
+        timesheetService.getAllRecords(
+            function (records) {
+                d.resolve(records);
+
+                loadListItems(records);
+            },
+            function () {
+                d.reject();
+                 alert("Fail to load records.");
+            });
+
+        return d.promise();
     };
     var appendRecordToList = function () {
         var record = {
@@ -69,10 +80,12 @@
         tRow.appendChild(tdHours);
         var tdDelete = document.createElement('td');
         var a = document.createElement('a');
-        var linkText = document.createTextNode('Delete');
-        a.appendChild(linkText);
+        var icon = document.createElement('i');
+        icon.className += 'glyphicon glyphicon-remove';
+        a.appendChild(icon);
         a.className += "js-delete-record";
         a.href = "#";
+        a.setAttribute('data-record-id', record.Id);
         tdDelete.appendChild(a);
         tRow.appendChild(tdDelete);
         $('#Timesheet tbody').append(tRow);
