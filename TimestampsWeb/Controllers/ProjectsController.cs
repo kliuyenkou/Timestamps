@@ -24,7 +24,7 @@ namespace TimestampsWeb.Controllers
         public ActionResult Create()
         {
             ViewBag.Title = "Create project";
-            var projectViewModel = new ProjectViewModel { Action = "Edit" };
+            var projectViewModel = new ProjectViewModel { Action = "Create" };
             return View("ProjectForm", projectViewModel);
         }
 

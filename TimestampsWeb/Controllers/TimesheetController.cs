@@ -13,10 +13,12 @@ namespace TimestampsWeb.Controllers
     public class TimesheetController : ApiController
     {
         private readonly IHourageService _hourageService;
+        private readonly IProjectService _projectService;
 
-        public TimesheetController(IHourageService hourageService)
+        public TimesheetController(IHourageService hourageService, IProjectService projectService)
         {
             _hourageService = hourageService;
+            _projectService = projectService;
         }
 
         [HttpGet]
@@ -43,11 +45,14 @@ namespace TimestampsWeb.Controllers
         {
             if (!ModelState.IsValid) return BadRequest();
 
+            var userId = User.Identity.GetUserId();
             var hourage = new Hourage();
             hourage.InjectFrom(record);
-            hourage.UserId = User.Identity.GetUserId();
+            hourage.UserId = userId;
 
             _hourageService.Add(hourage);
+            //var houragSaved = _hourageService.GetHourageById(hourage.Id);
+            //houragSaved.Project = _projectService.GetUserProjectById(userId, hourage.ProjectId);
             return Ok(hourage);
         }
 
