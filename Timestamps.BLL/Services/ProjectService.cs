@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Omu.ValueInjecter;
 using Timestamps.BLL.Interfaces;
+using Timestamps.DAL.DataContracts;
 using Timestamps.DAL.Entities;
 using Timestamps.DAL.Interfaces;
 using Mapper = AutoMapper.Mapper;
@@ -20,20 +21,21 @@ namespace Timestamps.BLL.Services
         private readonly INotificationRepository _notificationRepository;
         private readonly IUserNotificationRepository _userNotificationRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IProjectManagement _projectManagement;
 
-        public ProjectService(IUnitOfWork unitOfWork)
+        public ProjectService(IProjectManagement projectManagement, IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             _projectRepository = unitOfWork.Projects;
             _projectNominationRepository = unitOfWork.ProjectNominations;
             _notificationRepository = unitOfWork.Notifications;
             _userNotificationRepository = unitOfWork.UserNotifications;
-
+            _projectManagement = projectManagement;
         }
 
         public IEnumerable<Project> GetProjectsUserCreate(string userId)
         {
-            var dbprojects = _projectRepository.GetProjectsUserCreate(userId);
+            var dbprojects = _projectManagement.GetProjectsUserCreate(userId);
             var projects = Mapper.Map<IEnumerable<ProjectEntity>, IEnumerable<Project>>(dbprojects);
             return projects;
         }
@@ -42,17 +44,8 @@ namespace Timestamps.BLL.Services
         {
             var projectEntity = new ProjectEntity();
             projectEntity.InjectFrom(project);
-            _projectRepository.Add(projectEntity);
-
-            var projectNomination = new ProjectNominationEntity
-            {
-                ProjectId = project.Id,
-                Project = projectEntity,
-                UserId = project.CreatorId
-            };
-
-            _projectNominationRepository.Add(projectNomination);
-            await _unitOfWork.SaveChangesAsync();
+            var createProjectRequest = new CreateProjectRequest(projectEntity, project.CreatorId);
+            await _projectManagement.CreateProject(createProjectRequest);
         }
 
         public void Add(Project project)

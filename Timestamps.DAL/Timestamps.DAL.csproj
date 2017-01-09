@@ -60,6 +60,7 @@
     <Compile Include="EFDataReceiving\ApplicationDbContext.cs" />
     <Compile Include="EFDataReceiving\HourageRepository.cs" />
     <Compile Include="EFDataReceiving\NotificationRepository.cs" />
+    <Compile Include="EFDataReceiving\ProjectManagement.cs" />
     <Compile Include="EFDataReceiving\ProjectNominationRepository.cs" />
     <Compile Include="EFDataReceiving\ProjectRepository.cs" />
     <Compile Include="EFDataReceiving\Repository.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Identity\ApplicationUserManager.cs" />
     <Compile Include="Interfaces\IHourageRepository.cs" />
     <Compile Include="Interfaces\INotificationRepository.cs" />
+    <Compile Include="Interfaces\IProjectManagement.cs" />
     <Compile Include="Interfaces\IProjectNominationRepository.cs" />
     <Compile Include="Interfaces\IProjectRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
@@ -123,6 +125,7 @@
     <Compile Include="Entities\Project.cs" />
     <Compile Include="Entities\ProjectNomination.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataContracts\CreateProjectRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201611220909334_InitialModel.resx">
