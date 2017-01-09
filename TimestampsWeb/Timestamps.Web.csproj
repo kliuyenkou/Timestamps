@@ -220,6 +220,8 @@
     <Compile Include="App_Start\Startup.Automapper.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Dto\HourageDto.cs" />
     <Compile Include="Dto\ProjectDto.cs" />
     <Compile Include="Dto\NotificationDto.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
@@ -253,6 +255,7 @@
     <Compile Include="ViewModels\HourageViewModel.cs" />
     <Compile Include="ViewModels\ProjectViewModel.cs" />
     <Compile Include="ViewModels\ProjectWithCreatorViewModel.cs" />
+    <Compile Include="ViewModels\ReportsProjectsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -330,6 +333,7 @@
     <Content Include="Views\Hourage\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Projects\FindProject.cshtml" />
+    <Content Include="Views\Reports\ReportMyProjects.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,35 @@
+﻿@using System.Web.Mvc.Html
+@model TimestampsWeb.ViewModels.ReportsProjectsViewModel
+
+@{
+    ViewBag.Title = "My projects report";
+}
+
+<h2>Projects</h2>
+
+<form class="form-inline" id="reportForm">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label class="sr-only" for="type">Description</label>
+        @Html.EditorFor(m=>m.ProjectType, "type")
+    </div>
+    <div class="form-group">
+        <label class="sr-only" for="project">Date</label>
+        <input type="text" class="form-control" id="project" placeholder="project">
+    </div>
+    <div class="form-group">
+        <label class="sr-only" for="dateStart">Date end</label>
+        <input type="date" class="form-control" id="dateStart" placeholder="Date start">
+    </div>
+    <div class="form-group">
+        <label class="sr-only" for="dateEnd">Date end</label>
+        <input type="date" class="form-control" id="dateEnd" placeholder="DateEnd">
+    </div>
+
+    <button id="addRecord" type="submit" class="btn btn-primary">Submit</button>
+</form>
+<div id="report">
+    
+</div>
+

@@ -106,6 +106,7 @@
     <Compile Include="Interfaces\INotificationService.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\NotificationType.cs" />
+    <Compile Include="Models\ProjectType.cs" />
     <Compile Include="Models\ProjectWithTotalHours.cs" />
     <Compile Include="Infrastructure\AutofacBLLModule.cs" />
     <Compile Include="Infrastructure\AutoMapperConfiguration\AutoMapperBLLConfiguration.cs" />
