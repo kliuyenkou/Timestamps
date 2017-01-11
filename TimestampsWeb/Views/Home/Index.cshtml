@@ -6,25 +6,32 @@
 <div class="gap-60"></div>
 
 <form class="form-inline form-addrecord" id="recordForm">
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        <label class="sr-only" for="workDescription">Description</label>
-        <input type="text" class="form-control" id="workDescription" placeholder="Description">
+    <div class="inputsline">
+        <div class="row">
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                <label class="sr-only" for="workDescription">Description</label>
+                <input type="text" class="form-control" id="workDescription" placeholder="Description">
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="project">Password</label>
+                @Html.DropDownList("projectId", ViewBag.ProjectId as SelectList, new { @class = "form-control", id = "project" })
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="date">Date</label>
+                <input type="date" class="form-control" id="date" placeholder="Date">
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="hours">Hours</label>
+                <input type="text" class="form-control" id="hours" placeholder="Hours">
+            </div>
+            <div class="form-group">
+                <button id="addRecord" type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label class="sr-only" for="project">Password</label>
-        @Html.DropDownList("projectId", ViewBag.ProjectId as SelectList, new { @class = "form-control", id = "project" })
-    </div>
-    <div class="form-group">
-        <label class="sr-only" for="date">Date</label>
-        <input type="date" class="form-control" id="date" placeholder="Date">
-    </div>
-    <div class="form-group">
-        <label class="sr-only" for="hours">Hours</label>
-        <input type="text" class="form-control" id="hours" placeholder="Hours">
-    </div>
-    <button id="addRecord" type="submit" class="btn btn-primary">Submit</button>
 </form>
 
 <div class="gap-30"></div>
