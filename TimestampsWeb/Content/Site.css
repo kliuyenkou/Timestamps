@@ -1,6 +1,10 @@
-﻿body {
-    padding-bottom: 20px;
+﻿html, body {
+    height: 100%;
+}
+body {
     padding-top: 50px;
+    font-family: Open sans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -25,10 +29,6 @@ textarea { max-width: 280px; }
 
 /*Bootstrap Overrides*/
 
-body {
-    font-family: Open sans, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
-}
 
 .form-control:focus {
     -webkit-box-shadow: none;
@@ -57,6 +57,19 @@ body {
 
 /*Page-level styles*/
 
+.wrapper {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -50px;
+  /* Pad bottom by footer height */
+  padding: 0 0 50px;
+}
+
+.footer {
+  height: 50px;
+  /*background-color: #f8f8f8;*/
+}
  .form-addrecord { margin-top: 20px; }
 
 .projectDetails > .title {

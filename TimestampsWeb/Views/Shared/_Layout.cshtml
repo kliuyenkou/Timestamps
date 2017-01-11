@@ -1,115 +1,118 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Timestamps</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic" rel="stylesheet">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
 <body>
-<div class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            @Html.ActionLink("Timesheet", "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})
+    <div class="wrapper">
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Timesheet", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        @*<li>@Html.ActionLink("Find project", "FindProject", "Projects")</li>*@
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
         </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                @*<li>@Html.ActionLink("Hourages", "Index", "Hourage")</li>*@
-                @*<li>@Html.ActionLink("Find project", "FindProject", "Projects")</li>*@
-            </ul>
-            @Html.Partial("_LoginPartial")
+        <div class="container body-content">
+            @RenderBody()
         </div>
+
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/app")
+        @RenderSection("scripts", false)
+        <script>
+            $(document).ready(function () {
+                $.get("/api/notifications",
+                    function (notifications) {
+                        if (notifications.length === 0)
+                            return;
+
+                        $('.js-notifications-count').text(notifications.length).removeClass('hide');
+
+                        $('.notifications').popover({
+                            html: true,
+                            title: "Notifications",
+                            content: function () {
+                                return createNotificationsMarkup(notifications);
+                            },
+                            placement: "bottom"
+                        }).on("shown.bs.popover",
+                            function () {
+                                $.post("/api/notifications")
+                                    .done(function () {
+                                        $('.js-notifications-count')
+                                            .text("")
+                                            .addClass('hide');
+                                    })
+                                    .fail(function (jqXhr, textStatus, errorThrown) {
+                                        console.error('Ajax request failed', jqXhr, textStatus, errorThrown);
+                                    });
+
+                            });
+                    });
+            });
+
+            var createNotificationsMarkup = function (notifications) {
+                var ul = document.createElement('ul');
+                ul.className = "notifications";
+                $.each(notifications,
+                    function (index, record) {
+                        var li = document.createElement('li');
+                        var spanMessage;
+                        var spanTitle;
+                        var spanText;
+                        if (record.Type === 1) {
+                            spanMessage = document.createElement('span');
+                            spanTitle = document.createElement('span');
+                            spanTitle.className = "highlight";
+                            spanTitle.innerHTML = record.Project.Title;
+                            spanMessage.appendChild(spanTitle);
+                            spanText = document.createElement('span');
+                            spanText.innerText = ' moved to archive.';
+                            spanMessage.appendChild(spanText);
+                            li.appendChild(spanMessage);
+                        }
+                        if (record.Type === 2) {
+                            spanMessage = document.createElement('span');
+                            spanTitle = document.createElement('span');
+                            spanTitle.className = "highlight";
+                            spanTitle.innerHTML = record.Project.Title;
+                            spanMessage.appendChild(spanTitle);
+                            spanText = document.createElement('span');
+                            spanText.innerText = ' restored from archive.';
+                            spanMessage.appendChild(spanText);
+                            li.appendChild(spanMessage);
+                        }
+                        ul.appendChild(li);
+                    });
+                return ul;
+            };
+
+
+        </script>
     </div>
-</div>
-<div class="container body-content">
-    @RenderBody()
-    <hr/>
-    <footer>
+<footer class="footer">
+    <div class="container">
         <p>&copy; @DateTime.Now.Year - Timestamps</p>
-    </footer>
-</div>
+    </div>
+</footer>
 
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
-@Scripts.Render("~/bundles/app")
-@RenderSection("scripts", false)
-<script>
-    $(document).ready(function() {
-        $.get("/api/notifications",
-            function (notifications) {
-                if (notifications.length === 0)
-                    return;
-
-                $('.js-notifications-count').text(notifications.length).removeClass('hide');
-
-                $('.notifications').popover({
-                    html: true,
-                    title: "Notifications",
-                    content: function() {
-                        return createNotificationsMarkup(notifications);
-                    },
-                    placement: "bottom"
-                }).on("shown.bs.popover",
-                    function() {
-                        $.post("/api/notifications")
-                        .done(function () {
-                            $('.js-notifications-count')
-                                .text("")
-                                .addClass('hide');
-                        })
-                        .fail(function(jqXhr, textStatus, errorThrown){
-                            console.error('Ajax request failed', jqXhr, textStatus, errorThrown);
-                        });
-
-                });
-            });
-    });
-
-    var createNotificationsMarkup = function(notifications) {
-        var ul = document.createElement('ul');
-        ul.className = "notifications";
-        $.each(notifications,
-            function(index, record) {
-                var li = document.createElement('li');
-                var spanMessage;
-                var spanTitle;
-                var spanText;
-                if (record.Type === 1) {
-                    spanMessage = document.createElement('span');
-                    spanTitle = document.createElement('span');
-                    spanTitle.className = "highlight";
-                    spanTitle.innerHTML = record.Project.Title;
-                    spanMessage.appendChild(spanTitle);
-                    spanText = document.createElement('span');
-                    spanText.innerText = ' moved to archive.';
-                    spanMessage.appendChild(spanText);
-                    li.appendChild(spanMessage);
-                }
-                if (record.Type === 2) {
-                    spanMessage = document.createElement('span');
-                    spanTitle = document.createElement('span');
-                    spanTitle.className = "highlight";
-                    spanTitle.innerHTML = record.Project.Title;
-                    spanMessage.appendChild(spanTitle);
-                    spanText = document.createElement('span');
-                    spanText.innerText = ' restored from archive.';
-                    spanMessage.appendChild(spanText);
-                    li.appendChild(spanMessage);
-                }
-                ul.appendChild(li);
-            });
-        return ul;
-    };
-
-
-</script>
 </body>
 </html>
