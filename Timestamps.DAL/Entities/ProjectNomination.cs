@@ -1,15 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Timestamps.DAL.Entities
 {
     public class ProjectNomination
     {
-        public int Id { get; set; }
 
-        [Required]
+        [Key]
+        [Column(Order = 1)]
         public int ProjectId { get; set; }
 
-        [Required]
+        [Key]
+        [Column(Order = 2)]
         public string UserId { get; set; }
 
         public Project Project { get; set; }

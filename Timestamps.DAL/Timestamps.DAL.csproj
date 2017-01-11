@@ -127,6 +127,10 @@
     <Compile Include="Migrations\201612280859013_AddNotification.Designer.cs">
       <DependentUpon>201612280859013_AddNotification.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701111021394_RemoveSurragateKeyFromProjectNomination.cs" />
+    <Compile Include="Migrations\201701111021394_RemoveSurragateKeyFromProjectNomination.Designer.cs">
+      <DependentUpon>201701111021394_RemoveSurragateKeyFromProjectNomination.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Entities\Hourage.cs" />
     <Compile Include="Entities\Project.cs" />
@@ -164,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612280859013_AddNotification.resx">
       <DependentUpon>201612280859013_AddNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701111021394_RemoveSurragateKeyFromProjectNomination.resx">
+      <DependentUpon>201701111021394_RemoveSurragateKeyFromProjectNomination.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
