@@ -1,35 +1,27 @@
 ﻿using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Timestamps.BLL.Interfaces;
-using Timestamps.BLL.Models;
 using TimestampsWeb.Dto;
 
 namespace TimestampsWeb.Controllers
 {
     public class ProjectNominationsController : ApiController
     {
-        private readonly IProjectNominationService _projectNominationService;
+        private readonly IProjectService _projectService;
 
-        public ProjectNominationsController(IProjectNominationService projectNominationService)
+        public ProjectNominationsController(IProjectService projectService)
         {
-            _projectNominationService = projectNominationService;
+            _projectService = projectService;
         }
-
 
         [HttpPost]
         public IHttpActionResult TakePartInProject(ProjectNominationDto projectNominationDto)
         {
             var userId = User.Identity.GetUserId();
-            if (_projectNominationService.IsUserTakePartInProject(userId, projectNominationDto.ProjectId))
-                return BadRequest("This user has already nominated on this project.");
+            if (_projectService.IsUserTakePartInProject(userId, projectNominationDto.ProjectId))
+                return BadRequest("This user has laready took part in this project.");
 
-            var projectNomination = new ProjectNomination
-            {
-                ProjectId = projectNominationDto.ProjectId,
-                UserId = userId
-            };
-
-            _projectNominationService.Add(projectNomination);
+            _projectService.AddUserToProject(projectNominationDto.ProjectId, userId);
 
             return Ok();
         }

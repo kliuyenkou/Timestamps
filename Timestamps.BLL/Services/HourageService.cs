@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using AutoMapper;
 using Omu.ValueInjecter;
 using Timestamps.BLL.Interfaces;
-using Timestamps.DAL.DataInterfaces.Repositories;
-using Timestamps.DAL.Interfaces;
+using Timestamps.DAL.Management.Interfaces;
 using Hourage = Timestamps.BLL.Models.Hourage;
 using HourageEntity = Timestamps.DAL.Entities.Hourage;
 using Mapper = AutoMapper.Mapper;
@@ -12,42 +10,38 @@ namespace Timestamps.BLL.Services
 {
     public class HourageService : IHourageService
     {
-        private readonly IHourageRepository _hourageRepository;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IHourageManagement _hourageManagement;
 
-        public HourageService(IUnitOfWork unitOfWork)
+        public HourageService(IHourageManagement hourageManagement)
         {
-            _hourageRepository = unitOfWork.Hourages;
-            _unitOfWork = unitOfWork;
+            _hourageManagement = hourageManagement;
         }
 
         public IEnumerable<Hourage> GetUserHourageRecordsWithProject(string userId)
         {
-            var dbHourageRecords = _hourageRepository.GetUserHourageRecordsWithProject(userId);
+            var dbHourageRecords = _hourageManagement.GetUserHourageRecords(userId);
             var records = Mapper.Map<IEnumerable<HourageEntity>, IEnumerable<Hourage>>(dbHourageRecords);
             return records;
         }
 
-        public void Add(Hourage hourage)
+        public void AddHourageRecord(Hourage hourage)
         {
             var hourageEntity = new HourageEntity();
             hourageEntity.InjectFrom(hourage);
-            _hourageRepository.Add(hourageEntity);
-            _unitOfWork.SaveChangesWithErrors();
+            _hourageManagement.Create(hourageEntity);
         }
 
         public Hourage GetHourageById(int hourageId)
         {
-            var hourageDb = _hourageRepository.Get(hourageId);
+            var hourageEntity = _hourageManagement.Get(hourageId);
             var hourage = new Hourage();
-            hourage.InjectFrom(hourageDb);
+            hourage.InjectFrom(hourageEntity);
             return hourage;
         }
 
-        public void Delete(int hourageId)
+        public void DeleteHourageRecord(int hourageId)
         {
-            _hourageRepository.RemoveById(hourageId);
-            _unitOfWork.SaveChanges();
+            _hourageManagement.Delete(hourageId);
         }
     }
 }

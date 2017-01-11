@@ -5,6 +5,16 @@ namespace Timestamps.DAL.Entities
 {
     public class UserNotification
     {
+        public UserNotification(Notification notification, ApplicationUser user)
+        {
+            Notification = notification;
+            User = user;
+        }
+
+        public UserNotification()
+        {
+        }
+
         [Key]
         [Column(Order = 1)]
         public string UserId { get; set; }

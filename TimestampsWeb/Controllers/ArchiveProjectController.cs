@@ -7,25 +7,18 @@ namespace TimestampsWeb.Controllers
 {
     public class ArchiveProjectController : ApiController
     {
-        private readonly IProjectNominationService _projectNominationService;
         private readonly IProjectService _projectService;
 
-        public ArchiveProjectController(IProjectService projectService, IProjectNominationService projectNominationService)
+        public ArchiveProjectController(IProjectService projectService)
         {
             _projectService = projectService;
-            _projectNominationService = projectNominationService;
         }
 
         [HttpPost]
         public IHttpActionResult Archive(int id)
         {
             string userId = User.Identity.GetUserId();
-            try {
-                _projectService.ArchiveUserProjectById(userId, id);
-            }
-            catch (Exception) {
-                return NotFound();
-            }
+            _projectService.ArchiveUserProjectAsync(userId, id);
 
             return Ok();
         }
@@ -34,12 +27,7 @@ namespace TimestampsWeb.Controllers
         public IHttpActionResult Restore(int id)
         {
             string userId = User.Identity.GetUserId();
-            try {
-                _projectService.RestoreUserProjectById(userId, id);
-            }
-            catch (Exception) {
-                return NotFound();
-            }
+            _projectService.RestoreUserProject(userId, id);
 
             return Ok();
         }

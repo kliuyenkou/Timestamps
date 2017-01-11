@@ -49,6 +49,7 @@
                         method: "POST"
                     })
                         .done(function () {
+                            $("#IsArchived").value = "true";
                             $("#labelArchived").removeClass("hide");
                             $("#restore").removeClass("hide");
                             $("#archive").addClass("hide");
@@ -65,6 +66,7 @@
                             method: "DELETE"
                         })
                             .done(function () {
+                                $("#IsArchived").value = "false";
                                 $("#labelArchived").addClass("hide");
                                 $("#restore").addClass("hide");
                                 $("#archive").removeClass("hide");

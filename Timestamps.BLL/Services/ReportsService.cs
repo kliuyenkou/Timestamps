@@ -3,28 +3,25 @@ using System.Linq;
 using AutoMapper;
 using Timestamps.BLL.Interfaces;
 using Timestamps.BLL.Models;
-using Timestamps.DAL.DataInterfaces.Repositories;
-using Timestamps.DAL.Interfaces;
+using Timestamps.DAL.Management.Interfaces;
 
 namespace Timestamps.BLL.Services
 {
     public class ReportsService : IReportsService
     {
-        private readonly IHourageRepository _hourageRepository;
-        private readonly IProjectNominationRepository _projectNominationRepository;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IProjectManagement _projectManagement;
+        private readonly IHourageManagement _hourageManagement;
 
-        public ReportsService(IUnitOfWork unitOfWork)
+        public ReportsService(IProjectManagement projectManagement, IHourageManagement hourageManagement)
         {
-            _unitOfWork = unitOfWork;
-            _hourageRepository = unitOfWork.Hourages;
-            _projectNominationRepository = unitOfWork.ProjectNominations;
+            _projectManagement = projectManagement;
+            _hourageManagement = hourageManagement;
         }
 
         public IEnumerable<ProjectWithTotalHours> GetUserProjectsWithOverallTime(string userId)
         {
-            var projectsUserTakePart = _projectNominationRepository.GetProjectsUserTakePart(userId);
-            var houragesGroupedByProject = _hourageRepository.GetUserHourageRecordsWithProject(userId)
+            var projectsUserTakePart = _projectManagement.GetProjectsUserTakePart(userId);
+            var houragesGroupedByProject = _hourageManagement.GetUserHourageRecords(userId)
                 .GroupBy(h => h.Project)
                 .Select(hg =>
                     new

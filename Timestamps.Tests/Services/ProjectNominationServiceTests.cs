@@ -1,28 +1,21 @@
-﻿using System;
-using System.Runtime.Remoting.Messaging;
-using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using Timestamps.BLL.Models;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Timestamps.BLL.Services;
-using Timestamps.DAL.DataInterfaces.Repositories;
-using Timestamps.DAL.Interfaces;
 
 namespace Timestamps.Tests.Services
 {
     [TestClass]
     public class ProjectNominationServiceTests
     {
-        private ProjectNominationService _service;
+        //private ProjectService _service;
 
         [TestInitialize]
         public void TestInitialize()
         {
 
-            var mockProjectNominationRepository = new Mock<IProjectNominationRepository>();
-            var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.SetupGet(u => u.ProjectNominations).Returns(mockProjectNominationRepository.Object);
-            _service = new ProjectNominationService(mockUnitOfWork.Object);
+            //var mockProjectNominationRepository = new Mock<IProjectNominationRepository>();
+            //var mockUnitOfWork = new Mock<IUnitOfWork>();
+            //mockUnitOfWork.SetupGet(u => u.ProjectNominations).Returns(mockProjectNominationRepository.Object);
+            //_service = new ProjectService(mockUnitOfWork.Object);
         }
 
         [TestMethod]

@@ -6,14 +6,15 @@ namespace Timestamps.BLL.Interfaces
 {
     public interface IProjectService
     {
-        Project GetProjectById(int projectId);
         IEnumerable<Project> GetProjectsUserCreate(string userId);
         Task CreateProjectAsync(Project project);
-        void Add(Project project);
         IEnumerable<Project> GetAllProjects();
-        Project GetUserProjectById(string userId, int projectId);
+        Project GetUserProject(string userId, int projectId);
         Task UpdateAsync(Project project);
-        void ArchiveUserProjectById(string userId, int projectId);
-        void RestoreUserProjectById(string userId, int projectId);
+        void ArchiveUserProjectAsync(string userId, int projectId);
+        void RestoreUserProject(string userId, int projectId);
+        void AddUserToProject(int projectId, string userId);
+        IEnumerable<Project> GetProjectsUserTakePart(string userId);
+        bool IsUserTakePartInProject(string userId, int projectId);
     }
 }

@@ -6,8 +6,8 @@ namespace Timestamps.BLL.Interfaces
     public interface IHourageService
     {
         IEnumerable<Hourage> GetUserHourageRecordsWithProject(string userId);
-        void Add(Hourage hourage);
+        void AddHourageRecord(Hourage hourage);
         Hourage GetHourageById(int hourageId);
-        void Delete(int hourageId);
+        void DeleteHourageRecord(int hourageId);
     }
 }

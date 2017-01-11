@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Timestamps.DAL.DataInterfaces.Repositories;
-using Timestamps.DAL.Interfaces;
 
 namespace Timestamps.DAL.EFDataReceiving.Repositories
 {
@@ -31,10 +30,10 @@ namespace Timestamps.DAL.EFDataReceiving.Repositories
             return context.Set<TEntity>().Where(predicate).ToList();
         }
 
-        public TEntity Get(int id)
-        {
-            return context.Set<TEntity>().Find(id);
-        }
+        //public TEntity Get(int id)
+        //{
+        //    return context.Set<TEntity>().Find(id);
+        //}
 
         public IEnumerable<TEntity> GetAll()
         {

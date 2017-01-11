@@ -10,12 +10,12 @@ namespace TimestampsWeb.Controllers
     public class HourageController : Controller
     {
         private readonly IHourageService _hourageService;
-        private readonly IProjectNominationService _projectNominationService;
+        private readonly IProjectService _projectService;
 
-        public HourageController(IHourageService hourageService, IProjectNominationService projectNominationService)
+        public HourageController(IHourageService hourageService, IProjectService projectService)
         {
             _hourageService = hourageService;
-            _projectNominationService = projectNominationService;
+            _projectService = projectService;
         }
 
         // GET: Hourage
@@ -31,7 +31,7 @@ namespace TimestampsWeb.Controllers
         public ActionResult Create()
         {
             var userId = User.Identity.GetUserId();
-            var projectsUserTakePart = _projectNominationService.GetProjectsUserTakePart(userId);
+            var projectsUserTakePart = _projectService.GetProjectsUserTakePart(userId);
             ViewBag.ProjectId = new SelectList(projectsUserTakePart, "Id", "Title");
             ViewBag.UserId = userId;
             return View();
@@ -55,10 +55,10 @@ namespace TimestampsWeb.Controllers
                     ProjectId = viewModel.ProjectId
                 };
 
-                _hourageService.Add(hourage);
+                _hourageService.AddHourageRecord(hourage);
                 return RedirectToAction("Index");
             }
-            var projectsUserTakePart = _projectNominationService.GetProjectsUserTakePart(userId);
+            var projectsUserTakePart = _projectService.GetProjectsUserTakePart(userId);
             ViewBag.ProjectId = new SelectList(projectsUserTakePart, "Id", "Title");
             return View(viewModel);
         }
@@ -78,7 +78,7 @@ namespace TimestampsWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            _hourageService.Delete(id);
+            _hourageService.DeleteHourageRecord(id);
             return RedirectToAction("Index");
         }
     }

@@ -23,7 +23,7 @@ namespace Timestamps.DAL.EFDataReceiving.Repositories
                     .ToList();
         }
 
-        public bool IsUserTakePartInProject(string userId, int projectId)
+        public bool IsRecordExist(string userId, int projectId)
         {
             return context.ProjectNominations.Any(pn => (pn.ProjectId == projectId) && (pn.UserId == userId));
         }

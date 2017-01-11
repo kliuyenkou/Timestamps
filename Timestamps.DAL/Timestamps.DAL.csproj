@@ -60,8 +60,13 @@
     <Compile Include="EFDataReceiving\ApplicationDbContext.cs" />
     <Compile Include="EFDataReceiving\Repositories\HourageRepository.cs" />
     <Compile Include="EFDataReceiving\Repositories\NotificationRepository.cs" />
-    <Compile Include="Management\AccountManager.cs" />
-    <Compile Include="Management\Interfaces\IAccountManager.cs" />
+    <Compile Include="Management\AccountManagement.cs" />
+    <Compile Include="Management\ArchiveRestoreOperationResult.cs" />
+    <Compile Include="Management\HourageManagement.cs" />
+    <Compile Include="Management\Interfaces\IAccountManagement.cs" />
+    <Compile Include="Management\Interfaces\IHourageManagement.cs" />
+    <Compile Include="Management\Interfaces\INotificationManagement.cs" />
+    <Compile Include="Management\NotificationManagement.cs" />
     <Compile Include="Management\ProjectManagement.cs" />
     <Compile Include="EFDataReceiving\Repositories\ProjectNominationRepository.cs" />
     <Compile Include="EFDataReceiving\Repositories\ProjectRepository.cs" />

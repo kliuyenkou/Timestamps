@@ -50,16 +50,16 @@ namespace TimestampsWeb.Controllers
             hourage.InjectFrom(record);
             hourage.UserId = userId;
 
-            _hourageService.Add(hourage);
+            _hourageService.AddHourageRecord(hourage);
             //var houragSaved = _hourageService.GetHourageById(hourage.Id);
-            //houragSaved.Project = _projectService.GetUserProjectById(userId, hourage.ProjectId);
+            //houragSaved.Project = _projectService.GetUserProject(userId, hourage.ProjectId);
             return Ok(hourage);
         }
 
         [HttpDelete]
         public void DeleteRecord(int id)
         {
-            _hourageService.Delete(id);
+            _hourageService.DeleteHourageRecord(id);
         }
     }
 }

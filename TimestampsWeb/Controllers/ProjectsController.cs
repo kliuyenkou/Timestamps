@@ -11,13 +11,11 @@ namespace TimestampsWeb.Controllers
 {
     public class ProjectsController : Controller
     {
-        private readonly IProjectNominationService _projectNominationService;
         private readonly IProjectService _projectService;
 
-        public ProjectsController(IProjectService projectService, IProjectNominationService projectNominationService)
+        public ProjectsController(IProjectService projectService)
         {
             _projectService = projectService;
-            _projectNominationService = projectNominationService;
         }
 
         [HttpGet]
@@ -48,7 +46,7 @@ namespace TimestampsWeb.Controllers
         public ActionResult Edit(int id)
         {
             var userId = User.Identity.GetUserId();
-            var project = _projectService.GetUserProjectById(userId, id);
+            var project = _projectService.GetUserProject(userId, id);
             var projectViewModel = Mapper.Map<ProjectViewModel>(project);
             projectViewModel.Action = "Edit";
             ViewBag.Title = "Edit project";
@@ -62,10 +60,9 @@ namespace TimestampsWeb.Controllers
             if (!ModelState.IsValid)
                 return View("ProjectForm", viewModel);
             var userId = User.Identity.GetUserId();
-            var project = _projectService.GetUserProjectById(userId, viewModel.Id);
+            var project = _projectService.GetUserProject(userId, viewModel.Id);
             project.Title = viewModel.Title;
             project.Description = viewModel.Description;
-            project.IsArchived = viewModel.IsArchived;
 
             await _projectService.UpdateAsync(project);
 

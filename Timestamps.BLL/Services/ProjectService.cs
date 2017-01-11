@@ -1,38 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
 using Omu.ValueInjecter;
 using Timestamps.BLL.Interfaces;
 using Timestamps.DAL.DataContracts;
-using Timestamps.DAL.DataInterfaces.Repositories;
 using Timestamps.DAL.Entities;
-using Timestamps.DAL.Interfaces;
+using Timestamps.DAL.Management;
 using Timestamps.DAL.Management.Interfaces;
 using Mapper = AutoMapper.Mapper;
 using Project = Timestamps.BLL.Models.Project;
 using ProjectEntity = Timestamps.DAL.Entities.Project;
-using ProjectNominationEntity = Timestamps.DAL.Entities.ProjectNomination;
 
 namespace Timestamps.BLL.Services
 {
     public class ProjectService : IProjectService
     {
-        private readonly IProjectNominationRepository _projectNominationRepository;
-        private readonly IProjectRepository _projectRepository;
-        private readonly INotificationRepository _notificationRepository;
-        private readonly IUserNotificationRepository _userNotificationRepository;
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IProjectManagement _projectManagement;
+        private readonly INotificationManagement _notificationManagement;
 
-        public ProjectService(IProjectManagement projectManagement, IUnitOfWork unitOfWork)
+        public ProjectService(IProjectManagement projectManagement, INotificationManagement notificationManagement)
         {
-            _unitOfWork = unitOfWork;
-            _projectRepository = unitOfWork.Projects;
-            _projectNominationRepository = unitOfWork.ProjectNominations;
-            _notificationRepository = unitOfWork.Notifications;
-            _userNotificationRepository = unitOfWork.UserNotifications;
             _projectManagement = projectManagement;
+            _notificationManagement = notificationManagement;
         }
 
         public IEnumerable<Project> GetProjectsUserCreate(string userId)
@@ -47,36 +36,19 @@ namespace Timestamps.BLL.Services
             var projectEntity = new ProjectEntity();
             projectEntity.InjectFrom(project);
             var createProjectRequest = new CreateProjectRequest(projectEntity, project.CreatorId);
-            await _projectManagement.CreateProject(createProjectRequest);
-        }
-
-        public void Add(Project project)
-        {
-            var projectEntity = new ProjectEntity();
-            projectEntity.InjectFrom(project);
-            _projectRepository.Add(projectEntity);
-            _unitOfWork.SaveChangesWithErrors();
-        }
-
-        public Project GetProjectById(int projectId)
-        {
-            var projectEntity = _projectRepository.GetProjectById(projectId);
-            var project = new Project();
-            project.InjectFrom(projectEntity);
-            return project;
+            await _projectManagement.CreateProjectAsync(createProjectRequest);
         }
 
         public IEnumerable<Project> GetAllProjects()
         {
-
-            var dbprojects = _projectRepository.GetAllProjectsWithCreator();
+            var dbprojects = _projectManagement.GetAllProjectsWithCreator();
             var projects = Mapper.Map<IEnumerable<ProjectEntity>, IEnumerable<Project>>(dbprojects);
             return projects;
         }
 
-        public Project GetUserProjectById(string userId, int projectId)
+        public Project GetUserProject(string userId, int projectId)
         {
-            var projectEntity = _projectRepository.GetUserProjectById(userId, projectId);
+            var projectEntity = _projectManagement.GetUserProjectById(userId, projectId);
             var project = new Project();
             project.InjectFrom(projectEntity);
             return project;
@@ -84,45 +56,50 @@ namespace Timestamps.BLL.Services
 
         public async Task UpdateAsync(Project project)
         {
-            var projectEntity = _projectRepository.GetProjectById(project.Id);
-            projectEntity.Title = project.Title;
-            projectEntity.Description = project.Description;
-            projectEntity.IsArchived = project.IsArchived;
-            await _unitOfWork.SaveChangesAsync();
+            var projectEntity = new ProjectEntity();
+            projectEntity.InjectFrom(project);
+            await _projectManagement.UpdateAsync(project.Id, projectEntity);
         }
 
-        public void ArchiveUserProjectById(string userId, int projectId)
+        public void ArchiveUserProjectAsync(string userId, int projectId)
         {
-            var projectEntity = _projectRepository.GetUserProjectById(userId, projectId);
-            if (projectEntity.IsArchived) {
-                throw new Exception("Project has already archived.");
+            var result = _projectManagement.ArchiveProjectAsync(projectId);
+            if (result == ArchiveRestoreOperationResult.WarningProjectAlreadyArchived) {
+                return;
             }
-            projectEntity.IsArchived = true;
+            var usersOnThisProject = _projectManagement.GetAllUsersOnProject(projectId);
 
-            var notificationEntity = new Notification()
-            {
-                DateTime = DateTime.Now,
-                ProjectId = projectEntity.Id,
-                Type = NotificationType.ProjectArchived
-            };
-            _notificationRepository.Add(notificationEntity);
-
-            var usersOnThisProject = _projectNominationRepository.GetAllUsersOnProject(projectId);
-            foreach (var applicationUser in usersOnThisProject) {
-                var userNotificationEntity = new UserNotification()
-                {
-                    User = applicationUser,
-                    Notification = notificationEntity
-                };
-                _userNotificationRepository.Add(userNotificationEntity);
-            }
-
-            _unitOfWork.SaveChanges();
+            var notification = _notificationManagement.CreateNotification(DateTime.Now, NotificationType.ProjectArchived, projectId);
+            _notificationManagement.NotifyUsers(notification, usersOnThisProject);
         }
 
-        public void RestoreUserProjectById(string userId, int projectId)
+        public void RestoreUserProject(string userId, int projectId)
         {
-            throw new NotImplementedException();
+            var result = _projectManagement.RestoreProjectAsync(projectId);
+            if (result == ArchiveRestoreOperationResult.WarningProjectIsActive) {
+                return;
+            }
+            var usersOnThisProject = _projectManagement.GetAllUsersOnProject(projectId);
+
+            var notification = _notificationManagement.CreateNotification(DateTime.Now, NotificationType.ProjectRestored, projectId);
+            _notificationManagement.NotifyUsers(notification, usersOnThisProject);
+        }
+
+        public void AddUserToProject(int projectId, string userId)
+        {
+            _projectManagement.NominateUserOnTheProjectAsync(userId, projectId);
+        }
+
+        public IEnumerable<Project> GetProjectsUserTakePart(string userId)
+        {
+            var dbprojects = _projectManagement.GetProjectsUserTakePart(userId);
+            var projects = Mapper.Map<IEnumerable<DAL.Entities.Project>, IEnumerable<Project>>(dbprojects);
+            return projects;
+        }
+
+        public bool IsUserTakePartInProject(string userId, int projectId)
+        {
+            return _projectManagement.IsUserTakePartInProject(userId, projectId);
         }
     }
 }

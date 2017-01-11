@@ -23,5 +23,10 @@ namespace Timestamps.DAL.EFDataReceiving.Repositories
             var record = context.Hourages.Find(hourageId);
             if (record != null) context.Hourages.Remove(record);
         }
+
+        public Hourage Get(int hourageId)
+        {
+            return context.Hourages.Find(hourageId);
+        }
     }
 }

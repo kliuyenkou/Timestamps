@@ -48,8 +48,6 @@
                 if (notifications.length === 0)
                     return;
 
-
-
                 $('.js-notifications-count').text(notifications.length).removeClass('hide');
 
                 $('.notifications').popover({
@@ -61,20 +59,14 @@
                     placement: "bottom"
                 }).on("shown.bs.popover",
                     function() {
-                        $.ajax({
-                            method: "POST",
-                            url: "/api/notifications",
-                            data: JSON.stringify(notifications),
-                            contentType:"application/json; charset=utf-8",
-                            dataType: "json"
-                        })
+                        $.post("/api/notifications")
                         .done(function () {
                             $('.js-notifications-count')
                                 .text("")
                                 .addClass('hide');
                         })
-                        .fail(function() {
-                            alert("Something failed.");
+                        .fail(function(jqXhr, textStatus, errorThrown){
+                            console.error('Ajax request failed', jqXhr, textStatus, errorThrown);
                         });
 
                 });

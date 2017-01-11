@@ -7,17 +7,17 @@ namespace TimestampsWeb.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IProjectNominationService _projectNominationService;
+        private readonly IProjectService _projectService;
 
-        public HomeController(IProjectNominationService projectNominationService)
+        public HomeController(IProjectService projectService)
         {
-            _projectNominationService = projectNominationService;
+            _projectService = projectService;
         }
 
         public ActionResult Index()
         {
             var userId = User.Identity.GetUserId();
-            var projectsUserTakePart = _projectNominationService.GetProjectsUserTakePart(userId);
+            var projectsUserTakePart = _projectService.GetProjectsUserTakePart(userId);
             ViewBag.ProjectId = new SelectList(projectsUserTakePart, "Id", "Title");
             ViewBag.UserId = userId;
             var viewModel = new HourageViewModel();

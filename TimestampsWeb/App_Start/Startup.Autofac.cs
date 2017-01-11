@@ -27,7 +27,6 @@ namespace TimestampsWeb
             builder.Register(c => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
             builder.Register(c => app.GetDataProtectionProvider()).InstancePerRequest();
             builder.RegisterType<UserService>().As<IUserService>().InstancePerRequest();
-            builder.RegisterType<ProjectNominationService>().As<IProjectNominationService>().InstancePerRequest();
             builder.RegisterType<ProjectService>().As<IProjectService>().InstancePerRequest();
             builder.RegisterType<HourageService>().As<IHourageService>().InstancePerRequest();
             builder.RegisterType<ReportsService>().As<IReportsService>().InstancePerRequest();
