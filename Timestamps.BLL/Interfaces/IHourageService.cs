@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Timestamps.BLL.Models;
 
 namespace Timestamps.BLL.Interfaces
@@ -9,5 +10,6 @@ namespace Timestamps.BLL.Interfaces
         void AddHourageRecord(Hourage hourage);
         Hourage GetHourageById(int hourageId);
         void DeleteHourageRecord(int hourageId);
+        Hourage CreateHourageRecord(string workDescription, int projectId, DateTime date, double hours, string userId);
     }
 }

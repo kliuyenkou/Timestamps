@@ -18,7 +18,7 @@ namespace TimestampsWeb.Controllers
         {
             var userId = User.Identity.GetUserId();
             var projectsUserTakePart = _projectService.GetProjectsUserTakePart(userId);
-            ViewBag.ProjectId = new SelectList(projectsUserTakePart, "Id", "Title");
+            ViewBag.UserProjects = new SelectList(projectsUserTakePart, "Id", "Title");
             ViewBag.UserId = userId;
             var viewModel = new HourageViewModel();
             return View("Index", viewModel);

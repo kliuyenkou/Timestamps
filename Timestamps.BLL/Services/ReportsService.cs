@@ -21,7 +21,7 @@ namespace Timestamps.BLL.Services
         public IEnumerable<ProjectWithTotalHours> GetUserProjectsWithOverallTime(string userId)
         {
             var projectsUserTakePart = _projectManagement.GetProjectsUserTakePart(userId);
-            var houragesGroupedByProject = _hourageManagement.GetUserHourageRecords(userId)
+            var houragesGroupedByProject = _hourageManagement.GetUserHourageRecordsWithProject(userId)
                 .GroupBy(h => h.Project)
                 .Select(hg =>
                     new

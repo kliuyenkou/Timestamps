@@ -239,6 +239,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\AutoMapperConfiguration\AutoMapperWebConfiguration.cs" />
+    <Compile Include="Infrastructure\AutoMapperConfiguration\HourageToHourageDto.cs" />
     <Compile Include="Infrastructure\AutoMapperConfiguration\NotififcationToNotificationDtoProfile.cs" />
     <Compile Include="Infrastructure\AutoMapperConfiguration\ProjectToProjectDto.cs" />
     <Compile Include="Infrastructure\AutoMapperConfiguration\ProjectToProjectViewModelProfile.cs" />

@@ -12,10 +12,11 @@ namespace Timestamps.DAL.Management
         {
             _unitOfWork = unitOfWork;
         }
-        public void Create(Hourage hourage)
+        public Hourage Create(Hourage hourage)
         {
             _unitOfWork.Hourages.Add(hourage);
             _unitOfWork.SaveChanges();
+            return hourage;
         }
 
         public void Delete(int hourageId)
@@ -24,7 +25,7 @@ namespace Timestamps.DAL.Management
             _unitOfWork.SaveChanges();
         }
 
-        public IEnumerable<Hourage> GetUserHourageRecords(string userId)
+        public IEnumerable<Hourage> GetUserHourageRecordsWithProject(string userId)
         {
             return _unitOfWork.Hourages.GetUserHourageRecordsWithProject(userId);
         }

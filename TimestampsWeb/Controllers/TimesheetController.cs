@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Web.Http;
+using AutoMapper;
 using Microsoft.AspNet.Identity;
-using Omu.ValueInjecter;
 using Timestamps.BLL.Interfaces;
 using Timestamps.BLL.Models;
-using TimestampsWeb.ViewModels;
+using TimestampsWeb.Dto;
 
 namespace TimestampsWeb.Controllers
 {
@@ -22,38 +20,24 @@ namespace TimestampsWeb.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<HourageViewModel> GetUsersRecords()
+        public IEnumerable<HourageDto> GetUsersRecords()
         {
             var userId = User.Identity.GetUserId();
             var usersRecords = _hourageService.GetUserHourageRecordsWithProject(userId);
-            var records = usersRecords
-                .Select(h => new HourageViewModel
-                {
-                    Id = h.Id,
-                    WorkDescription = h.WorkDescription,
-                    Project = h.Project,
-                    Date = h.Date.Date,
-                    Hours = h.Hours,
-                    ProjectId = h.ProjectId,
-                });
-
+            var records = Mapper.Map<IEnumerable<HourageDto>>(usersRecords);
             return records;
         }
 
         [HttpPost]
-        public IHttpActionResult AddRecord(HourageViewModel record)
+        public HourageDto AddRecord(HourageDto record)
         {
-            if (!ModelState.IsValid) return BadRequest();
+            if (!ModelState.IsValid)
+                return null;
 
             var userId = User.Identity.GetUserId();
-            var hourage = new Hourage();
-            hourage.InjectFrom(record);
-            hourage.UserId = userId;
-
-            _hourageService.AddHourageRecord(hourage);
-            //var houragSaved = _hourageService.GetHourageById(hourage.Id);
-            //houragSaved.Project = _projectService.GetUserProject(userId, hourage.ProjectId);
-            return Ok(hourage);
+            var hourage = _hourageService.CreateHourageRecord(record.WorkDescription, record.ProjectId, record.Date, record.Hours, userId);
+            var hourageDto = Mapper.Map<Hourage, HourageDto>(hourage);
+            return hourageDto;
         }
 
         [HttpDelete]
