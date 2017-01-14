@@ -280,6 +280,7 @@
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\controllers\hourageController.js" />
     <Content Include="Scripts\app\services\timesheetService.js" />
+    <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\datepicker.min.js" />

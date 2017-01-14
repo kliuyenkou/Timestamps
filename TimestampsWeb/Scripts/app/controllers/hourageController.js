@@ -30,7 +30,7 @@
             function (rec) {
                 addRecordToListItems(rec, onClickDelete);
             },
-            function () { alert("Fail to save records."); }
+            function () { bootbox.alert("Failed to save record."); }
             );
     };
 
@@ -54,7 +54,7 @@
 
         function renderRecord(record) {
         if (record == null) {
-            alert("Fail to add record.");
+            bootbox.alert("Failed to save record.");
             return;
         }
         var tRow = document.createElement('tr');

@@ -3,13 +3,13 @@
 <h2>@ViewBag.Title</h2>
 <div>
     @if (Model.IsArchived) {
-        <span id ="labelArchived" class="label label-warning pull-right">Archived</span>
+        <span id="labelArchived" class="label label-warning pull-right">Archived</span>
         <button id="restore" class="btn btn-link pull-right">Restore</button>
         <button id="archive" class="btn btn-link pull-right hide">Archive</button>
 
     }
     else {
-        <span id ="labelArchived" class="label label-warning pull-right hide">Archived</span>
+        <span id="labelArchived" class="label label-warning pull-right hide">Archived</span>
         <button id="restore" class="btn btn-link pull-right hide">Restore</button>
         <button id="archive" class="btn btn-link pull-right">Archive</button>
 
@@ -40,44 +40,52 @@
 
 @section scripts
 {
-    <script>
-        $(document).ready(function () {
-            $("#archive").click(function (e) {
-                if (confirm("Are you sure you want to archive this project?")) {
-                    $.ajax({
-                        url: "/api/archiveproject/" + $("input[id]").attr("value"),
-                        method: "POST"
-                    })
-                        .done(function () {
-                            $("#IsArchived").value = "true";
-                            $("#labelArchived").removeClass("hide");
-                            $("#restore").removeClass("hide");
-                            $("#archive").addClass("hide");
-                        })
-                        .fail(function () {
-                            alert("Something failed.");
-                        });
-                }
-            });
-                $("#restore").click(function (e) {
-                    if (confirm("Are you sure you want to restore from archive this project?")) {
-                        $.ajax({
-                            url: "/api/archiveproject/" + $("input[id]").attr("value"),
-                            method: "DELETE"
-                        })
-                            .done(function () {
-                                $("#IsArchived").value = "false";
-                                $("#labelArchived").addClass("hide");
-                                $("#restore").addClass("hide");
-                                $("#archive").removeClass("hide");
-                            })
-                            .fail(function () {
-                                alert("Something failed.");
-                            });
-                    }
+@Scripts.Render("~/bundles/ui")
+ <script>
+     $(document).ready(function () {
+         $("#archive").click(function (e) {
+             bootbox.confirm("Are you sure you want to archive this project?", function (result) {
+                 if (!result) {
+                     return;
+                 }
+                 $.ajax({
+                     url: "/api/archiveproject/" + $("input[id]").attr("value"),
+                     method: "POST"
+                 })
+                 .done(function () {
+                     $("#IsArchived").value = "true";
+                     $("#labelArchived").removeClass("hide");
+                     $("#restore").removeClass("hide");
+                     $("#archive").addClass("hide");
+                 })
+                 .fail(function () {
+                     bootbox.alert("Failed to archive this project.");
+                 });
+             });
 
-            });
-        });
-    </script>
-    @Scripts.Render("~/bundles/jqueryval")
+         });
+         $("#restore").click(function (e) {
+             bootbox.confirm("Are you sure you want to restore from archive this project?",
+                 function (result) {
+                     if (!result) {
+                         return;
+                     }
+                     $.ajax({
+                         url: "/api/archiveproject/" + $("input[id]").attr("value"),
+                         method: "DELETE"
+                     })
+                         .done(function () {
+                             $("#IsArchived").value = "false";
+                             $("#labelArchived").addClass("hide");
+                             $("#restore").addClass("hide");
+                             $("#archive").removeClass("hide");
+                         })
+                         .fail(function () {
+                             bootbox.alert("Failed to restore this project.");
+                         });
+                 });
+         });
+     });
+</script>
+@Scripts.Render("~/bundles/jqueryval")
 }

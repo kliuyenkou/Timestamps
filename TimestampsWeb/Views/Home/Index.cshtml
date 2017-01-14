@@ -39,7 +39,7 @@
     <table id="Timesheet" class="table">
         <thead>
             <tr>
-                <th>Work descritpion</th>
+                <th>Work description</th>
                 <th>Project</th>
                 <th>Date</th>
                 <th>Hours</th>
@@ -53,8 +53,8 @@
 
 
 @section scripts{
-    @Scripts.Render("~/bundles/ui")
-    <script type="text/javascript">
+@Scripts.Render("~/bundles/ui")
+<script type="text/javascript">
         $(document)
             .ready(function () {
                 //validateForm();
@@ -63,7 +63,7 @@
                         $("a.js-delete-record").click(deleteRecord);
                     })
                     .fail(function () {
-                        alert("Fail to load records.");
+                        bootbox.alert("Fail to load records.");
                     });
 
                 $("#addRecord").click(function (e) {
@@ -79,10 +79,13 @@
             var link = $(event.target);
             var recordId = link.parent().attr("data-record-id");
             if (recordId == null) {
-                alert("Failed to delete record. Try again.");
+                bootbox.alert("Failed to delete record. Try again.");
                 return;
             }
-            if (confirm("Are you sure you want to delete this record?")) {
+            bootbox.confirm("Are you sure you want to delete this record?", function (result) {
+                if (!result) {
+                    return;
+                }
                 $.ajax({
                     url: "/api/Timesheet/" + recordId,
                     method: "DELETE"
@@ -93,9 +96,9 @@
                         });
                     })
                     .fail(function () {
-                        alert("Failed to delete record.");
+                        bootbox.alert("Failed to delete record.");
                     });
-            }
+            });
         };
 
         //function validateForm() {
@@ -114,5 +117,5 @@
             $('#date').val("");
             $('#hours').val("");
         }
-    </script>
+</script>
 }
