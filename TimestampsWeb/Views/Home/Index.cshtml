@@ -6,22 +6,21 @@
 <div class="gap-60"></div>
 
 <form class="form-inline form-addrecord" id="recordForm">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="inputsline">
         <div class="row">
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
             <div class="form-group">
                 <label class="sr-only" for="workDescription">Description</label>
-                <input type="text" class="form-control" id="workDescription" placeholder="Description">
+                <input type="text" class="form-control" id="workDescription" name="workDescription" placeholder="Description">
             </div>
             <div class="form-group">
                 <label class="sr-only" for="project">Password</label>
-                @Html.DropDownList("projectId", ViewBag.UserProjects as SelectList, "-Select project-" ,new { @class = "form-control", id = "project" })
+                @Html.DropDownList("projectId", ViewBag.UserProjects as SelectList, "-Select project-", new { @class = "form-control", id = "project" })
             </div>
             <div class="form-group">
                 <label class="sr-only" for="date">Date</label>
-                <input type="date" class="form-control" id="date" placeholder="Date">
+                <input type="text" class="form-control" id="date" placeholder="Date">
             </div>
             <div class="form-group">
                 <label class="sr-only" for="hours">Hours</label>
@@ -52,22 +51,27 @@
 
 <div class="gap-60"></div>
 
+
 @section scripts{
+    @Scripts.Render("~/bundles/ui")
     <script type="text/javascript">
         $(document)
-            .ready(function() {
+            .ready(function () {
+                //validateForm();
                 houragesController.loadRecordsList()
-                    .done(function() {
+                    .done(function () {
                         $("a.js-delete-record").click(deleteRecord);
                     })
-                    .fail(function() {
+                    .fail(function () {
                         alert("Fail to load records.");
                     });
-                $("#addRecord").click(function(e) {
+
+                $("#addRecord").click(function (e) {
                     e.preventDefault();
                     houragesController.appendRecordToList(deleteRecord);
                     clearInputs();
                 });
+                $('#date').datepicker();
             });
 
         function deleteRecord(event) {
@@ -94,9 +98,19 @@
             }
         };
 
+        //function validateForm() {
+        //    $("#recordForm").validate({
+        //        rules: {
+        //            workDescription: "required"
+        //        },
+        //        messages: {
+        //            workDescription: "You should enter work description."
+        //        }
+        //    });
+        //}
         function clearInputs() {
             $('#workDescription').val("");
-            $('#project option:selected').removeAttr('selected');
+            $("#project option:eq(0)").prop("selected", true);
             $('#date').val("");
             $('#hours').val("");
         }

@@ -27,9 +27,13 @@ namespace TimestampsWeb
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/ui").Include(
+                "~/Scripts/datepicker.min.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap.css",
                 "~/Content/bootstrap-theme.css",
+                "~/Content/datepicker.min.css",
                 "~/Content/site.css"));
         }
     }

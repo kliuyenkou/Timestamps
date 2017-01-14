@@ -15,10 +15,15 @@
         return d.promise();
     };
     var appendRecordToList = function (onClickDelete) {
+        var date = toDate($('#date').val());
+        var dateString = "";
+        if (date instanceof Date && isFinite(date)) {
+            dateString = date.toISOString();
+        }
         var record = {
             WorkDescription: $('#workDescription').val(),
             ProjectId: $('#project').val(),
-            Date: $('#date').val(),
+            Date: dateString,
             Hours: $('#hours').val()
         };
         timesheetService.addRecord(record,
