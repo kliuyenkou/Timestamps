@@ -9,6 +9,7 @@ namespace TimestampsWeb.ViewModels
     {
         public int Id { get; set; }
 
+        [Required]
         [StringLength(128)]
         [DisplayName("Work description")]
         public string WorkDescription { get; set; }

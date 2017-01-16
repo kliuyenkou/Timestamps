@@ -5,7 +5,7 @@
             type: 'GET',
             dataType: 'json'
         }).done(success).fail(error);
-    };
+    }
     var addRecord = function (data, success, error) {
         $.post({
             url: '/api/Timesheet',
@@ -13,8 +13,15 @@
             dataType: 'json'
         }).done(success).fail(error);
     }
+    var deleteRecord = function (recordId, success, error) {
+        $.ajax({
+            url: "/api/Timesheet/" + recordId,
+            method: "DELETE"
+        }).done(success).fail(error);
+    }
     return {
         getAllRecords: getAllRecords,
-        addRecord: addRecord
+        addRecord: addRecord,
+        deleteRecord: deleteRecord
     }
 }();

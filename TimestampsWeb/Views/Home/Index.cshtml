@@ -2,12 +2,9 @@
 @{
     ViewBag.Title = "Timesheet";
 }
-
 <div class="gap-60"></div>
-
 <form class="form-inline form-addrecord" id="recordForm">
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
     <div class="inputsline">
         <div class="row">
             <div class="form-group">
@@ -15,21 +12,27 @@
                 <input type="text" class="form-control" id="workDescription" name="workDescription" placeholder="Description">
             </div>
             <div class="form-group">
-                <label class="sr-only" for="project">Password</label>
+                <label class="sr-only" for="projectId">Password</label>
+                @{ Html.EnableClientValidation(false); }
                 @Html.DropDownList("projectId", ViewBag.UserProjects as SelectList, "-Select project-", new { @class = "form-control", id = "project" })
+                @{ Html.EnableClientValidation(true); }
             </div>
             <div class="form-group">
                 <label class="sr-only" for="date">Date</label>
-                <input type="text" class="form-control" id="date" placeholder="Date">
+                <input type="text" class="form-control" id="date" name="workdate" placeholder="Date">
             </div>
             <div class="form-group">
                 <label class="sr-only" for="hours">Hours</label>
-                <input type="text" class="form-control" id="hours" placeholder="Hours">
+                <input type="text" class="form-control" id="hours" name="hours" placeholder="Hours">
             </div>
             <div class="form-group">
                 <button id="addRecord" type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
+        <div id="errorBox" class="text-danger">
+            <ul></ul>
+        </div>
+
     </div>
 </form>
 
@@ -53,23 +56,24 @@
 
 
 @section scripts{
-@Scripts.Render("~/bundles/ui")
-<script type="text/javascript">
+    @Scripts.Render("~/bundles/ui")
+    <script type="text/javascript">
         $(document)
-            .ready(function () {
-                //validateForm();
+            .ready(function() {
+
                 houragesController.loadRecordsList()
-                    .done(function () {
+                    .done(function() {
                         $("a.js-delete-record").click(deleteRecord);
                     })
-                    .fail(function () {
+                    .fail(function() {
                         bootbox.alert("Fail to load records.");
                     });
 
                 $("#addRecord").click(function (e) {
-                    e.preventDefault();
-                    houragesController.appendRecordToList(deleteRecord);
-                    clearInputs();
+                    var cb = function() {
+                        houragesController.appendRecordToList(deleteRecord);
+                    }
+                    validateRecordForm(cb, "#errorBox ul");
                 });
                 $('#date').datepicker();
             });
@@ -82,40 +86,22 @@
                 bootbox.alert("Failed to delete record. Try again.");
                 return;
             }
-            bootbox.confirm("Are you sure you want to delete this record?", function (result) {
-                if (!result) {
-                    return;
-                }
-                $.ajax({
-                    url: "/api/Timesheet/" + recordId,
-                    method: "DELETE"
-                })
-                    .done(function () {
-                        link.parents('tr').fadeOut(function () {
-                            $(this).remove();
+            bootbox.confirm("Are you sure you want to delete this record?",
+                function(result) {
+                    if (!result) {
+                        return;
+                    }
+                    TimesheetService.deleteRecord(recordId,
+                        function () {
+                            link.parents('tr').fadeOut(function() {
+                                $(this).remove();
+                            });
+                        },
+                        function() {
+                            bootbox.alert("Failed to delete record.");
                         });
-                    })
-                    .fail(function () {
-                        bootbox.alert("Failed to delete record.");
-                    });
-            });
+                });
         };
-
-        //function validateForm() {
-        //    $("#recordForm").validate({
-        //        rules: {
-        //            workDescription: "required"
-        //        },
-        //        messages: {
-        //            workDescription: "You should enter work description."
-        //        }
-        //    });
-        //}
-        function clearInputs() {
-            $('#workDescription').val("");
-            $("#project option:eq(0)").prop("selected", true);
-            $('#date').val("");
-            $('#hours').val("");
-        }
-</script>
+    </script>
+@Scripts.Render("~/bundles/jqueryval")
 }

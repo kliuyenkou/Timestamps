@@ -141,3 +141,13 @@ ul.notifications .highlight {
 .gap-60 {
     height: 60px;
 }
+.error {
+    border-color: #a94442;
+}
+#errorBox ul {
+    list-style: none;
+    padding: 0;
+}
+    #errorBox ul li label{
+        margin: 0;
+    }
