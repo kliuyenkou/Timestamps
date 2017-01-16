@@ -40,72 +40,8 @@
         @RenderSection("scripts", false)
         <script>
             $(document).ready(function () {
-                $.get("/api/notifications",
-                    function (notifications) {
-                        if (notifications.length === 0)
-                            return;
-
-                        $('.js-notifications-count').text(notifications.length).removeClass('hide');
-
-                        $('.notifications').popover({
-                            html: true,
-                            title: "Notifications",
-                            content: function () {
-                                return createNotificationsMarkup(notifications);
-                            },
-                            placement: "bottom"
-                        }).on("shown.bs.popover",
-                            function () {
-                                $.post("/api/notifications")
-                                    .done(function () {
-                                        $('.js-notifications-count')
-                                            .text("")
-                                            .addClass('hide');
-                                    })
-                                    .fail(function (jqXhr, textStatus, errorThrown) {
-                                        console.error('Ajax request failed', jqXhr, textStatus, errorThrown);
-                                    });
-
-                            });
-                    });
+                NotificationController.loadNotifications();
             });
-
-            var createNotificationsMarkup = function (notifications) {
-                var ul = document.createElement('ul');
-                ul.className = "notifications";
-                $.each(notifications,
-                    function (index, record) {
-                        var li = document.createElement('li');
-                        var spanMessage;
-                        var spanTitle;
-                        var spanText;
-                        if (record.Type === 1) {
-                            spanMessage = document.createElement('span');
-                            spanTitle = document.createElement('span');
-                            spanTitle.className = "highlight";
-                            spanTitle.innerHTML = record.Project.Title;
-                            spanMessage.appendChild(spanTitle);
-                            spanText = document.createElement('span');
-                            spanText.innerText = ' moved to archive.';
-                            spanMessage.appendChild(spanText);
-                            li.appendChild(spanMessage);
-                        }
-                        if (record.Type === 2) {
-                            spanMessage = document.createElement('span');
-                            spanTitle = document.createElement('span');
-                            spanTitle.className = "highlight";
-                            spanTitle.innerHTML = record.Project.Title;
-                            spanMessage.appendChild(spanTitle);
-                            spanText = document.createElement('span');
-                            spanText.innerText = ' restored from archive.';
-                            spanMessage.appendChild(spanText);
-                            li.appendChild(spanMessage);
-                        }
-                        ul.appendChild(li);
-                    });
-                return ul;
-            };
-
 
         </script>
     </div>

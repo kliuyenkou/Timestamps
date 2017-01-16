@@ -1,5 +1,4 @@
 ﻿var houragesController = function (timesheetService) {
-
     var loadRecordsList = function () {
         var d = $.Deferred();
 
@@ -33,8 +32,50 @@
             function () { bootbox.alert("Failed to save record."); }
             );
     };
+    function validateRecordForm(submitCallback, errorContainer) {
+        $("#recordForm").validate({
+            rules: {
+                workDescription: {
+                    required: true,
+                    maxlength: 128
 
-    
+                },
+                projectId: {
+                    required: true
+                },
+                workdate: {
+                    required: true
+                },
+                hours: {
+                    required: true,
+                    number: true
+                }
+            },
+            messages: {
+                workDescription: {
+                    required: "Work description is required."
+                },
+                projectId: {
+                    required: "Project is required."
+                },
+                workdate: {
+                    required: "Date is required."
+                },
+                hours: {
+                    required: "Hours is required.",
+                    number: "Please, enter hours as a valid number."
+                }
+            },
+            submitHandler: function (form) {
+                submitCallback();
+                form.reset();
+            },
+            errorElement: "span",
+            errorClass: "error",
+            errorLabelContainer: errorContainer,
+            wrapper: "li"
+        });
+    }
     function loadListItems(records) {
         var table = $('#Timesheet');
         var tbody = document.createElement('tbody');
@@ -45,14 +86,12 @@
                 tbody.appendChild(tRow);
             });
     };
-
     function addRecordToListItems(record, deleteRecord) {
         var tRow = renderRecord(record);
         $(tRow).find("a").click(deleteRecord);
         $('#Timesheet tbody').append(tRow);
     };
-
-        function renderRecord(record) {
+    function renderRecord(record) {
         if (record == null) {
             bootbox.alert("Failed to save record.");
             return;
@@ -81,10 +120,10 @@
         tdDelete.appendChild(a);
         tRow.appendChild(tdDelete);
         return tRow;
-    }
-
+    };
     return {
         loadRecordsList: loadRecordsList,
-        appendRecordToList: appendRecordToList
+        appendRecordToList: appendRecordToList,
+        validateRecordForm: validateRecordForm
     }
 }(TimesheetService);

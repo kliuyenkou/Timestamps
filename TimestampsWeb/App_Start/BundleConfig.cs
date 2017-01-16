@@ -10,6 +10,8 @@ namespace TimestampsWeb
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                 "~/Scripts/app/services/timesheetService.js",
                 "~/Scripts/app/controllers/hourageController.js",
+                "~/Scripts/app/services/notificationService.js",
+                "~/Scripts/app/controllers/notificationController.js",
                 "~/Scripts/app/app.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
