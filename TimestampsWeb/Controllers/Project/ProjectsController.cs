@@ -21,7 +21,7 @@ namespace TimestampsWeb.Controllers.Project
         public ActionResult Create()
         {
             ViewBag.Title = "Create project";
-            var projectViewModel = new ProjectViewModel {Action = "Create"};
+            var projectViewModel = new ProjectViewModel { Action = "Create" };
             return View("ProjectForm", projectViewModel);
         }
 
@@ -46,6 +46,7 @@ namespace TimestampsWeb.Controllers.Project
         {
             var userId = User.Identity.GetUserId();
             var project = _projectService.GetUserProject(userId, id);
+            if (project == null) return new HttpNotFoundResult();
             var projectViewModel = Mapper.Map<ProjectViewModel>(project);
             projectViewModel.Action = "Edit";
             ViewBag.Title = "Edit project";

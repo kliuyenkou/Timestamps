@@ -49,6 +49,8 @@ namespace Timestamps.BLL.Services
         public Project GetUserProject(string userId, int projectId)
         {
             var projectEntity = _projectManagement.GetUserProjectById(userId, projectId);
+            if (projectEntity == null)
+                return null;
             var project = new Project();
             project.InjectFrom(projectEntity);
             return project;

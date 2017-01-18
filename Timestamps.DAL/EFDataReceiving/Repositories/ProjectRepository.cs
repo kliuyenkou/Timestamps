@@ -29,7 +29,7 @@ namespace Timestamps.DAL.EFDataReceiving.Repositories
 
         public Project GetUserProjectById(string userId, int projectId)
         {
-            return context.Projects.Single(p => p.CreatorId == userId && p.Id == projectId);
+            return context.Projects.FirstOrDefault(p => p.CreatorId == userId && p.Id == projectId);
         }
     }
 }
