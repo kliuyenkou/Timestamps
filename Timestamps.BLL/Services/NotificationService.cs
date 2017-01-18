@@ -27,5 +27,13 @@ namespace Timestamps.BLL.Services
             var notifications = _notificationManagement.GetUnreadUserNotifications(userId);
             _notificationManagement.MarkUserNotifications(notifications, userId, true);
         }
+
+        public IEnumerable<Notification> GetAllNotificationsForUser(string userId)
+        {
+            var notificationsEntity = _notificationManagement.GetAllUserNotifications(userId);
+            var notifications = Mapper.Map<IEnumerable<DAL.Entities.Notification>, IEnumerable<Notification>>(notificationsEntity);
+            return notifications;
+
+        }
     }
 }

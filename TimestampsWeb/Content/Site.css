@@ -54,7 +54,6 @@ textarea { max-width: 280px; }
 
 .navbar-brand { font-weight: 700; }
 
-
 /*Page-level styles*/
 
 .wrapper {
@@ -122,6 +121,17 @@ ul.notifications > li:last-child {
 
 ul.notifications .highlight {
     font-weight: bold;
+}
+
+.popover-content {
+  height: auto;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.popover-content a{
+    width: 100%;
+    padding: 0;
 }
 
 .gap-10 {

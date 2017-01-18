@@ -9,7 +9,7 @@
             <li class="notifications">
                 <a href="#">
                     <i class="glyphicon glyphicon-bell"></i>
-                    <span class="badge js-notifications-count hide"></span>
+                    <span class="badge js-notifications-count hide" data-has-new-notifications="false"></span>
                 </a>
             </li>
             <li class="dropdown">
@@ -17,7 +17,6 @@
                     @User.Identity.GetUserName() <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    @*<li>@Html.ActionLink("Manage account", "Index", "Manage")</li>*@
                     <li>@Html.ActionLink("My projects", "MyProjects", "Projects")</li>
                     <li role="separator" class="divider"></li>
                     <li>

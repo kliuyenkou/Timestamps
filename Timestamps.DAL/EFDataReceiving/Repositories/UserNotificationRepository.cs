@@ -29,6 +29,7 @@ namespace Timestamps.DAL.EFDataReceiving.Repositories
         {
             return context.UserNotifications.Where(un => un.UserId == userId)
                 .Select(un => un.Notification)
+                .Include(n => n.Project.Creator)
                 .ToList();
         }
     }

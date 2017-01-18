@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Timestamps.DAL.Entities;
 using Timestamps.DAL.Interfaces;
 using Timestamps.DAL.Management.Interfaces;
@@ -53,12 +54,12 @@ namespace Timestamps.DAL.Management
 
         public IEnumerable<Notification> GetAllUserNotifications(string userId)
         {
-            return _unitOfWork.UserNotifications.GetAllUserNotifications(userId);
+            return _unitOfWork.UserNotifications.GetAllUserNotifications(userId).OrderByDescending(n => n.DateTime);
         }
 
         public IEnumerable<Notification> GetUnreadUserNotifications(string userId)
         {
-            return _unitOfWork.UserNotifications.GetNewNotificationsForUser(userId);
+            return _unitOfWork.UserNotifications.GetNewNotificationsForUser(userId).OrderByDescending(n => n.DateTime);
         }
 
         public void MarkUserNotifications(IEnumerable<Notification> notifications, string userId, bool isRead)

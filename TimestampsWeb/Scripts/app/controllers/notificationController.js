@@ -1,36 +1,51 @@
 ﻿var NotificationController = function (notificationService) {
 
     var loadNotifications = function() {
-        NotificationService.getNewNotifications(showNotifications,
+        notificationService.getNewNotifications(showNotifications,
             function() {
-                bootbox.alert("Faild to get notifications from the server.");
+                bootbox.alert("Failed to get notifications from the server.");
             });
     };
 
     function showNotifications(notifications) {
-            if (notifications.length === 0)
-                return;
-            $('.js-notifications-count').text(notifications.length).removeClass('hide');
-            $('.notifications').popover({
+        if (notifications.length > 0) {
+            var badge = $('.js-notifications-count');
+            badge.attr("data-has-new-notifications", true);
+            badge.text(notifications.length).removeClass('hide');
+        }
+        $('.notifications').popover({
                 html: true,
                 title: "Notifications",
                 content: function () {
-                    return renderNotifications(notifications);
+                    return renderPopoverContent(notifications, true);
                 },
                 placement: "bottom"
             })
-                .on("shown.bs.popover", markNotificationsAsRead);
+                .on("hidden.bs.popover", markNotificationsAsRead);
     };
 
-    function renderNotifications(notifications) {
+    function renderPopoverContent(notifications, showButton) {
+        var div = document.createElement('div');
         var ul = document.createElement('ul');
         ul.className = "notifications";
-        $.each(notifications,
-            function(index, record) {
-                var li = renderNotification(record);
-                ul.appendChild(li);
-            });
-        return ul;
+        if (notifications.length > 0) {
+            $.each(notifications,
+                function (index, record) {
+                    var li = renderNotification(record);
+                    ul.appendChild(li);
+                });
+            div.appendChild(ul);
+        } else {
+            var spanMessage = document.createElement('p');
+            spanMessage.innerText = "You don't have new notifications.";
+            spanMessage.className = "text-info";
+            div.appendChild(spanMessage);
+        }
+        if (showButton) {
+            var btn = renderButtonShowAll(showAllMessages);
+            div.appendChild(btn);
+        }
+        return div;
     };
 
     function renderNotification(record) {
@@ -46,6 +61,7 @@
         }
         return li;
     }
+
     function createMessageArchiveProject(projectTitle) {
         var spanMessage = document.createElement('span');
         var spanTitle = document.createElement('span');
@@ -70,17 +86,42 @@
         return spanMessage;
     }
 
+    function renderButtonShowAll(onclickHandler) {
+        var btn = document.createElement('a');
+        btn.className = "btn btn-default";
+        btn.innerText = "Show all";
+        btn.onclick = onclickHandler;
+        return btn;
+    }
+
+    function showAllMessages(e) {
+        e.preventDefault();
+        notificationService.getAllNotifications(updateNotificatinsList,
+            function () {
+                bootbox.alert("Failed to get notifications from the server.");
+            });
+    }
+
+    function updateNotificatinsList(notifications) {
+        var popover = $('.notifications').data('bs.popover');
+        var content = renderPopoverContent(notifications, false);
+        popover.options.content = content;
+        popover.show();
+    }
+
     function markNotificationsAsRead() {
-        NotificationService.markShownNotificationsAsRead(
-            function() {
-                $('.js-notifications-count')
-                    .text("")
-                    .addClass('hide');
+        var badge = $('.js-notifications-count');
+        var hasNew = badge.attr('data-has-new-notifications');
+        if (hasNew === "true") {
+            notificationService.markShownNotificationsAsRead(
+            function () {
+                badge.text("").addClass('hide').attr('data-has-new-notifications', false);
             },
-            function(jqXhr, textStatus, errorThrown) {
+            function (jqXhr, textStatus, errorThrown) {
                 console.error('Ajax request failed', jqXhr, textStatus, errorThrown);
             }
             );
+        }
     };
 
     return {
