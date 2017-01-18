@@ -3,10 +3,9 @@ using System.Web.Http;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Timestamps.BLL.Interfaces;
-using Timestamps.BLL.Models;
 using TimestampsWeb.Dto;
 
-namespace TimestampsWeb.Controllers
+namespace TimestampsWeb.Controllers.Notification
 {
     [RoutePrefix("api/notifications")]
     public class NotificationsController : ApiController

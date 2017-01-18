@@ -4,10 +4,9 @@ using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Timestamps.BLL.Interfaces;
-using Timestamps.BLL.Models;
 using TimestampsWeb.ViewModels;
 
-namespace TimestampsWeb.Controllers
+namespace TimestampsWeb.Controllers.Project
 {
     public class ProjectsController : Controller
     {
@@ -31,7 +30,7 @@ namespace TimestampsWeb.Controllers
         public async Task<ActionResult> Create(ProjectViewModel viewModel)
         {
             if (!ModelState.IsValid) return View("ProjectForm", viewModel);
-            var project = new Project
+            var project = new Timestamps.BLL.Models.Project
             {
                 Title = viewModel.Title,
                 Description = viewModel.Description,

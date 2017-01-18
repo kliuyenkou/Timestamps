@@ -1,9 +1,8 @@
-﻿using System;
-using System.Web.Http;
+﻿using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Timestamps.BLL.Interfaces;
 
-namespace TimestampsWeb.Controllers
+namespace TimestampsWeb.Controllers.Project
 {
     public class ArchiveProjectController : ApiController
     {

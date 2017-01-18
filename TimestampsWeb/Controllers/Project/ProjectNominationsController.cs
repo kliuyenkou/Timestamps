@@ -3,7 +3,7 @@ using Microsoft.AspNet.Identity;
 using Timestamps.BLL.Interfaces;
 using TimestampsWeb.Dto;
 
-namespace TimestampsWeb.Controllers
+namespace TimestampsWeb.Controllers.Project
 {
     public class ProjectNominationsController : ApiController
     {

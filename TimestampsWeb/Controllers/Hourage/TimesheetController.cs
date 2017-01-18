@@ -3,10 +3,9 @@ using System.Web.Http;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Timestamps.BLL.Interfaces;
-using Timestamps.BLL.Models;
 using TimestampsWeb.Dto;
 
-namespace TimestampsWeb.Controllers
+namespace TimestampsWeb.Controllers.Hourage
 {
     public class TimesheetController : ApiController
     {
@@ -36,7 +35,7 @@ namespace TimestampsWeb.Controllers
 
             var userId = User.Identity.GetUserId();
             var hourage = _hourageService.CreateHourageRecord(record.WorkDescription, record.ProjectId, record.Date, record.Hours, userId);
-            var hourageDto = Mapper.Map<Hourage, HourageDto>(hourage);
+            var hourageDto = Mapper.Map<Timestamps.BLL.Models.Hourage, HourageDto>(hourage);
             return hourageDto;
         }
 

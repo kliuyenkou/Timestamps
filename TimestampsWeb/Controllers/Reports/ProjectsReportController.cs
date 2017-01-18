@@ -5,7 +5,7 @@ using Microsoft.AspNet.Identity;
 using Timestamps.BLL.Interfaces;
 using TimestampsWeb.Dto;
 
-namespace TimestampsWeb.Controllers
+namespace TimestampsWeb.Controllers.Reports
 {
     public class ProjectsReportController : ApiController
     {
