@@ -50,19 +50,15 @@
                         if (!result) {
                             return;
                         }
-                        $.ajax({
-                                url: "/api/archiveproject/" + $("input[id]").attr("value"),
-                                method: "POST"
-                            })
-                            .done(function() {
-                                $("#IsArchived").value = "true";
-                                $("#labelArchived").removeClass("hide");
-                                $("#restore").removeClass("hide");
-                                $("#archive").addClass("hide");
-                            })
-                            .fail(function() {
-                                bootbox.alert("Failed to archive this project.");
-                            });
+                        var changeView = function () {
+                            $("#IsArchived").value = "true";
+                            $("#labelArchived").removeClass("hide");
+                            $("#restore").removeClass("hide");
+                            $("#archive").addClass("hide");
+                        };
+                        ProjectController.archiveProject($("input[id]").attr("value"), changeView, function () {
+                            bootbox.alert("Failed to archive this project.");
+                        });
                     });
 
             });
@@ -72,20 +68,17 @@
                         if (!result) {
                             return;
                         }
-                        $.ajax({
-                                url: "/api/archiveproject/" + $("input[id]").attr("value"),
-                                method: "DELETE"
-                            })
-                            .done(function() {
-                                $("#IsArchived").value = "false";
-                                $("#labelArchived").addClass("hide");
-                                $("#restore").addClass("hide");
-                                $("#archive").removeClass("hide");
-                            })
-                            .fail(function() {
-                                bootbox.alert("Failed to restore this project.");
-                            });
-                    });
+                        var changeView = function() {
+                            $("#IsArchived").value = "false";
+                            $("#labelArchived").addClass("hide");
+                            $("#restore").addClass("hide");
+                            $("#archive").removeClass("hide");
+                        };
+                        ProjectController.restoreProject($("input[id]").attr("value"), changeView, function () {
+                            bootbox.alert("Failed to restore this project.");
+                        });
+                    }
+                );
             });
         });
     </script>

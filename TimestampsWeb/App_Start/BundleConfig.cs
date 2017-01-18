@@ -12,6 +12,8 @@ namespace TimestampsWeb
                 "~/Scripts/app/controllers/hourageController.js",
                 "~/Scripts/app/services/notificationService.js",
                 "~/Scripts/app/controllers/notificationController.js",
+                "~/Scripts/app/services/projectService.js",
+                "~/Scripts/app/controllers/projectController.js",
                 "~/Scripts/app/app.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(

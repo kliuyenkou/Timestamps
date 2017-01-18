@@ -278,7 +278,9 @@
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\controllers\hourageController.js" />
     <Content Include="Scripts\app\controllers\notificationController.js" />
+    <Content Include="Scripts\app\controllers\projectController.js" />
     <Content Include="Scripts\app\services\notificationService.js" />
+    <Content Include="Scripts\app\services\projectService.js" />
     <Content Include="Scripts\app\services\timesheetService.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
