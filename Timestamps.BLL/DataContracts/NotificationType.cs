@@ -1,4 +1,4 @@
-﻿namespace Timestamps.BLL.Models
+﻿namespace Timestamps.BLL.DataContracts
 {
     public enum NotificationType
     {
@@ -7,5 +7,4 @@
         UserJoinProject = 3,
         UserLeaveProject = 4
     }
-
 }

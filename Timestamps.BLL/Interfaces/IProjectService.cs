@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Timestamps.BLL.Models;
+using Timestamps.BLL.DataContracts;
 
 namespace Timestamps.BLL.Interfaces
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 
-namespace Timestamps.BLL.Models
+namespace Timestamps.BLL.DataContracts
 {
     public class User : IUser<string>
     {

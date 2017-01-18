@@ -3,7 +3,6 @@ using System.Data.Entity;
 using System.Linq;
 using Timestamps.DAL.DataInterfaces.Repositories;
 using Timestamps.DAL.Entities;
-using Timestamps.DAL.Interfaces;
 
 namespace Timestamps.DAL.EFDataReceiving.Repositories
 {
@@ -17,6 +16,7 @@ namespace Timestamps.DAL.EFDataReceiving.Repositories
         {
             return Find(un => un.NotificationId == notificationId && un.UserId == userId).Single(un => true);
         }
+
         public IEnumerable<Notification> GetNewNotificationsForUser(string userId)
         {
             return context.UserNotifications.Where(un => un.UserId == userId && !un.IsRead)

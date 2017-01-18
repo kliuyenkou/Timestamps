@@ -21,7 +21,7 @@ namespace TimestampsWeb.Controllers.Project
         public ActionResult Create()
         {
             ViewBag.Title = "Create project";
-            var projectViewModel = new ProjectViewModel { Action = "Create" };
+            var projectViewModel = new ProjectViewModel {Action = "Create"};
             return View("ProjectForm", projectViewModel);
         }
 
@@ -30,7 +30,7 @@ namespace TimestampsWeb.Controllers.Project
         public async Task<ActionResult> Create(ProjectViewModel viewModel)
         {
             if (!ModelState.IsValid) return View("ProjectForm", viewModel);
-            var project = new Timestamps.BLL.Models.Project
+            var project = new Timestamps.BLL.DataContracts.Project
             {
                 Title = viewModel.Title,
                 Description = viewModel.Description,
@@ -85,7 +85,6 @@ namespace TimestampsWeb.Controllers.Project
             var projects = Mapper.Map<IEnumerable<ProjectWithCreatorViewModel>>(allProjects);
 
             return View("FindProject", projects);
-
         }
     }
 }

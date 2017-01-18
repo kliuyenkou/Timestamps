@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Timestamps.BLL.Models;
+using Timestamps.BLL.DataContracts;
 using TimestampsWeb.Dto;
 
 namespace TimestampsWeb.Infrastructure.AutoMapperConfiguration

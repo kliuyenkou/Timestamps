@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Timestamps.DAL.DataInterfaces;
 using Timestamps.DAL.Entities;
-using Timestamps.DAL.Interfaces;
 using Timestamps.DAL.Management.Interfaces;
 
 namespace Timestamps.DAL.Management
@@ -10,13 +10,15 @@ namespace Timestamps.DAL.Management
     public class NotificationManagement : INotificationManagement
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public NotificationManagement(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
+
         public Notification CreateNotification(DateTime dateTime, NotificationType type, int projectId)
         {
-            var notification = new Notification()
+            var notification = new Notification
             {
                 DateTime = dateTime,
                 Type = type,
@@ -29,7 +31,8 @@ namespace Timestamps.DAL.Management
 
         public void NotifyUsers(Notification notification, IEnumerable<ApplicationUser> users)
         {
-            foreach (var applicationUser in users) {
+            foreach (var applicationUser in users)
+            {
                 var userNotificationEntity = new UserNotification(notification, applicationUser);
                 _unitOfWork.UserNotifications.Add(userNotificationEntity);
             }
@@ -46,7 +49,7 @@ namespace Timestamps.DAL.Management
         public void MarkUserNotification(Notification notification, string userId, bool isRead)
         {
             var userNotification =
-                    _unitOfWork.UserNotifications.GetUserNotification(notification.Id, userId);
+                _unitOfWork.UserNotifications.GetUserNotification(notification.Id, userId);
             userNotification.IsRead = isRead;
 
             _unitOfWork.SaveChanges();
@@ -64,7 +67,8 @@ namespace Timestamps.DAL.Management
 
         public void MarkUserNotifications(IEnumerable<Notification> notifications, string userId, bool isRead)
         {
-            foreach (var notification in notifications) {
+            foreach (var notification in notifications)
+            {
                 var userNotification =
                     _unitOfWork.UserNotifications.GetUserNotification(notification.Id, userId);
                 userNotification.IsRead = isRead;

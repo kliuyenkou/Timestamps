@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
+using Timestamps.BLL.DataContracts;
 using Timestamps.BLL.Interfaces;
-using Timestamps.BLL.Models;
 using Timestamps.DAL.Management.Interfaces;
 
 namespace Timestamps.BLL.Services
@@ -18,7 +18,8 @@ namespace Timestamps.BLL.Services
         public IEnumerable<Notification> GetNewNotificationsForUser(string userId)
         {
             var notificationsEntity = _notificationManagement.GetUnreadUserNotifications(userId);
-            var notifications = Mapper.Map<IEnumerable<DAL.Entities.Notification>, IEnumerable<Notification>>(notificationsEntity);
+            var notifications =
+                Mapper.Map<IEnumerable<DAL.Entities.Notification>, IEnumerable<Notification>>(notificationsEntity);
             return notifications;
         }
 
@@ -31,9 +32,9 @@ namespace Timestamps.BLL.Services
         public IEnumerable<Notification> GetAllNotificationsForUser(string userId)
         {
             var notificationsEntity = _notificationManagement.GetAllUserNotifications(userId);
-            var notifications = Mapper.Map<IEnumerable<DAL.Entities.Notification>, IEnumerable<Notification>>(notificationsEntity);
+            var notifications =
+                Mapper.Map<IEnumerable<DAL.Entities.Notification>, IEnumerable<Notification>>(notificationsEntity);
             return notifications;
-
         }
     }
 }

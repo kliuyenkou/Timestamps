@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Timestamps.BLL.DataContracts;
+using Timestamps.DAL.Entities;
 
 namespace Timestamps.BLL.Infrastructure.AutoMapperConfiguration
 {
@@ -6,7 +8,7 @@ namespace Timestamps.BLL.Infrastructure.AutoMapperConfiguration
     {
         public UserProfile()
         {
-            CreateMap<DAL.Entities.ApplicationUser, Models.User>();
+            CreateMap<ApplicationUser, User>();
         }
     }
 }

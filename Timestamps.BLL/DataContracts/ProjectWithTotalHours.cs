@@ -1,4 +1,4 @@
-﻿namespace Timestamps.BLL.Models
+﻿namespace Timestamps.BLL.DataContracts
 {
     public class ProjectWithTotalHours
     {

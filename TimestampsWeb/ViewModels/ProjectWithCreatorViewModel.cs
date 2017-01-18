@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace TimestampsWeb.ViewModels
 {
@@ -10,6 +9,5 @@ namespace TimestampsWeb.ViewModels
         public string Description { get; set; }
         public string CreatorName { get; set; }
         public DateTime CreationDate { get; set; }
-
     }
 }

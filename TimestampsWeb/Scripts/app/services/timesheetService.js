@@ -1,16 +1,16 @@
-﻿var TimesheetService = function () {
+﻿var TimesheetService = function() {
     var getAllRecords = function(success, error) {
         $.ajax({
-            url: '/api/Timesheet',
-            type: 'GET',
-            dataType: 'json'
+            url: "/api/Timesheet",
+            type: "GET",
+            dataType: "json"
         }).done(success).fail(error);
     };
     var addRecord = function(data, success, error) {
         $.post({
-            url: '/api/Timesheet',
+            url: "/api/Timesheet",
             data: data,
-            dataType: 'json'
+            dataType: "json"
         }).done(success).fail(error);
     };
     var deleteRecord = function(recordId, success, error) {
@@ -23,5 +23,5 @@
         getAllRecords: getAllRecords,
         addRecord: addRecord,
         deleteRecord: deleteRecord
-    }
+    };
 }();

@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
+using Timestamps.DAL.DataInterfaces;
 using Timestamps.DAL.Entities;
-using Timestamps.DAL.Interfaces;
 using Timestamps.DAL.Management.Interfaces;
 
 namespace Timestamps.DAL.Management
@@ -9,6 +9,7 @@ namespace Timestamps.DAL.Management
     public class AccountManagement : IAccountManagement
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public AccountManagement(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -34,6 +35,5 @@ namespace Timestamps.DAL.Management
         {
             return _unitOfWork.UserManager.CreateIdentityAsync(appUser, applicationCookie);
         }
-
     }
 }

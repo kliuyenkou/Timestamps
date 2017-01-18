@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Timestamps.DAL.DataContracts;
+using Timestamps.DAL.DataInterfaces;
 using Timestamps.DAL.Entities;
-using Timestamps.DAL.Interfaces;
 using Timestamps.DAL.Management.Interfaces;
 
 namespace Timestamps.DAL.Management
@@ -10,10 +10,12 @@ namespace Timestamps.DAL.Management
     public class ProjectManagement : IProjectManagement
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public ProjectManagement(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
+
         public async Task CreateProjectAsync(CreateProjectRequest createProjectRequest)
         {
             var projectEntity = createProjectRequest.ProjectEntity;
@@ -61,9 +63,7 @@ namespace Timestamps.DAL.Management
         public ArchiveRestoreOperationResult ArchiveProjectAsync(int projectId)
         {
             var project = _unitOfWork.Projects.GetProjectById(projectId);
-            if (project.IsArchived) {
-                return ArchiveRestoreOperationResult.WarningProjectAlreadyArchived;
-            }
+            if (project.IsArchived) return ArchiveRestoreOperationResult.WarningProjectAlreadyArchived;
 
             project.IsArchived = true;
             _unitOfWork.SaveChanges();
@@ -78,9 +78,7 @@ namespace Timestamps.DAL.Management
         public ArchiveRestoreOperationResult RestoreProjectAsync(int projectId)
         {
             var project = _unitOfWork.Projects.GetProjectById(projectId);
-            if (!project.IsArchived) {
-                return ArchiveRestoreOperationResult.WarningProjectIsActive;
-            }
+            if (!project.IsArchived) return ArchiveRestoreOperationResult.WarningProjectIsActive;
 
             project.IsArchived = false;
             _unitOfWork.SaveChanges();
@@ -89,7 +87,7 @@ namespace Timestamps.DAL.Management
 
         public async Task NominateUserOnTheProjectAsync(string userId, int projectId)
         {
-            var projectNomination = new ProjectNomination()
+            var projectNomination = new ProjectNomination
             {
                 ProjectId = projectId,
                 UserId = userId

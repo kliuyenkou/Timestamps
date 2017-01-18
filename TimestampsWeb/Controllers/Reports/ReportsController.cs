@@ -7,6 +7,7 @@ namespace TimestampsWeb.Controllers.Reports
     public class ReportsController : Controller
     {
         private readonly IReportsService _reportsService;
+
         public ReportsController(IReportsService reportsService)
         {
             _reportsService = reportsService;
@@ -22,9 +23,7 @@ namespace TimestampsWeb.Controllers.Reports
         [HttpPost]
         public ActionResult Projects(ReportsProjectsViewModel reportFilters)
         {
-
             return View("ReportMyProjects");
         }
-
     }
 }

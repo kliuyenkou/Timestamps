@@ -1,7 +1,6 @@
 ﻿using System;
-using Timestamps.DAL.Entities;
 
-namespace Timestamps.BLL.Models
+namespace Timestamps.BLL.DataContracts
 {
     public class Notification
     {
@@ -10,6 +9,5 @@ namespace Timestamps.BLL.Models
         public NotificationType Type { get; set; }
         public int ProjectId { get; set; }
         public Project Project { get; set; }
-
     }
 }

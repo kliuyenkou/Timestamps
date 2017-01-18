@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Timestamps.DAL.DataInterfaces;
 using Timestamps.DAL.Entities;
-using Timestamps.DAL.Interfaces;
 using Timestamps.DAL.Management.Interfaces;
 
 namespace Timestamps.DAL.Management
@@ -8,10 +8,12 @@ namespace Timestamps.DAL.Management
     public class HourageManagement : IHourageManagement
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public HourageManagement(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
+
         public Hourage Create(Hourage hourage)
         {
             _unitOfWork.Hourages.Add(hourage);

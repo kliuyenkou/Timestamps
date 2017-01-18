@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
+using Timestamps.BLL.DataContracts;
 using Timestamps.BLL.Infrastructure;
-using Timestamps.BLL.Models;
 
 namespace Timestamps.BLL.Interfaces
 {

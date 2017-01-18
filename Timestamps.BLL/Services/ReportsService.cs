@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Timestamps.BLL.DataContracts;
 using Timestamps.BLL.Interfaces;
-using Timestamps.BLL.Models;
 using Timestamps.DAL.Management.Interfaces;
 
 namespace Timestamps.BLL.Services
 {
     public class ReportsService : IReportsService
     {
-        private readonly IProjectManagement _projectManagement;
         private readonly IHourageManagement _hourageManagement;
+        private readonly IProjectManagement _projectManagement;
 
         public ReportsService(IProjectManagement projectManagement, IHourageManagement hourageManagement)
         {
@@ -30,11 +30,11 @@ namespace Timestamps.BLL.Services
                         TotalHours = hg.Sum(r => r.Hours)
                     });
             var projectsWithTotalHours = from pu in projectsUserTakePart
-                                         join hourageRecord in houragesGroupedByProject on pu equals hourageRecord.Project into allProjects
-                                         from p in allProjects.DefaultIfEmpty()
-                                         select new { Project = pu, TotalHours = p?.TotalHours ?? 0 };
+                join hourageRecord in houragesGroupedByProject on pu equals hourageRecord.Project into allProjects
+                from p in allProjects.DefaultIfEmpty()
+                select new {Project = pu, TotalHours = p?.TotalHours ?? 0};
 
-            var result = projectsWithTotalHours.Select(h => new ProjectWithTotalHours()
+            var result = projectsWithTotalHours.Select(h => new ProjectWithTotalHours
             {
                 Project = Mapper.Map<Project>(h.Project),
                 Hours = h.TotalHours

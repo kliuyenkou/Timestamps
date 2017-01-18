@@ -13,6 +13,5 @@ namespace Timestamps.DAL.Management.Interfaces
         void MarkUserNotifications(IEnumerable<Notification> notifications, string userId, bool isRead);
         IEnumerable<Notification> GetAllUserNotifications(string userId);
         IEnumerable<Notification> GetUnreadUserNotifications(string userId);
-
     }
 }

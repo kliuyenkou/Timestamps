@@ -34,8 +34,9 @@ namespace TimestampsWeb.Controllers.Hourage
                 return null;
 
             var userId = User.Identity.GetUserId();
-            var hourage = _hourageService.CreateHourageRecord(record.WorkDescription, record.ProjectId, record.Date, record.Hours, userId);
-            var hourageDto = Mapper.Map<Timestamps.BLL.Models.Hourage, HourageDto>(hourage);
+            var hourage = _hourageService.CreateHourageRecord(record.WorkDescription, record.ProjectId, record.Date,
+                record.Hours, userId);
+            var hourageDto = Mapper.Map<Timestamps.BLL.DataContracts.Hourage, HourageDto>(hourage);
             return hourageDto;
         }
 

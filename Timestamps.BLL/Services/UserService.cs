@@ -1,9 +1,9 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using Timestamps.BLL.DataContracts;
 using Timestamps.BLL.Infrastructure;
 using Timestamps.BLL.Interfaces;
-using Timestamps.BLL.Models;
 using Timestamps.DAL.Entities;
 using Timestamps.DAL.Management.Interfaces;
 
@@ -21,8 +21,9 @@ namespace Timestamps.BLL.Services
         public async Task<OperationResult> CreateAsync(User user)
         {
             var appUser = await _accountManagement.GetUserByEmailAsync(user.Email);
-            if (appUser == null) {
-                appUser = new ApplicationUser { Email = user.Email, UserName = user.Email, Name = user.Name };
+            if (appUser == null)
+            {
+                appUser = new ApplicationUser {Email = user.Email, UserName = user.Email, Name = user.Name};
                 await _accountManagement.CreateUser(appUser, user.Password);
                 return new OperationResult(true, "You have been successfully registered!", "");
             }

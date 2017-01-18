@@ -5,7 +5,6 @@ namespace Timestamps.DAL.Entities
 {
     public class ProjectNomination
     {
-
         [Key]
         [Column(Order = 1)]
         public int ProjectId { get; set; }

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Omu.ValueInjecter;
+using Timestamps.BLL.DataContracts;
 using Timestamps.BLL.Interfaces;
 using Timestamps.DAL.Management.Interfaces;
-using Hourage = Timestamps.BLL.Models.Hourage;
 using HourageEntity = Timestamps.DAL.Entities.Hourage;
 using Mapper = AutoMapper.Mapper;
 
@@ -47,9 +47,10 @@ namespace Timestamps.BLL.Services
             _hourageManagement.Delete(hourageId);
         }
 
-        public Hourage CreateHourageRecord(string workDescription, int projectId, DateTime date, double hours, string userId)
+        public Hourage CreateHourageRecord(string workDescription, int projectId, DateTime date, double hours,
+            string userId)
         {
-            var hourageEntity = new HourageEntity()
+            var hourageEntity = new HourageEntity
             {
                 WorkDescription = workDescription,
                 ProjectId = projectId,

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Timestamps.BLL.Models;
+using Timestamps.BLL.DataContracts;
 
 namespace Timestamps.BLL.Interfaces
 {

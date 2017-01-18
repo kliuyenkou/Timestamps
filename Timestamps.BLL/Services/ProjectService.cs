@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Omu.ValueInjecter;
+using Timestamps.BLL.DataContracts;
 using Timestamps.BLL.Interfaces;
 using Timestamps.DAL.DataContracts;
-using Timestamps.DAL.Entities;
 using Timestamps.DAL.Management;
 using Timestamps.DAL.Management.Interfaces;
 using Mapper = AutoMapper.Mapper;
-using Project = Timestamps.BLL.Models.Project;
+using NotificationType = Timestamps.DAL.Entities.NotificationType;
 using ProjectEntity = Timestamps.DAL.Entities.Project;
 
 namespace Timestamps.BLL.Services
 {
     public class ProjectService : IProjectService
     {
-        private readonly IProjectManagement _projectManagement;
         private readonly INotificationManagement _notificationManagement;
+        private readonly IProjectManagement _projectManagement;
 
         public ProjectService(IProjectManagement projectManagement, INotificationManagement notificationManagement)
         {
@@ -64,24 +64,22 @@ namespace Timestamps.BLL.Services
         public void ArchiveUserProjectAsync(string userId, int projectId)
         {
             var result = _projectManagement.ArchiveProjectAsync(projectId);
-            if (result == ArchiveRestoreOperationResult.WarningProjectAlreadyArchived) {
-                return;
-            }
+            if (result == ArchiveRestoreOperationResult.WarningProjectAlreadyArchived) return;
             var usersOnThisProject = _projectManagement.GetAllUsersOnProject(projectId);
 
-            var notification = _notificationManagement.CreateNotification(DateTime.Now, NotificationType.ProjectArchived, projectId);
+            var notification = _notificationManagement.CreateNotification(DateTime.Now, NotificationType.ProjectArchived,
+                projectId);
             _notificationManagement.NotifyUsers(notification, usersOnThisProject);
         }
 
         public void RestoreUserProject(string userId, int projectId)
         {
             var result = _projectManagement.RestoreProjectAsync(projectId);
-            if (result == ArchiveRestoreOperationResult.WarningProjectIsActive) {
-                return;
-            }
+            if (result == ArchiveRestoreOperationResult.WarningProjectIsActive) return;
             var usersOnThisProject = _projectManagement.GetAllUsersOnProject(projectId);
 
-            var notification = _notificationManagement.CreateNotification(DateTime.Now, NotificationType.ProjectRestored, projectId);
+            var notification = _notificationManagement.CreateNotification(DateTime.Now, NotificationType.ProjectRestored,
+                projectId);
             _notificationManagement.NotifyUsers(notification, usersOnThisProject);
         }
 
@@ -93,7 +91,7 @@ namespace Timestamps.BLL.Services
         public IEnumerable<Project> GetProjectsUserTakePart(string userId)
         {
             var dbprojects = _projectManagement.GetProjectsUserTakePart(userId);
-            var projects = Mapper.Map<IEnumerable<DAL.Entities.Project>, IEnumerable<Project>>(dbprojects);
+            var projects = Mapper.Map<IEnumerable<ProjectEntity>, IEnumerable<Project>>(dbprojects);
             return projects;
         }
 

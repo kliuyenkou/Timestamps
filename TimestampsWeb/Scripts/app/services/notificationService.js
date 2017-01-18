@@ -7,12 +7,12 @@
             .done(success)
             .fail(error);
     };
-    var getAllNotifications = function (success, error) {
+    var getAllNotifications = function(success, error) {
         $.get("/api/notifications/all").done(success).fail(error);
     };
     return {
         getNewNotifications: getNewNotifications,
         markShownNotificationsAsRead: markShownNotificationsAsRead,
         getAllNotifications: getAllNotifications
-    }
+    };
 }();

@@ -1,6 +1,5 @@
 ﻿using System;
-using Timestamps.BLL.Models;
-using TimestampsWeb.Controllers;
+using Timestamps.BLL.DataContracts;
 
 namespace TimestampsWeb.Dto
 {
@@ -11,6 +10,5 @@ namespace TimestampsWeb.Dto
         public NotificationType Type { get; set; }
 
         public ProjectDto Project { get; set; }
-
     }
 }

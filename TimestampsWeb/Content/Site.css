@@ -1,10 +1,9 @@
-﻿html, body {
-    height: 100%;
-}
+﻿html, body { height: 100%; }
+
 body {
-    padding-top: 50px;
     font-family: Open sans, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
+    padding-top: 50px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -41,43 +40,38 @@ textarea { max-width: 280px; }
     box-shadow: none;
 }
 
-.navbar-nav .notifications {
-    position: relative;
-}
+.navbar-nav .notifications { position: relative; }
 
-    .navbar-nav .notifications .badge {
-        position: absolute;
-        top: 8px;
-        left: 26px;
-        font-size: 9px;
-    }
+.navbar-nav .notifications .badge {
+    font-size: 9px;
+    left: 26px;
+    position: absolute;
+    top: 8px;
+}
 
 .navbar-brand { font-weight: 700; }
 
 /*Page-level styles*/
 
 .wrapper {
-  min-height: 100%;
-  height: auto;
-  /* Negative indent footer by its height */
-  margin: 0 auto -50px;
-  /* Pad bottom by footer height */
-  padding: 0 0 50px;
+    height: auto;
+    /* Negative indent footer by its height */
+    margin: 0 auto -50px;
+    min-height: 100%;
+    /* Pad bottom by footer height */
+    padding: 0 0 50px;
 }
 
 .footer {
-  height: 50px;
-  /*background-color: #f8f8f8;*/
+    height: 50px;
+    /*background-color: #f8f8f8;*/
 }
- .form-addrecord { margin-top: 20px; }
- 
-.inputsline {
-     text-align: center;
- }
 
-.projectDetails > .title {
-    font-size: 15px; 
-}
+.form-addrecord { margin-top: 20px; }
+
+.inputsline { text-align: center; }
+
+.projectDetails > .title { font-size: 15px; }
 
 .projectDetails > .description {
     font-size: 12px;
@@ -85,29 +79,21 @@ textarea { max-width: 280px; }
 }
 
 .editLink {
+    display: none;
     font-size: 12px;
-    display: none;
 }
 
-.myprojects > tr:hover .editLink {
-    display: block;
-}
+.myprojects > tr:hover .editLink { display: block; }
 
-.deletelink {
-    display: none;
-}
+.deletelink { display: none; }
 
-.records > tr:hover .deletelink {
-    display: block;
-}
+.records > tr:hover .deletelink { display: block; }
 
-.strikethrogh {
-    text-decoration: line-through;
-}
+.strikethrogh { text-decoration: line-through; }
 
 ul.notifications {
     list-style: none;
-    padding-left: 0;    
+    padding-left: 0;
 }
 
 ul.notifications > li {
@@ -115,49 +101,43 @@ ul.notifications > li {
     padding: 10px 0;
 }
 
-ul.notifications > li:last-child {
-    border-bottom: none;
-}
+ul.notifications > li:last-child { border-bottom: none; }
 
-ul.notifications .highlight {
-    font-weight: bold;
-}
+ul.notifications .highlight { font-weight: bold; }
 
 .popover-content {
-  height: auto;
-  max-height: 300px;
-  overflow-y: auto;
+    height: auto;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
-.popover-content a{
-    width: 100%;
+.popover-content a {
     padding: 0;
+    width: 100%;
 }
 
 .gap-10 {
-    width: 100%;
     height: 10px;
+    width: 100%;
 }
 
 .gap-20 {
-    width: 100%;
     height: 20px;
+    width: 100%;
 }
 
 .gap-30 {
-    width: 100%;
     height: 30px;
+    width: 100%;
 }
-.gap-60 {
-    height: 60px;
-}
-.error {
-    border-color: #a94442;
-}
+
+.gap-60 { height: 60px; }
+
+.error { border-color: #a94442; }
+
 #errorBox ul {
     list-style: none;
     padding: 0;
 }
-    #errorBox ul li label{
-        margin: 0;
-    }
+
+#errorBox ul li label { margin: 0; }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Timestamps.DAL.Entities;
 
 namespace Timestamps.BLL.Infrastructure.AutoMapperConfiguration
 {
@@ -6,7 +7,7 @@ namespace Timestamps.BLL.Infrastructure.AutoMapperConfiguration
     {
         public HourageProfile()
         {
-            CreateMap<DAL.Entities.Hourage, Models.Hourage>();
+            CreateMap<Hourage, DataContracts.Hourage>();
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using Autofac;
+using Timestamps.DAL.DataInterfaces;
 using Timestamps.DAL.DataInterfaces.Repositories;
 using Timestamps.DAL.EFDataReceiving;
 using Timestamps.DAL.EFDataReceiving.Repositories;
 using Timestamps.DAL.Identity;
-using Timestamps.DAL.Interfaces;
 using Timestamps.DAL.Management;
 using Timestamps.DAL.Management.Interfaces;
 

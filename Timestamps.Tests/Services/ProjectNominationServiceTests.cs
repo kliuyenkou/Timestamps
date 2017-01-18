@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Timestamps.BLL.Services;
 
 namespace Timestamps.Tests.Services
 {
@@ -11,7 +10,6 @@ namespace Timestamps.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-
             //var mockProjectNominationRepository = new Mock<IProjectNominationRepository>();
             //var mockUnitOfWork = new Mock<IUnitOfWork>();
             //mockUnitOfWork.SetupGet(u => u.ProjectNominations).Returns(mockProjectNominationRepository.Object);
@@ -21,11 +19,9 @@ namespace Timestamps.Tests.Services
         [TestMethod]
         public void GetProjectsUserTakePart_ProjectUserNotNominated_ShouldNotBeReturned()
         {
-
             //var result = _service.GetProjectsUserTakePart("user1");
 
             //result.Should().NotBeEmpty();
         }
-
     }
 }

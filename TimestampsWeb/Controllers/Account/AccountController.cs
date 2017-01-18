@@ -2,8 +2,8 @@
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using Timestamps.BLL.DataContracts;
 using Timestamps.BLL.Interfaces;
-using Timestamps.BLL.Models;
 using TimestampsWeb.ViewModels;
 
 namespace TimestampsWeb.Controllers.Account
@@ -34,7 +34,8 @@ namespace TimestampsWeb.Controllers.Account
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 var user = new User
                 {
                     Email = model.Email,
@@ -42,7 +43,8 @@ namespace TimestampsWeb.Controllers.Account
                     Name = model.Name
                 };
                 var operationDetails = await _userService.CreateAsync(user);
-                if (operationDetails.Succedeed) {
+                if (operationDetails.Succedeed)
+                {
                     var claim = await _userService.SignInAsync(user);
                     AuthenticationManager.SignIn(new AuthenticationProperties
                     {
@@ -67,13 +69,16 @@ namespace TimestampsWeb.Controllers.Account
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (ModelState.IsValid) {
-                var user = new User { Email = model.Email, Password = model.Password };
+            if (ModelState.IsValid)
+            {
+                var user = new User {Email = model.Email, Password = model.Password};
                 var claim = await _userService.SignInAsync(user);
-                if (claim == null) {
+                if (claim == null)
+                {
                     ModelState.AddModelError("", "Incorrect login or password");
                 }
-                else {
+                else
+                {
                     AuthenticationManager.SignOut();
                     AuthenticationManager.SignIn(new AuthenticationProperties
                     {

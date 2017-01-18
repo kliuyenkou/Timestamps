@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Timestamps.DAL.Entities;
-using Timestamps.DAL.Interfaces;
 
 namespace Timestamps.DAL.DataInterfaces.Repositories
 {

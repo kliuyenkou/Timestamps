@@ -6,8 +6,8 @@ namespace Timestamps.DAL.DataContracts
     {
         public CreateProjectRequest(Project projectEntity, string creatorId)
         {
-            this.ProjectEntity = projectEntity;
-            this.UserId = creatorId;
+            ProjectEntity = projectEntity;
+            UserId = creatorId;
         }
 
         public Project ProjectEntity { get; private set; }

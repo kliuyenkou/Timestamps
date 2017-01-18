@@ -14,7 +14,7 @@
             <div class="form-group">
                 <label class="sr-only" for="projectId">Password</label>
                 @{ Html.EnableClientValidation(false); }
-                @Html.DropDownList("projectId", ViewBag.UserProjects as SelectList, "-Select project-", new { @class = "form-control", id = "project" })
+                @Html.DropDownList("projectId", ViewBag.UserProjects as SelectList, "-Select project-", new {@class = "form-control", id = "project"})
                 @{ Html.EnableClientValidation(true); }
             </div>
             <div class="form-group">
@@ -41,13 +41,13 @@
 <div id="TimesheetContainer">
     <table id="Timesheet" class="table">
         <thead>
-            <tr>
-                <th>Work description</th>
-                <th>Project</th>
-                <th>Date</th>
-                <th>Hours</th>
-                <th></th>
-            </tr>
+        <tr>
+            <th>Work description</th>
+            <th>Project</th>
+            <th>Date</th>
+            <th>Hours</th>
+            <th></th>
+        </tr>
         </thead>
     </table>
 </div>
@@ -69,10 +69,10 @@
                         bootbox.alert("Fail to load records.");
                     });
 
-                $("#addRecord").click(function (e) {
+                $("#addRecord").click(function(e) {
                     var cb = function() {
                         houragesController.appendRecordToList(deleteRecord);
-                    }
+                    };
                     houragesController.validateRecordForm(cb, "#errorBox ul");
                 });
                 $('#date').datepicker();
@@ -92,7 +92,7 @@
                         return;
                     }
                     TimesheetService.deleteRecord(recordId,
-                        function () {
+                        function() {
                             link.parents('tr').fadeOut(function() {
                                 $(this).remove();
                             });
@@ -103,5 +103,5 @@
                 });
         };
     </script>
-@Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryval")
 }

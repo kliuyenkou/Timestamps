@@ -2,37 +2,38 @@
 
 <h2>@ViewBag.Title</h2>
 <div>
-    @if (Model.IsArchived) {
+    @if (Model.IsArchived)
+    {
         <span id="labelArchived" class="label label-warning pull-right">Archived</span>
         <button id="restore" class="btn btn-link pull-right">Restore</button>
         <button id="archive" class="btn btn-link pull-right hide">Archive</button>
-
     }
-    else {
+    else
+    {
         <span id="labelArchived" class="label label-warning pull-right hide">Archived</span>
         <button id="restore" class="btn btn-link pull-right hide">Restore</button>
         <button id="archive" class="btn btn-link pull-right">Archive</button>
-
     }
 
 </div>
 
-@using (Html.BeginForm(Model.Action, "Projects")) {
+@using (Html.BeginForm(Model.Action, "Projects"))
+{
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.Id)
     @Html.HiddenFor(m => m.IsArchived)
     <div class="form-group">
         @Html.LabelFor(m => m.Title)
         <div>
-            @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
-            @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Title, "", new {@class = "text-danger"})
+            @Html.TextBoxFor(m => m.Title, new {@class = "form-control"})
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Description)
         <div>
-            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
-            @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Description, "", new {@class = "text-danger"})
+            @Html.TextAreaFor(m => m.Description, new {@class = "form-control"})
         </div>
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
@@ -40,52 +41,53 @@
 
 @section scripts
 {
-@Scripts.Render("~/bundles/ui")
- <script>
-     $(document).ready(function () {
-         $("#archive").click(function (e) {
-             bootbox.confirm("Are you sure you want to archive this project?", function (result) {
-                 if (!result) {
-                     return;
-                 }
-                 $.ajax({
-                     url: "/api/archiveproject/" + $("input[id]").attr("value"),
-                     method: "POST"
-                 })
-                 .done(function () {
-                     $("#IsArchived").value = "true";
-                     $("#labelArchived").removeClass("hide");
-                     $("#restore").removeClass("hide");
-                     $("#archive").addClass("hide");
-                 })
-                 .fail(function () {
-                     bootbox.alert("Failed to archive this project.");
-                 });
-             });
+    @Scripts.Render("~/bundles/ui")
+    <script>
+        $(document).ready(function() {
+            $("#archive").click(function(e) {
+                bootbox.confirm("Are you sure you want to archive this project?",
+                    function(result) {
+                        if (!result) {
+                            return;
+                        }
+                        $.ajax({
+                                url: "/api/archiveproject/" + $("input[id]").attr("value"),
+                                method: "POST"
+                            })
+                            .done(function() {
+                                $("#IsArchived").value = "true";
+                                $("#labelArchived").removeClass("hide");
+                                $("#restore").removeClass("hide");
+                                $("#archive").addClass("hide");
+                            })
+                            .fail(function() {
+                                bootbox.alert("Failed to archive this project.");
+                            });
+                    });
 
-         });
-         $("#restore").click(function (e) {
-             bootbox.confirm("Are you sure you want to restore from archive this project?",
-                 function (result) {
-                     if (!result) {
-                         return;
-                     }
-                     $.ajax({
-                         url: "/api/archiveproject/" + $("input[id]").attr("value"),
-                         method: "DELETE"
-                     })
-                         .done(function () {
-                             $("#IsArchived").value = "false";
-                             $("#labelArchived").addClass("hide");
-                             $("#restore").addClass("hide");
-                             $("#archive").removeClass("hide");
-                         })
-                         .fail(function () {
-                             bootbox.alert("Failed to restore this project.");
-                         });
-                 });
-         });
-     });
-</script>
-@Scripts.Render("~/bundles/jqueryval")
+            });
+            $("#restore").click(function(e) {
+                bootbox.confirm("Are you sure you want to restore from archive this project?",
+                    function(result) {
+                        if (!result) {
+                            return;
+                        }
+                        $.ajax({
+                                url: "/api/archiveproject/" + $("input[id]").attr("value"),
+                                method: "DELETE"
+                            })
+                            .done(function() {
+                                $("#IsArchived").value = "false";
+                                $("#labelArchived").addClass("hide");
+                                $("#restore").addClass("hide");
+                                $("#archive").removeClass("hide");
+                            })
+                            .fail(function() {
+                                bootbox.alert("Failed to restore this project.");
+                            });
+                    });
+            });
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
 }

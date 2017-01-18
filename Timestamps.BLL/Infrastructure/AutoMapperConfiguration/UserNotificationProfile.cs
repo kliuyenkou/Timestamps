@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Timestamps.DAL.Entities;
 
 namespace Timestamps.BLL.Infrastructure.AutoMapperConfiguration
 {
@@ -6,7 +7,7 @@ namespace Timestamps.BLL.Infrastructure.AutoMapperConfiguration
     {
         public UserNotificationProfile()
         {
-            CreateMap<DAL.Entities.UserNotification, Models.UserNotification>();
+            CreateMap<UserNotification, DataContracts.UserNotification>();
         }
     }
 }

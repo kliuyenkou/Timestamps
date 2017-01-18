@@ -16,7 +16,7 @@ namespace TimestampsWeb.Controllers.Project
         [HttpPost]
         public IHttpActionResult Archive(int id)
         {
-            string userId = User.Identity.GetUserId();
+            var userId = User.Identity.GetUserId();
             _projectService.ArchiveUserProjectAsync(userId, id);
 
             return Ok();
@@ -25,12 +25,10 @@ namespace TimestampsWeb.Controllers.Project
         [HttpDelete]
         public IHttpActionResult Restore(int id)
         {
-            string userId = User.Identity.GetUserId();
+            var userId = User.Identity.GetUserId();
             _projectService.RestoreUserProject(userId, id);
 
             return Ok();
         }
-
-
     }
 }

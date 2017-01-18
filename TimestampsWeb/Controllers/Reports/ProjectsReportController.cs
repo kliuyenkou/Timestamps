@@ -21,12 +21,11 @@ namespace TimestampsWeb.Controllers.Reports
         {
             var userId = User.Identity.GetUserId();
             var userProjectsWithOverallTime = _reportsService.GetUserProjectsWithOverallTime(userId);
-            var userProjectsWithOverallTimeDto = userProjectsWithOverallTime.Select(p => new ProjectWithTotalHoursDto()
+            var userProjectsWithOverallTimeDto = userProjectsWithOverallTime.Select(p => new ProjectWithTotalHoursDto
             {
                 Hours = p.Hours,
                 ProjectId = p.Project.Id,
                 ProjectTitle = p.Project.Title
-
             });
             return userProjectsWithOverallTimeDto;
         }

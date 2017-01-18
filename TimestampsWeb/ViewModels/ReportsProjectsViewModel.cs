@@ -1,5 +1,5 @@
 ﻿using System;
-using Timestamps.BLL.Models;
+using Timestamps.BLL.DataContracts;
 
 namespace TimestampsWeb.ViewModels
 {
