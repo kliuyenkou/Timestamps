@@ -4,9 +4,9 @@
     ViewBag.Title = "Projects";
 }
 
-<h2>My projects</h2>
-@Html.ActionLink("Create project", "Create", null, new {@class = "btn btn-primary pull-right align-bottom"})
-
+@Html.ActionLink("Create project", "Create", null, new { @class = "btn btn-primary pull-right align-bottom" })
+<h2 class="myprojects-title">My projects</h2>
+<div class="gap-10"></div>
 <table class="table">
     <tr>
         <th>
@@ -18,24 +18,22 @@
         <th></th>
     </tr>
     <tbody class="myprojects">
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-                @if (item.IsArchived)
-                {
-                    <span class="label label-warning">Archived</span>
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                <a href="@Url.Action("Edit", "Projects", new {id = item.Id})" class="">Edit</a>
-            </td>
-        </tr>
-    }
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                    @if (item.IsArchived) {
+                        <span class="label label-warning">Archived</span>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", "Projects", new {id = item.Id})" class="">Edit</a>
+                </td>
+            </tr>
+        }
     </tbody>
 
 </table>
