@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
 using System.Web.Http;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
@@ -41,9 +43,16 @@ namespace TimestampsWeb.Controllers.Hourage
         }
 
         [HttpDelete]
-        public void DeleteRecord(int id)
+        public IHttpActionResult DeleteRecord(int id)
         {
-            _hourageService.DeleteHourageRecord(id);
+            var userId = User.Identity.GetUserId();
+            try {
+                _hourageService.DeleteHourageRecord(userId, id);
+            }
+            catch (Exception) {
+                return StatusCode(HttpStatusCode.InternalServerError);
+            }
+            return Ok();
         }
     }
 }

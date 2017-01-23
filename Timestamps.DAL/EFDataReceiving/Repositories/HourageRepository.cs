@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core;
 using System.Linq;
 using Timestamps.DAL.DataInterfaces.Repositories;
 using Timestamps.DAL.Entities;
@@ -25,7 +27,16 @@ namespace Timestamps.DAL.EFDataReceiving.Repositories
 
         public Hourage Get(int hourageId)
         {
-            return context.Hourages.Find(hourageId);
+            try {
+                var record = context.Hourages.Find(hourageId);
+                if (record == null) {
+                    throw new ObjectNotFoundException("Record with given id not found");
+                }
+                return record;
+            }
+            catch (Exception ex) {
+                throw new ObjectNotFoundException("Record not found. See inner exception.", ex);
+            }
         }
     }
 }

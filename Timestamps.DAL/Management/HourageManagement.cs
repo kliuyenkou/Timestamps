@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Timestamps.DAL.DataInterfaces;
 using Timestamps.DAL.Entities;
 using Timestamps.DAL.Management.Interfaces;
@@ -21,10 +22,17 @@ namespace Timestamps.DAL.Management
             return hourage;
         }
 
-        public void Delete(int hourageId)
+        public void Delete(string userId, int hourageId)
         {
-            _unitOfWork.Hourages.RemoveById(hourageId);
-            _unitOfWork.SaveChanges();
+            var hourage = _unitOfWork.Hourages.Get(hourageId);
+            if (hourage.UserId == userId) {
+                _unitOfWork.Hourages.RemoveById(hourageId);
+                _unitOfWork.SaveChanges();
+            }
+            else {
+                throw new ArgumentOutOfRangeException(nameof(userId), "This user cann't delete this record.");
+            }
+
         }
 
         public IEnumerable<Hourage> GetUserHourageRecordsWithProject(string userId)

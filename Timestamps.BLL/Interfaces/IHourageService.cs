@@ -9,7 +9,7 @@ namespace Timestamps.BLL.Interfaces
         IEnumerable<Hourage> GetUserHourageRecordsWithProject(string userId);
         void AddHourageRecord(Hourage hourage);
         Hourage GetHourageById(int hourageId);
-        void DeleteHourageRecord(int hourageId);
+        void DeleteHourageRecord(string userId, int hourageId);
         Hourage CreateHourageRecord(string workDescription, int projectId, DateTime date, double hours, string userId);
     }
 }

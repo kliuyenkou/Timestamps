@@ -42,9 +42,9 @@ namespace Timestamps.BLL.Services
             return hourage;
         }
 
-        public void DeleteHourageRecord(int hourageId)
+        public void DeleteHourageRecord(string userId, int hourageId)
         {
-            _hourageManagement.Delete(hourageId);
+            _hourageManagement.Delete(userId, hourageId);
         }
 
         public Hourage CreateHourageRecord(string workDescription, int projectId, DateTime date, double hours,
