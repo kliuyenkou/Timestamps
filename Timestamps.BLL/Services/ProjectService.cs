@@ -63,9 +63,9 @@ namespace Timestamps.BLL.Services
             await _projectManagement.UpdateAsync(project.Id, projectEntity);
         }
 
-        public void ArchiveUserProjectAsync(string userId, int projectId)
+        public void ArchiveUserProject(string userId, int projectId)
         {
-            var result = _projectManagement.ArchiveProjectAsync(projectId);
+            var result = _projectManagement.ArchiveProject(projectId);
             if (result == ArchiveRestoreOperationResult.WarningProjectAlreadyArchived) return;
             var usersOnThisProject = _projectManagement.GetAllUsersOnProject(projectId);
 
@@ -76,7 +76,7 @@ namespace Timestamps.BLL.Services
 
         public void RestoreUserProject(string userId, int projectId)
         {
-            var result = _projectManagement.RestoreProjectAsync(projectId);
+            var result = _projectManagement.RestoreProject(projectId);
             if (result == ArchiveRestoreOperationResult.WarningProjectIsActive) return;
             var usersOnThisProject = _projectManagement.GetAllUsersOnProject(projectId);
 

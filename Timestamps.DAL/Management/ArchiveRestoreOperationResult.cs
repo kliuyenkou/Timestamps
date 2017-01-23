@@ -2,6 +2,7 @@
 {
     public enum ArchiveRestoreOperationResult
     {
+        ProjectNotFound = 0,
         ProjectArchivedSuccessfully = 1,
         WarningProjectAlreadyArchived = 2,
         ProjectRestoredSuccessfully = 3,

@@ -13,9 +13,9 @@ namespace Timestamps.DAL.Management.Interfaces
         IEnumerable<Project> GetAllProjectsWithCreator();
         Project GetUserProjectById(string userId, int projectId);
         Task UpdateAsync(int projectId, Project project);
-        ArchiveRestoreOperationResult ArchiveProjectAsync(int projectId);
+        ArchiveRestoreOperationResult ArchiveProject(int projectId);
         IEnumerable<ApplicationUser> GetAllUsersOnProject(int projectId);
-        ArchiveRestoreOperationResult RestoreProjectAsync(int projectId);
+        ArchiveRestoreOperationResult RestoreProject(int projectId);
         Task NominateUserOnTheProjectAsync(string userId, int projectId);
         IEnumerable<Project> GetProjectsUserTakePart(string userId);
         bool IsUserTakePartInProject(string userId, int projectId);

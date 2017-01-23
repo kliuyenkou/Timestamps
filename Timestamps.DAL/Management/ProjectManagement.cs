@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Timestamps.DAL.DataContracts;
 using Timestamps.DAL.DataInterfaces;
@@ -60,9 +61,11 @@ namespace Timestamps.DAL.Management
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public ArchiveRestoreOperationResult ArchiveProjectAsync(int projectId)
+        public ArchiveRestoreOperationResult ArchiveProject(int projectId)
         {
+
             var project = _unitOfWork.Projects.GetProjectById(projectId);
+            //if (project == null) return ArchiveRestoreOperationResult.ProjectNotFound;
             if (project.IsArchived) return ArchiveRestoreOperationResult.WarningProjectAlreadyArchived;
 
             project.IsArchived = true;
@@ -75,9 +78,10 @@ namespace Timestamps.DAL.Management
             return _unitOfWork.ProjectNominations.GetAllUsersOnProject(projectId);
         }
 
-        public ArchiveRestoreOperationResult RestoreProjectAsync(int projectId)
+        public ArchiveRestoreOperationResult RestoreProject(int projectId)
         {
             var project = _unitOfWork.Projects.GetProjectById(projectId);
+            //if (project == null) return ArchiveRestoreOperationResult.ProjectNotFound;
             if (!project.IsArchived) return ArchiveRestoreOperationResult.WarningProjectIsActive;
 
             project.IsArchived = false;

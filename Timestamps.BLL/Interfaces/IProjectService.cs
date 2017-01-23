@@ -11,7 +11,7 @@ namespace Timestamps.BLL.Interfaces
         IEnumerable<Project> GetAllProjects();
         Project GetUserProject(string userId, int projectId);
         Task UpdateAsync(Project project);
-        void ArchiveUserProjectAsync(string userId, int projectId);
+        void ArchiveUserProject(string userId, int projectId);
         void RestoreUserProject(string userId, int projectId);
         void AddUserToProject(int projectId, string userId);
         IEnumerable<Project> GetProjectsUserTakePart(string userId);

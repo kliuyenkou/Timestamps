@@ -1,4 +1,6 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Net;
+using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Timestamps.BLL.Interfaces;
 
@@ -17,7 +19,16 @@ namespace TimestampsWeb.Controllers.Project
         public IHttpActionResult Archive(int id)
         {
             var userId = User.Identity.GetUserId();
-            _projectService.ArchiveUserProjectAsync(userId, id);
+
+            try {
+                _projectService.ArchiveUserProject(userId, id);
+            }
+            catch (NullReferenceException) {
+                return StatusCode(HttpStatusCode.Forbidden);
+            }
+            catch (Exception) {
+                return InternalServerError();
+            }
 
             return Ok();
         }
@@ -26,7 +37,12 @@ namespace TimestampsWeb.Controllers.Project
         public IHttpActionResult Restore(int id)
         {
             var userId = User.Identity.GetUserId();
-            _projectService.RestoreUserProject(userId, id);
+            try {
+                _projectService.RestoreUserProject(userId, id);
+            }
+            catch (Exception) {
+                return InternalServerError();
+            }
 
             return Ok();
         }

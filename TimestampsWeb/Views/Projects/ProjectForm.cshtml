@@ -26,25 +26,48 @@
         @Html.LabelFor(m => m.Title)
         <div>
             @Html.ValidationMessageFor(m => m.Title, "", new {@class = "text-danger"})
-            @Html.TextBoxFor(m => m.Title, new {@class = "form-control"})
+            @Html.TextBoxFor(m => m.Title, new {@class = "form-control", id="title"})
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Description)
         <div>
             @Html.ValidationMessageFor(m => m.Description, "", new {@class = "text-danger"})
-            @Html.TextAreaFor(m => m.Description, new {@class = "form-control"})
+            @Html.TextAreaFor(m => m.Description, new {@class = "form-control", id="description"})
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" id="saveProject" class="btn btn-primary">Save</button>
 }
 
 @section scripts
 {
     @Scripts.Render("~/bundles/ui")
     <script>
-        $(document).ready(function() {
-            $("#archive").click(function(e) {
+        $(document).ready(function () {
+            var changeAvailability = function(disable) {
+                $("#title").prop('disabled', disable);
+                $("#description").prop('disabled', disable);
+                $("#saveProject").prop('disabled', disable);
+            };
+            var isArchived = $("#IsArchived").attr("value").toLowerCase() === "true";
+            changeAvailability(isArchived);
+
+            function isFormModified() {
+                var titleInput = $("#title");
+                var savedTitle = titleInput.prop("defaultValue");
+                var currentTitle = titleInput.val();
+                var descriptionInput = $("#description");
+                var savedDescription = descriptionInput.prop("defaultValue");
+                var currentDescription = descriptionInput.val();
+
+                return !(savedTitle === currentTitle && savedDescription === currentDescription);
+            }
+            
+            $("#archive").click(function (e) {
+                if (isFormModified()) {
+                    bootbox.alert("Project was modified. You should save it before archiving!");
+                    return;
+                }
                 bootbox.confirm("Are you sure you want to archive this project?",
                     function(result) {
                         if (!result) {
@@ -55,9 +78,13 @@
                             $("#labelArchived").removeClass("hide");
                             $("#restore").removeClass("hide");
                             $("#archive").addClass("hide");
+                            changeAvailability(true);
                         };
-                        ProjectController.archiveProject($("input[id]").attr("value"), changeView, function () {
-                            bootbox.alert("Failed to archive this project.");
+                        ProjectController.archiveProject($("input[id]").attr("value"), changeView, function (xhr, status, error) {
+                            if (xhr.status === 403)
+                                bootbox.alert("You should save project first!");
+                            else 
+                                bootbox.alert("Failed to archive this project.");
                         });
                     });
 
@@ -73,6 +100,7 @@
                             $("#labelArchived").addClass("hide");
                             $("#restore").addClass("hide");
                             $("#archive").removeClass("hide");
+                            changeAvailability(false);
                         };
                         ProjectController.restoreProject($("input[id]").attr("value"), changeView, function () {
                             bootbox.alert("Failed to restore this project.");
