@@ -49,7 +49,8 @@
                 },
                 hours: {
                     required: true,
-                    number: true
+                    number: true,
+                    range: [0, 24]
                 }
             },
             messages: {
@@ -64,7 +65,8 @@
                 },
                 hours: {
                     required: "Hours is required.",
-                    number: "Please, enter hours as a valid number."
+                    number: "Please, enter hours as a valid number.",
+                    range: "Hours should be between 0 and 24."
                 }
             },
             submitHandler: function(form) {
