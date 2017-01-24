@@ -220,6 +220,7 @@
     <Compile Include="App_Start\Startup.Automapper.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Account\AccountController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\Reports\ReportsController.cs" />
     <Compile Include="Dto\HourageDto.cs" />
     <Compile Include="Dto\ProjectDto.cs" />
@@ -319,9 +320,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Projects\FindProject.cshtml" />
     <Content Include="Views\Reports\ReportMyProjects.cshtml" />
+    <Content Include="Views\Shared\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
