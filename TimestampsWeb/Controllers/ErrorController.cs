@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Net;
+using System.Web.Mvc;
 
 namespace TimestampsWeb.Controllers
 {
@@ -6,8 +7,13 @@ namespace TimestampsWeb.Controllers
     {
         public ActionResult NotFound()
         {
-            Response.StatusCode = 404;
+            Response.StatusCode = (int)HttpStatusCode.NotFound;
             return View("NotFound");
+        }
+        public ActionResult ServerError()
+        {
+            Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            return View("Error");
         }
     }
 }
