@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
 using Timestamps.BLL.Interfaces;
-using TimestampsWeb.ViewModels;
 
 namespace TimestampsWeb.Controllers.Reports
 {
@@ -13,17 +12,5 @@ namespace TimestampsWeb.Controllers.Reports
             _reportsService = reportsService;
         }
 
-        [HttpGet]
-        public ActionResult Projects()
-        {
-            var model = new ReportsProjectsViewModel();
-            return View("ReportMyProjects", model);
-        }
-
-        [HttpPost]
-        public ActionResult Projects(ReportsProjectsViewModel reportFilters)
-        {
-            return View("ReportMyProjects");
-        }
     }
 }
