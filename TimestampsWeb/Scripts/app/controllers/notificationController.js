@@ -66,7 +66,7 @@
         var spanMessage = document.createElement("span");
         var spanTitle = document.createElement("span");
         spanTitle.className = "highlight";
-        spanTitle.innerHTML = projectTitle;
+        spanTitle.innerText = projectTitle;
         spanMessage.appendChild(spanTitle);
         var spanText = document.createElement("span");
         spanText.innerText = " moved to archive.";
@@ -78,7 +78,7 @@
         var spanMessage = document.createElement("span");
         var spanTitle = document.createElement("span");
         spanTitle.className = "highlight";
-        spanTitle.innerHTML = projectTitle;
+        spanTitle.innerText = projectTitle;
         spanMessage.appendChild(spanTitle);
         var spanText = document.createElement("span");
         spanText.innerText = " restored from archive.";

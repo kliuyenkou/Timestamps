@@ -104,16 +104,16 @@
         }
         var tRow = document.createElement("tr");
         var tdWorkDescription = document.createElement("td");
-        tdWorkDescription.innerHTML = record.WorkDescription;
+        tdWorkDescription.innerText = record.WorkDescription;
         tRow.appendChild(tdWorkDescription);
         var tdProject = document.createElement("td");
-        tdProject.innerHTML = record.Project.Title;
+        tdProject.innerText = record.Project.Title;
         tRow.appendChild(tdProject);
         var tdDate = document.createElement("td");
-        tdDate.innerHTML = new Date(record.Date).toLocaleDateString();
+        tdDate.innerText = new Date(record.Date).toLocaleDateString();
         tRow.appendChild(tdDate);
         var tdHours = document.createElement("td");
-        tdHours.innerHTML = record.Hours;
+        tdHours.innerText = record.Hours;
         tRow.appendChild(tdHours);
         var tdDelete = document.createElement("td");
         var a = document.createElement("a");
